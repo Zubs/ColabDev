@@ -4,6 +4,7 @@
 ### Features (To-dos)
 - [ ] Landing page (list features)
 - [ ] Admin
+    - [ ] Dashboard
     - [ ] Authentication
         - [ ] Login
         - [ ] Forgot Password
@@ -14,6 +15,7 @@
         - [ ] Update workouts
         - [ ] Delete workouts
 - [ ] Users
+    - [ ] Dashboard
     - [ ] Authentication
         - [ ] Login
         - [ ] Register
@@ -32,3 +34,7 @@
 User
 
 Workout
+
+### Stacks
+- [Frontend](./frontend/README.md)
+- [Backend](./backend/README.md)
