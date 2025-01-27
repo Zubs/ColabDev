@@ -21,7 +21,7 @@ The University of Wolverhampton is a leading modern university with a tradition 
             - [ ] Viewing directions
             - [ ] Updating directions
             - [ ] Deleting directions
-        - Attendance/Engagements
+        - [ ] Attendance/Engagements
             - [ ] View registration details
             - [ ] View single registration detail
             - [ ] How many visitors scanned a given QR Code
@@ -56,13 +56,13 @@ The University of Wolverhampton is a leading modern university with a tradition 
 - [ ] QR Code
     - [ ] Generation for registration confirmation email
 
-### Schemas (drafts)
+## Schemas (drafts)
 User
 
 Programme
 
 Attendee? (registrations)
 
-### Stacks
+## Stacks
 - [Frontend](./frontend/README.md)
 - [Backend](./backend/README.md)
