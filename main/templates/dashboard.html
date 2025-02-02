@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1 class="welcome">Hello, {{ username }}!</h1>
+            <a href="/logout" class="logout">Logout</a>
+        </header>
+        <section class="dashboard-content">
+            <div class="card">User Stats</div>
+            <div class="card">Recent Activity</div>
+            <div class="card">Settings</div>
+        </section>
+    </div>
+</body>
+</html>
