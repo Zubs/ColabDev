@@ -13,7 +13,7 @@
           <li class="nav-item"><a href="speakers.html" class="nav-link">Speakers</a></li>
           <li class="nav-item"><a href="schedule.html" class="nav-link">Schedule</a></li>
           <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="/admin/login" class="nav-link">Admin login</a></li>
           <li class="nav-item cta mr-md-2"><a href="#" class="nav-link">Book Now</a></li>
 
         </ul>
@@ -21,3 +21,10 @@
     </div>
   </nav>
 </template>
+
+<style scoped>
+/* Make all the nav-link items bold */
+.nav-link {
+  font-weight: bold;
+}
+</style>
