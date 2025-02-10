@@ -4,7 +4,7 @@ import EventView from '../views/events/EventView.vue' // Import EventView.vue
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomeView,
   },
@@ -28,7 +28,12 @@ const routes = [
     path: '/events',
     name: 'events',
     component: EventView,
-  }
+  },
+  {
+      path: '/registration',
+      name: 'registration',
+      component: () => import('../views/Registration.vue'),
+   }
 ]
 
 const router = createRouter({
