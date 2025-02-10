@@ -59,7 +59,7 @@
 }
 /* Styling for the background box */
 .text-box {
-  background-color: lightgray; /* Semi-transparent white background */
+  background-color: lightyellow;
   padding: 5px; /* Add padding inside the box */
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */

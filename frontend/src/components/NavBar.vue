@@ -11,7 +11,7 @@
           <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
           <li class="nav-item"><a href="speakers.html" class="nav-link">Speakers</a></li>
-          <li class="nav-item"><a href="schedule.html" class="nav-link">Schedule</a></li>
+          <li class="nav-item"><a href="/events" class="nav-link">Events Schedule</a></li>
           <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
           <li class="nav-item"><a href="/admin/login" class="nav-link">Admin login</a></li>
           <li class="nav-item cta mr-md-2"><a href="#" class="nav-link">Book Now</a></li>
