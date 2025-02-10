@@ -31,7 +31,7 @@ The University of Wolverhampton is a leading modern university with a tradition 
         - [ ] Reset Password
 - [ ] Clients (Users)
     - [ ] [Registration form] (https://join.wlv.ac.uk/form/openday?event_id=1712)
-    - [ ] View programmes listing
+    - [x] View programmes listing
         - [ ] View single programme
     - [ ] [Open days] (https://www.wlv.ac.uk/news-and-events/open-day/)
     - [ ] Directions/Maps?
