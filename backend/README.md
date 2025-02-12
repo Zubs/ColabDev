@@ -10,3 +10,18 @@ This is the backend repo.
 ```sh
 pip install -r requirements.txt
 ```
+
+- Activate the virtual environment
+```sh
+.venv/bin/activate
+```
+
+- Freeze the requirements (if you install any new package)
+```sh
+pip freeze > requirements.txt
+```
+
+- Run the server
+```sh
+flask --app index run
+```
