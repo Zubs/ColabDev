@@ -16,6 +16,7 @@ pip install -r requirements.txt
 .venv/bin/activate
 ```
 
+- Freeze the requirements (if you install any new package)
 ```sh
 pip freeze > requirements.txt
 ```
