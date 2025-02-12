@@ -3,12 +3,21 @@ This is the backend repo.
 
 ## Technologies
 - Flask (Python)
-- MySQL/SQLite
+- PostgresSQL
+
+## Platform
+The application is hosted on Render with a PostgresSQL database and automatic deployment from the `main` branch on GitHub.
 
 ## Project Setup
 - Install required packages
 ```sh
 pip install -r requirements.txt
+```
+
+- Create `.env` and `.env.local` file in the root directory using the `.env.example` file
+```sh
+cp env.example .env
+cp env.example .env.local
 ```
 
 - Activate the virtual environment
