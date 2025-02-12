@@ -57,6 +57,6 @@ def delete_faq(id):
         return jsonify({"message": "FAQ deleted successfully"})
     return jsonify({"error": "FAQ not found"}), 404
 
-# Run the app
+# Run the app here
 if __name__ == '__main__':
     app.run(debug=True)
