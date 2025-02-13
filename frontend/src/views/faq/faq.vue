@@ -17,12 +17,14 @@
         </div>
       </section>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import NavBar from "@/components/NavBar.vue"; 
+import NavBar from "@/components/NavBar.vue";
+import Footer from "@/components/Footer.vue"; 
 
 const faqs = ref([ /* Array of FAQ's  */
   { question: "What is the University Open Day?", answer: "The University Open Day is an event where prospective students can explore the campus, meet professors, and learn about available courses.", open: false },

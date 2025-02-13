@@ -7,13 +7,14 @@
         <div class="text-box" >
           <h1 class="move-rightheader">EVENTS LINED UP</h1>
         </div>
-          <p class="move-right">Check out the exciting events taking place during our open days!</p>
-
+        <p class="move-right">Check out the exciting events taking place during our open days!</p>
       </section>
     </div>
-    <Events></Events>
+    <Events />
+    <Footer />
   </div>
 </template>
+
 <style scoped>
 /* Background container with an image */
 .background-container {
@@ -57,6 +58,7 @@
     align-items: center;
   }
 }
+
 /* Styling for the background box */
 .text-box {
   background-color: lightyellow;
@@ -84,4 +86,5 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
 import Events from '@/components/Events.vue' // Correctly importing the Events component
+import Footer from '@/components/Footer.vue' // Importing the Footer component
 </script>
