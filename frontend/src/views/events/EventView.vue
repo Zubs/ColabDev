@@ -83,5 +83,5 @@
 
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
-import Events from '@/components/Events.vue' // Correctly importing the Events component
+import Events from '@/components/Events.vue'
 </script>
