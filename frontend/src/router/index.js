@@ -36,8 +36,8 @@ const routes = [
     component: () => import('../views/Registration.vue'),
   },
   {
-    path: '/faq', //  Adding FAQ route
-    name: 'faq',
+    path: '/faqs', //  Adding FAQ route
+    name: 'faqs',
     component: FAQView,
   }
 ]

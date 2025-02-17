@@ -4,7 +4,8 @@
       <div class="row mb-5">
         <div class="col-md">
           <div class="ftco-footer-widget mb-4">
-            <h2 class="ftco-heading-2">Eventalk</h2>
+            <a class="navbar-brand mb-4" href="/"><img src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg" alt="University Of Wolverhampton Logo"></a>
+
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
             <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
               <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -18,8 +19,8 @@
             <h2 class="ftco-heading-2">Useful Links</h2>
             <ul class="list-unstyled">
               <li><a href="#" class="py-2 d-block">Speakers</a></li>
-              <li><a href="#" class="py-2 d-block">Shcedule</a></li>
-              <li><a href="#" class="py-2 d-block">Events</a></li>
+              <li><a href="/events" class="py-2 d-block">Events Schedule</a></li>
+              <li><a href="/faqs" class="py-2 d-block">FAQs</a></li>
               <li><a href="#" class="py-2 d-block">Blog</a></li>
             </ul>
           </div>
