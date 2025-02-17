@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify, session
 from datetime import timedelta
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = 'supersecretkey'  # passowrd for session
 
 # Admin dummy DaTA
@@ -13,6 +15,12 @@ ADMINS = {
 
 # Set session timeOUT
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+
+@app.route("/")
+def hello_world():
+    return {
+        "message": "Hello, World!"
+    }
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -36,4 +44,4 @@ def logout():
     return jsonify({'error': 'No active session'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
