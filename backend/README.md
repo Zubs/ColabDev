@@ -17,12 +17,16 @@ pip install -r requirements.txt
 - Create `.env` and `.env.local` file in the root directory using the `.env.example` file
 ```sh
 cp env.example .env
-cp env.example .env.local
+```
+
+- Create a virtual environment
+```sh
+python3 -m venv .venv
 ```
 
 - Activate the virtual environment
 ```sh
-.venv/bin/activate
+. .venv/bin/activate
 ```
 
 - Freeze the requirements (if you install any new package)

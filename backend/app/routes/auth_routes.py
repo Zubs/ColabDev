@@ -10,3 +10,11 @@ def login():
 @bp.route('/logout', methods=['POST'])
 def logout():
     return AuthController.logout()
+
+@bp.route('/profile', methods=['GET'])
+def get_profile():
+    return AuthController.get_profile()
+
+@bp.route('/register', methods=['POST'])
+def register():
+    return AuthController.register(request.json)
