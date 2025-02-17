@@ -24,17 +24,25 @@
 <script setup>
 import { ref } from "vue";
 import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue"; 
+import Footer from "@/components/Footer.vue";
 
-const faqs = ref([ /* Array of FAQ's  */
-  { question: "What is the University Open Day?", answer: "The University Open Day is an event where prospective students can explore the campus, meet professors, and learn about available courses.", open: false },
-  { question: "Do I need to register for the Open Day?", answer: "Yes, registration is required. You can register on our website to receive event details and updates.", open: false },
-  { question: "Is there parking available?", answer: "Yes, free parking is available on campus for visitors attending the Open Day.", open: false },
-  { question: "Can parents or guardians attend with me?", answer: "Absolutely! Parents, guardians, and friends are welcome to attend and explore the university with you.", open: false },
-  { question: "Will there be campus tour?", answer: "Yes, guided campus tours will be available throughout the day to help you explore the university.", open: false },
-  { question: "What should I bring to the Open Day?", answer: "You should bring a notepad, pen and any questions you may have about courses or student life.", open: false },
-  { question: "Will there be free refreshments?", answer: "No, This aint your Aunties Wedding", open: false }
-]);
+import { onMounted } from "vue";
+import axios from "axios";
+
+const faqs = ref([]);
+
+const fetchFAQs = async () => {
+  try {
+    const response = await axios.get(`https://opendaywlvapi.onrender.com/faqs`);
+    faqs.value = response.data;
+  } catch (error) {
+    console.error("Error fetching FAQs:", error);
+  }
+};
+
+onMounted(() => {
+  fetchFAQs();
+});
 
 const toggleFAQ = (index) => {
   faqs.value[index].open = !faqs.value[index].open;
@@ -51,7 +59,7 @@ const toggleFAQ = (index) => {
   align-items: flex-start;
   padding-top: 100px;
   z-index: 0;
-  background-image: url(MCbuilding.jpeg); 
+  background-image: url(MCbuilding.jpeg);
   background-size: cover;
   background-position: center;
 }

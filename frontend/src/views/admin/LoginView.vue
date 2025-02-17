@@ -105,7 +105,7 @@ const validate = () => {
 const login = async () => {
   if (!validate()) return;
   try {
-    const response = await axios.post('https://opendaywlvapi.onrender.com/login', {
+    const response = await axios.post('https://opendaywlvapi.onrender.com/auth/login', {
       username: username.value,
       password: password.value,
     });
