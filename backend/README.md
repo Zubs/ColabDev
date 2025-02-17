@@ -34,3 +34,29 @@ pip freeze > requirements.txt
 ```sh
 flask --app index run
 ```
+
+### Database
+# Create a new migration
+```sh
+flask db migrate -m "Description of changes"
+```
+
+# Apply migrations
+```sh
+flask db upgrade
+```
+
+# Rollback one migration
+```sh
+flask db downgrade
+```
+
+# View migration history
+```sh
+flask db history
+```
+
+# Current migration status
+```sh
+flask db current
+```
