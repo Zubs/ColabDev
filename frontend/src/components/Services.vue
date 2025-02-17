@@ -7,7 +7,7 @@
             <div class="icon"><span class="flaticon-placeholder"></span></div>
             <div class="media-body">
               <h3 class="heading mb-3">Venue</h3>
-              <p>	203 Fake St. Mountain View, San Francisco, California, USA</p>
+              <p>Wulfruna Street Wolverhampton WV1 1LY</p>
             </div>
           </div>
         </div>

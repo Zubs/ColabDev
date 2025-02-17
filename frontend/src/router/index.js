@@ -13,7 +13,7 @@ import DashboardView from '@/views/admin-dashboard/DashboardView.vue'
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomeView,
   },
@@ -38,6 +38,11 @@ const routes = [
     name: 'events',
     component: EventView,
   },
+  {
+      path: '/registration',
+      name: 'registration',
+      component: () => import('../views/Registration.vue'),
+   },
   {
     path: '/handel-events',
     name: 'handel-events',
