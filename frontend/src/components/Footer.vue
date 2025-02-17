@@ -40,9 +40,8 @@
             <h2 class="ftco-heading-2">Have a Questions?</h2>
             <div class="block-23 mb-3">
               <ul>
-                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                <li><span class="icon icon-map-marker"></span><span class="text"> Wulfruna St, Wolverhampton WV1 1LY</span></li>
+                <li><a href="#"><span class="icon icon-phone"></span><span class="text">01902321000</span></a></li>
               </ul>
             </div>
           </div>
