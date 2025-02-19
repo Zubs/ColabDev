@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import EventView from '../views/events/EventView.vue'
-import HandelEvents from '../views/admin-dashboard/HandelEvents.vue';
-import HandelRegistrations from '../views/admin-dashboard/HandelRegistrations.vue';
-import HandelVenue from '../views/admin-dashboard/HandelVenue.vue';
-import HandelStaff from '../views/admin-dashboard/HandelStaff.vue';
-import HandelFAQ from '../views/admin-dashboard/HandelFAQ.vue';
-import HandelSecurity from '../views/admin-dashboard/Security.vue';
+import HandleEvents from '../views/admin-dashboard/HandleEvents.vue';
+import HandleRegistrations from '../views/admin-dashboard/HandleRegistrations.vue';
+import HandleVenue from '../views/admin-dashboard/HandleVenue.vue';
+import HandleStaff from '../views/admin-dashboard/HandleStaff.vue';
+import HandleFAQ from '../views/admin-dashboard/HandleFAQ.vue';
+import HandleSecurity from '../views/admin-dashboard/Security.vue';
 import DashboardView from '@/views/admin-dashboard/DashboardView.vue'
 import FAQView from '../views/faq/faq.vue' //  Imported FAQ page
 
@@ -43,34 +43,34 @@ const routes = [
       component: () => import('../views/Registration.vue'),
    },
   {
-    path: '/handel-events',
-    name: 'handel-events',
-    component: HandelEvents,
+    path: '/handle-events',
+    name: 'handle-events',
+    component: HandleEvents,
   },
   {
-    path: '/handel-registrations',
-    name: 'handel-registrations',
-    component: HandelRegistrations,
+    path: '/handle-registrations',
+    name: 'handle-registrations',
+    component: HandleRegistrations,
   },
   {
-    path: '/handel-venue',
-    name: 'handel-venue',
-    component: HandelVenue,
+    path: '/handle-venue',
+    name: 'handle-venue',
+    component: HandleVenue,
   },
   {
-    path: '/handel-staff',
-    name: 'handel-staff',
-    component: HandelStaff,
+    path: '/handle-staff',
+    name: 'handle-staff',
+    component: HandleStaff,
   },
   {
-    path: '/handel-faq',
-    name: 'handel-faq',
-    component: HandelFAQ,
+    path: '/handle-faq',
+    name: 'handle-faq',
+    component: HandleFAQ,
   },
   {
     path: '/security',
     name: 'security',
-    component: HandelSecurity,
+    component: HandleSecurity,
   },
   {
     path: '/admin-dashboard',  // URL path

@@ -1,13 +1,13 @@
 <template>
   <div>
-      <h1>FAQ PAGE </h1>
-    <p>testing FAQ.</p>
+    <h1>Venue page</h1>
+    <p>Testing Venue page.</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HandelFAQ",
+  name: "HandleVenue",
 };
 </script>
 

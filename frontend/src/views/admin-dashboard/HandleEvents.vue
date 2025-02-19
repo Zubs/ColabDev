@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: "HandelEvents",
+  name: "HandleEvents",
 };
 </script>

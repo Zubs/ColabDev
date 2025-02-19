@@ -1,11 +1,11 @@
 <template>
   <div class="container">
   <div class = "dashboard">
-    <a href="/handel-events" class = "dashboard-box">Events</a>
-    <a href="/handel-registrations" class = "dashboard-box">Registrations</a>
-    <a href="/handel-venue" class = "dashboard-box">Venue</a>
-    <a href="/handel-staff" class = "dashboard-box">Staff</a>
-    <a href = "/handel-FAQ" class = "dashboard-box">FAQ</a>
+    <a href="/handle-events" class = "dashboard-box">Events</a>
+    <a href="/handle-registrations" class = "dashboard-box">Registrations</a>
+    <a href="/handle-venue" class = "dashboard-box">Venue</a>
+    <a href="/handle-staff" class = "dashboard-box">Staff</a>
+    <a href = "/handle-FAQ" class = "dashboard-box">FAQ</a>
     <a href="/security" class = "dashboard-box">Security</a>
   </div>
   </div>

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>Team/staff</h1>
-    <p>testing staff page</p>
+    <h1>Registration page</h1>
+    <p>Testing registrations page.</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HandelStaff",
+  name: "HandleRegistrations",
 };
 </script>
 
