@@ -1,0 +1,37 @@
+from app.models.event import Event
+from app import db
+
+class EventService:
+    @staticmethod
+    def get_all_events():
+        return Event.query.filter_by(public=True).order_by(Event.date.desc(), Event.time.desc()).all()
+
+    @staticmethod
+    def create_event(title, description, date, time, duration, location, public=True):
+        event = Event(title=title, description=description, date=date, time=time, duration=duration, location=location,
+                      public=public)
+        db.session.add(event)
+        db.session.commit()
+        return event
+
+    @staticmethod
+    def update_event(event_id, title, description, date, time, duration, location):
+        event = Event.query.get(event_id)
+        if event:
+            event.title = title
+            event.description = description
+            event.date = date
+            event.time = time
+            event.duration = duration
+            event.location = location
+            db.session.commit()
+        return event
+
+    @staticmethod
+    def delete_event(event_id):
+        event = Event.query.get(event_id)
+        if event:
+            db.session.delete(event)
+            db.session.commit()
+            return True
+        return False
