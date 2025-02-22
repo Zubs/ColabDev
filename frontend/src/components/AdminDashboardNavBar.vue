@@ -1,15 +1,15 @@
-<script setup>
-</script>
-
 <template>
   <div class="Container">
     <div class="buttonGroup">
-      <div class = "logo">
-        <a class="navbar-brand" href="index.html"><img src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg" alt="University Of Wolverhampton Logo"></a>
+      <div class="logo">
+        <img
+          src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg"
+          alt="University Of Wolverhampton Logo"
+        />
       </div>
-      <a href="settings" class="box">Settings</a>
-      <a href="home" class="box">Home</a>
-      <a href="profile" class="box">Profile</a>
+      <a href="/settings" class="box">Settings</a>
+      <a href="/home" class="box">Home</a>
+      <a href="/profile" class="box">Profile</a>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@
   background-color: #2980b9;
 }
 
-.logo{
-  margin-right:270px;
+.logo {
+  margin-right: 270px;
 }
 </style>

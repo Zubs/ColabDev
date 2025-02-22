@@ -4,7 +4,7 @@
     <div class="background-container">
       <section class="content">
         <!-- Wrapping the heading and paragraph in a div with a background box -->
-        <div class="text-box" >
+        <div class="text-box">
           <h1 class="move-rightheader">EVENTS LINED UP</h1>
         </div>
         <p class="move-right">Check out the exciting events taking place during our open days!</p>

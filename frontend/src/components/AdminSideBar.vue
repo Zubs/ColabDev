@@ -4,7 +4,8 @@ import { ref } from 'vue'
 const isHelpOpen = ref(false)
 
 const toggleHelp = () => {
-  isHelpOpen.value = !isHelpOpen.value}
+  isHelpOpen.value = !isHelpOpen.value
+}
 </script>
 
 <template>
@@ -66,6 +67,7 @@ body {
 .container {
   display: flex;
 }
+
 /* Dropdown styles */
 .dropdown {
   margin-top: 10px;

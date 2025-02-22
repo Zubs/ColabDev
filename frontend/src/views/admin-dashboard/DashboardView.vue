@@ -1,14 +1,13 @@
 <template>
   <admin-side-bar></admin-side-bar>
- <admin-dashboard-nav-bar> </admin-dashboard-nav-bar>
+  <admin-dashboard-nav-bar></admin-dashboard-nav-bar>
   <dashboard-blocks />
 </template>
 
 <script setup lang="ts">
-import DashboardBlocks from '../../components/DashboardBlocks.vue';
+import DashboardBlocks from '../../components/DashboardBlocks.vue'
 import AdminDashboardNavBar from '../../components/AdminDashboardNavBar.vue'
-import AdminSideBar from '@/components/adminSideBar.vue'
-
+import AdminSideBar from '@/components/AdminSideBar.vue'
 </script>
 
 <style scoped>
