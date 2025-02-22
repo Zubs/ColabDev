@@ -35,3 +35,15 @@ class EventService:
             db.session.commit()
             return True
         return False
+
+    @staticmethod
+    def get_all_events_grouped_by_date():
+        events = Event.query.filter_by(public=True).order_by(Event.date.desc(), Event.time.desc()).all()
+        grouped_events = {}
+        for event in events:
+            date = event.date.strftime('%d/%m/%Y')
+            if date not in grouped_events:
+                grouped_events[date] = []
+            grouped_events[date].append(event)
+
+        return grouped_events

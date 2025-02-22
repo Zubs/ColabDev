@@ -4,11 +4,12 @@
     id="ftco-navbar"
   >
     <div class="container">
-      <a class="navbar-brand" href="/"
-        ><img
+      <router-link class="navbar-brand" :to="{ name: 'home' }">
+        <img
           src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg"
           alt="University Of Wolverhampton Logo"
-      /></a>
+        />
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -23,25 +24,25 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item" :class="{ active: route.name === 'home' }">
-            <a href="/" class="nav-link">Home</a>
+            <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
           </li>
           <li class="nav-item" :class="{ active: route.name === 'about' }">
-            <a href="/about" class="nav-link">About</a>
+            <router-link :to="{ name: 'about' }" class="nav-link">About</router-link>
           </li>
           <li class="nav-item" :class="{ active: route.name === 'events' }">
-            <a href="/events" class="nav-link">Events Schedule</a>
+            <router-link to="/events" class="nav-link">Events Schedule</router-link>
           </li>
           <li class="nav-item" :class="{ active: route.name === 'blog' }">
             <a href="/blog" class="nav-link">Blog</a>
           </li>
           <li class="nav-item" :class="{ active: route.name === 'faqs' }">
-            <a href="/faqs" class="nav-link">FAQ's</a>
+            <router-link :to="{ name: 'faqs' }" class="nav-link">FAQ's</router-link>
           </li>
           <li class="nav-item" :class="{ active: route.name === 'admin-login' }">
-            <a href="/admin/login" class="nav-link">Admin login</a>
+            <router-link :to="{ name: 'admin-login' }" class="nav-link">Admin login</router-link>
           </li>
           <li class="nav-item cta mr-md-2">
-            <a href="/registration" class="nav-link">Book Now</a>
+            <router-link :to="{ name: 'registration' }" class="nav-link">Book Now</router-link>
           </li>
         </ul>
       </div>

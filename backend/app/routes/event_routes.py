@@ -5,7 +5,7 @@ bp = Blueprint('event', __name__, url_prefix='/events')
 
 @bp.route('', methods=['GET'])
 def get_events():
-    return EventController.get_events()
+    return EventController.get_events(request.args.get('group_by'))
 
 @bp.route('', methods=['POST'])
 def create_event():

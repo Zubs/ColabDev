@@ -6,9 +6,25 @@ from app.services.event_service import EventService
 
 class EventController:
     @staticmethod
-    def get_events():
+    def get_events(group_by=None):
         try:
-            events = EventService.get_all_events()
+            if group_by == 'date':
+                events = EventService.get_all_events_grouped_by_date()
+
+                return jsonify([{
+                    "date": date,
+                    "events": [{
+                        "id": event.id,
+                        "title": event.title,
+                        "description": event.description,
+                        "time": event.time,
+                        "duration": event.duration,
+                        "location": event.location,
+                        "public": event.public
+                    } for event in events[date]]
+                } for date in events])
+            else:
+                events = EventService.get_all_events()
         except Exception as e:
             return jsonify({"error": str(e)}), 500
 
