@@ -38,7 +38,7 @@ class EventService:
 
     @staticmethod
     def get_all_events_grouped_by_date():
-        events = Event.query.filter_by(public=True).order_by(Event.date.desc(), Event.time.desc()).all()
+        events = Event.query.filter_by(public=True).order_by(Event.date.asc(), Event.time.asc()).all()
         grouped_events = {}
         for event in events:
             date = event.date.strftime('%d/%m/%Y')
