@@ -25,15 +25,14 @@
 import { ref } from 'vue'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
-
 import { onMounted } from 'vue'
-import axios from 'axios'
+import api from '@/services/axios.js'
 
 const faqs = ref([])
 
 const fetchFAQs = async () => {
   try {
-    const response = await axios.get(`https://opendaywlvapi.onrender.com/faqs`)
+    const response = await api.get(`/faqs`)
     faqs.value = response.data
   } catch (error) {
     console.error('Error fetching FAQs:', error)

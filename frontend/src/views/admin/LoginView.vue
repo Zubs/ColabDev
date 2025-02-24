@@ -41,12 +41,15 @@
             <span v-if="errors.password" class="text-danger">{{ errors.password }}</span>
           </div>
           <div class="form-group">
-            <input type="submit" value="Login!" class="btn btn-primary py-3 px-5 form-control" />
+            <input
+              type="submit"
+              value="Login"
+              class="btn btn-primary py-3 px-5 form-control"
+              :disabled="loading"
+            />
+            <span v-if="loading" class="text-info">Loading...</span>
             <span v-if="errors.request" class="text-danger">{{ errors.request }}</span>
           </div>
-          <button type="button" class="btn btn-link" style="margin-left: -11px">
-            Forgot Password?
-          </button>
         </form>
       </div>
       <div class="col-md-6 d-flex">
@@ -75,44 +78,49 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import NavBar from '@/components/NavBar.vue';
-import Footer from '@/components/Footer.vue';
-import axios from 'axios';
+import { ref } from 'vue'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
-const username = ref('');
-const password = ref('');
-const errors = ref({ username: '', password: '', request: '' });
+const username = ref('')
+const password = ref('')
+const errors = ref({ username: '', password: '', request: '' })
+const loading = ref(false)
+const authStore = useAuthStore()
+const router = useRouter()
 
 const validateUsername = () => {
-  errors.value.username = '';
+  errors.value.username = ''
   if (!username.value) {
-    errors.value.username = 'Username is required';
+    errors.value.username = 'Username is required'
   } else if (username.value.length < 5) {
-    errors.value.username = 'Username must be at least 5 characters';
+    errors.value.username = 'Username must be at least 5 characters'
   }
-};
+}
 
 const validate = () => {
-  validateUsername();
-  errors.value.password = '';
+  validateUsername()
+  errors.value.password = ''
   if (!password.value) {
-    errors.value.password = 'Password is required';
+    errors.value.password = 'Password is required'
   }
-  return !errors.value.username && !errors.value.password;
-};
+  return !errors.value.username && !errors.value.password
+}
 
 const login = async () => {
-  if (!validate()) return;
+  if (!validate()) return
+  loading.value = true
+  errors.value.request = ''
+
   try {
-    const response = await axios.post('https://opendaywlvapi.onrender.com/auth/login', {
-      username: username.value,
-      password: password.value,
-    });
-    console.log('Login successful:', response.data);
+    await authStore.login({ username: username.value, password: password.value })
+    await router.push({ name: 'admin-dashboard' })
   } catch (error) {
-    errors.value.request = `Login failed: ${error.response.data.error}`;
-    console.error('Login failed:', error);
+    errors.value.request = `Login failed: ${error.response.data.error || error.message}`
   }
-};
+
+  loading.value = false
+}
 </script>
