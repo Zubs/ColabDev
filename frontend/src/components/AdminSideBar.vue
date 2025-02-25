@@ -1,32 +1,107 @@
 <script setup>
 import { ref } from 'vue'
 
-const isHelpOpen = ref(false)
+// Separate state for each dropdown
+const isEventsOpen = ref(false)
+const isVenueOpen = ref(false)
+const isFAQOpen = ref(false)
+const isStaffOpen = ref(false)
+const isRegistrationsOpen = ref(false)
 
-const toggleHelp = () => {
-  isHelpOpen.value = !isHelpOpen.value
+const toggleEvents = () => {
+  isEventsOpen.value = !isEventsOpen.value
+}
+
+const toggleVenue = () => {
+  isVenueOpen.value = !isVenueOpen.value
+}
+
+const toggleFAQ = () => {
+  isFAQOpen.value = !isFAQOpen.value
+}
+
+const toggleStaff = () => {
+  isStaffOpen.value = !isStaffOpen.value
+}
+
+const toggleRegistrations = () => {
+  isRegistrationsOpen.value = !isRegistrationsOpen.value
 }
 </script>
 
 <template>
   <div class="container">
     <div class="sidebar">
-      <a href="#" class="sidebar-link">My profile</a>
+      <a href="http://localhost:5180/admin-dashboard" class="sidebar-link">Home</a>
 
-      <!-- Help dropdown section -->
+      <!-- Events dropdown -->
       <div class="dropdown">
-        <button class="dropdown-button" @click="toggleHelp">
-          Help
-          <span class="arrow" :class="{ 'arrow-down': isHelpOpen }">▸</span>
+        <button class="dropdown-button" @click="toggleEvents">
+          Events
+          <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
         </button>
 
-        <div class="dropdown-content" v-show="isHelpOpen">
-          <a href="#" class="dropdown-link">Contact Support</a>
-          <a href="#" class="dropdown-link">User Guide</a>
+        <div class="dropdown-content" v-show="isEventsOpen">
+          <a href="#" class="dropdown-link">Create new events</a>
+          <a href="#" class="dropdown-link">Existing events</a>
+        </div>
+      </div>
+
+      <!-- Venue dropdown -->
+      <div class="dropdown">
+        <button class="dropdown-button" @click="toggleVenue">
+          Venue
+          <span class="arrow" :class="{ 'arrow-down': isVenueOpen }">▸</span>
+        </button>
+
+        <div class="dropdown-content" v-show="isVenueOpen">
+          <a href="#" class="dropdown-link">Create new venue</a>
+          <a href="#" class="dropdown-link">Existing venues</a>
+        </div>
+      </div>
+
+      <!-- FAQ dropdown -->
+      <div class="dropdown">
+        <button class="dropdown-button" @click="toggleFAQ">
+          FAQ
+          <span class="arrow" :class="{ 'arrow-down': isFAQOpen }">▸</span>
+        </button>
+
+        <div class="dropdown-content" v-show="isFAQOpen">
+          <a href="#" class="dropdown-link">Add new FAQs</a>
+          <a href="#" class="dropdown-link">Current FAQs</a>
+        </div>
+      </div>
+
+      <!-- Staff dropdown -->
+      <div class="dropdown">
+        <button class="dropdown-button" @click="toggleStaff">
+          Staff
+          <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
+        </button>
+
+        <div class="dropdown-content" v-show="isStaffOpen">
+          <a href="#" class="dropdown-link">Add new staff</a>
+          <a href="#" class="dropdown-link">Manage staff</a>
+        </div>
+      </div>
+
+      <!-- Registrations dropdown -->
+      <div class="dropdown">
+        <button class="dropdown-button" @click="toggleRegistrations">
+          Registrations
+          <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
+        </button>
+
+        <div class="dropdown-content" v-show="isRegistrationsOpen">
+          <a href="#" class="dropdown-link">New registrations</a>
+          <a href="#" class="dropdown-link">View registrations</a>
         </div>
       </div>
     </div>
   </div>
+
+  <button class="logout-button">LOGOUT</button>
 </template>
 
 <style>
@@ -113,5 +188,19 @@ body {
 
 .dropdown-link:hover {
   margin-left: 5px;
+}
+
+.logout-button {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  position: fixed; /* Keep it visible even when scrolling */
+  bottom: 20px; /* Position at the bottom */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-590%); /* Adjust to be exactly centered */
+  background-color: white;
+  border: 2px solid black;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 </style>
