@@ -22,7 +22,7 @@
             <th scope="row">{{ event.id }}</th>
             <td>{{ event.title }}</td>
             <td>{{ event.time }}</td>
-            <td>{{ (new Date(event.date)).toDateString() }}</td>
+            <td>{{ new Date(event.date).toDateString() }}</td>
             <td>
               <button class="btn btn-warning">Edit</button>
             </td>
@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import AdminSideBar from '@/components/adminSideBar.vue'
+import AdminSideBar from '@/components/AdminSideBar.vue'
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
 

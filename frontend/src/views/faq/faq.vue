@@ -8,7 +8,7 @@
           <div v-for="(item, index) in faqs" :key="index" class="faq-item">
             <div class="question" @click="toggleFAQ(index)">
               {{ item.question }}
-              <span class="icon">{{ item.open ? "▲" : "▼" }}</span>
+              <span class="icon">{{ item.open ? '▲' : '▼' }}</span>
             </div>
             <div class="answer" :class="{ show: item.open }">
               {{ item.answer }}
@@ -22,33 +22,34 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
-import axios from "axios";
+import { ref, onMounted } from 'vue'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import api from '@/services/axios.js'
 
-const faqs = ref([]);
+const faqs = ref([])
 
 const fetchFAQs = async () => {
   try {
-    const response = await axios.get(`https://opendaywlvapi.onrender.com/faqs`);
-    faqs.value = response.data;
+    const response = await api.get(`/faqs`)
+    faqs.value = response.data
   } catch (error) {
-    console.error("Error fetching FAQs:", error);
+    console.error('Error fetching FAQs:', error)
   }
-};
+}
 
 onMounted(() => {
-  fetchFAQs();
-});
+  fetchFAQs()
+})
 
 const toggleFAQ = (index) => {
-  faqs.value[index].open = !faqs.value[index].open;
-};
+  faqs.value[index].open = !faqs.value[index].open
+}
 </script>
 
 <style scoped>
-.background-container {  /* Background container with an image (DONOT MAKE ANY CHANGES TOOK ME 6 YEARS SOMEHOW TO GET THE BACKGROUND IMAGE)*/
+.background-container {
+  /* Background container with an image (DONOT MAKE ANY CHANGES TOOK ME 6 YEARS SOMEHOW TO GET THE BACKGROUND IMAGE)*/
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -127,7 +128,9 @@ h1 {
 .answer {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
   padding: 0 50px;
   text-align: left;
   font-size: 20px;

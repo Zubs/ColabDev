@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import EventView from '../views/events/EventView.vue'
-import HandleEvents from '../views/admin-dashboard/HandleEvents.vue';
-import HandleRegistrations from '../views/admin-dashboard/HandleRegistrations.vue';
-import HandleVenue from '../views/admin-dashboard/HandleVenue.vue';
-import HandleStaff from '../views/admin-dashboard/HandleStaff.vue';
-import HandleFAQ from '../views/admin-dashboard/HandleFAQ.vue';
-import HandleSecurity from '../views/admin-dashboard/Security.vue';
+import HandleEvents from '../views/admin-dashboard/HandleEvents.vue'
+import HandleRegistrations from '../views/admin-dashboard/HandleRegistrations.vue'
+import HandleVenue from '../views/admin-dashboard/HandleVenue.vue'
+import HandleStaff from '../views/admin-dashboard/HandleStaff.vue'
+import HandleFAQ from '../views/admin-dashboard/HandleFAQ.vue'
+import HandleSecurity from '../views/admin-dashboard/Security.vue'
 import DashboardView from '@/views/admin-dashboard/DashboardView.vue'
-import FAQView from '../views/faq/faq.vue' //  Imported FAQ page
+import FAQView from '../views/faq/faq.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const routes = [
   {
@@ -24,7 +25,13 @@ const routes = [
         name: 'admin-login',
         path: 'login',
         component: () => import('../views/admin/LoginView.vue'),
-      }
+      },
+      {
+        path: '',
+        name: 'admin-dashboard',
+        component: DashboardView,
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {
@@ -38,10 +45,10 @@ const routes = [
     component: EventView,
   },
   {
-      path: '/registration',
-      name: 'registration',
-      component: () => import('../views/Registration.vue'),
-   },
+    path: '/registration',
+    name: 'registration',
+    component: () => import('../views/Registration.vue'),
+  },
   {
     path: '/handle-events',
     name: 'handle-events',
@@ -73,20 +80,25 @@ const routes = [
     component: HandleSecurity,
   },
   {
-    path: '/admin-dashboard',  // URL path
-    name: 'admin-dashboard',  // A name for this route
-    component: DashboardView,  // The component to render for this route
-  },
-      {
-    path: '/faqs', //  Adding FAQ route
+    path: '/faqs',
     name: 'faqs',
     component: FAQView,
-  }
-];
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next({ name: 'admin-login' }) // Redirect to log in if not authenticated
+  } else {
+    next() // Allow access
+  }
 })
 
 export default router

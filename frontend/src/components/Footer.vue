@@ -4,13 +4,25 @@
       <div class="row mb-5">
         <div class="col-md">
           <div class="ftco-footer-widget mb-4">
-            <a class="navbar-brand mb-4" href="/"><img src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg" alt="University Of Wolverhampton Logo"></a>
-
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <a class="navbar-brand mb-4" href="/"
+              ><img
+                src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg"
+                alt="University Of Wolverhampton Logo"
+            /></a>
+            <p>
+              Far far away, behind the word mountains, far from the countries Vokalia and
+              Consonantia, there live the blind texts.
+            </p>
             <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-              <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-              <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-              <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              <li class="ftco-animate">
+                <a href="#"><span class="icon-twitter"></span></a>
+              </li>
+              <li class="ftco-animate">
+                <a href="#"><span class="icon-facebook"></span></a>
+              </li>
+              <li class="ftco-animate">
+                <a href="#"><span class="icon-instagram"></span></a>
+              </li>
             </ul>
           </div>
         </div>
@@ -41,8 +53,15 @@
             <h2 class="ftco-heading-2">Have a Questions?</h2>
             <div class="block-23 mb-3">
               <ul>
-                <li><span class="icon icon-map-marker"></span><span class="text"> Wulfruna St, Wolverhampton WV1 1LY</span></li>
-                <li><a href="#"><span class="icon icon-phone"></span><span class="text">01902321000</span></a></li>
+                <li>
+                  <span class="icon icon-map-marker"></span
+                  ><span class="text"> Wulfruna St, Wolverhampton WV1 1LY</span>
+                </li>
+                <li>
+                  <a href="#"
+                    ><span class="icon icon-phone"></span><span class="text">01902321000</span></a
+                  >
+                </li>
               </ul>
             </div>
           </div>
@@ -50,10 +69,13 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-center">
-
-          <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;2025 All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;2025 All rights reserved | This template is made with
+            <i class="icon-heart color-danger" aria-hidden="true"></i> by
+            <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
         </div>
       </div>
     </div>

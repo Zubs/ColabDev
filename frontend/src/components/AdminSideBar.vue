@@ -27,7 +27,6 @@ const toggleStaff = () => {
 const toggleRegistrations = () => {
   isRegistrationsOpen.value = !isRegistrationsOpen.value
 }
-
 </script>
 
 <template>
@@ -190,6 +189,7 @@ body {
 .dropdown-link:hover {
   margin-left: 5px;
 }
+
 .logout-button {
   font-size: 20px;
   font-weight: bold;
@@ -203,5 +203,4 @@ body {
   padding: 10px 20px;
   cursor: pointer;
 }
-
 </style>
