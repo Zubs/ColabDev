@@ -22,11 +22,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
-
-import { onMounted } from "vue";
 import axios from "axios";
 
 const faqs = ref([]);

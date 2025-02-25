@@ -5,47 +5,56 @@
       <button class="add-button" @click="addNewEvent">Add New Event</button>
     </div>
     <div class="box">
-      <p class="text"> Active events: </p>
-      <ul class="text-list">
-        <li v-for="(event, index) in events" :key="index">
-          <div class="event-header" @click="toggleDropdown(index)">
-            {{ event.name }}
-            <span class="arrow">{{ openIndex === index ? "▲" : "▼" }}</span>
-          </div>
-          <div v-show="openIndex === index" class="dropdown-content">
-            {{ event.details }}
-          </div>
-        </li>
-      </ul>
+      <p class="text">Active events:</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Event</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(event, index) in events" :key="index">
+            <th scope="row">{{ event.id }}</th>
+            <td>{{ event.title }}</td>
+            <td>{{ event.time }}</td>
+            <td>{{ (new Date(event.date)).toDateString() }}</td>
+            <td>
+              <button class="btn btn-warning">Edit</button>
+            </td>
+            <td>
+              <button class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import AdminSideBar from '@/components/adminSideBar.vue'
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
 
-export default {
-  components: { AdminSideBar },
-  data() {
-    return {
-      events: [
-        { name: "EVENT 1", details: "Details about Event 1" },
-        { name: "EVENT 2", details: "Details about Event 2" },
-        { name: "EVENT 3", details: "Details about Event 3" }
-      ],
-      openIndex: null // Keeps track of which dropdown is open
-    };
-  },
-  methods: {
-    toggleDropdown(index) {
-      this.openIndex = this.openIndex === index ? null : index;
-    },
-    addNewEvent() {
-      // Add your logic to add a new event here
-      console.log("Add New Event clicked");
-    }
+const events = ref([])
+
+const fetchEvents = async () => {
+  try {
+    const response = await axios.get(`https://opendaywlvapi.onrender.com/events`)
+    events.value = response.data
+  } catch (error) {
+    console.error('Error fetching Events:', error)
   }
-};
+}
+
+onMounted(() => {
+  fetchEvents()
+})
 </script>
 
 <style scoped>
@@ -55,13 +64,13 @@ export default {
   margin: 0 auto;
   margin-bottom: 60px;
   bottom: -70px;
-  margin-left:493px;
+  margin-left: 493px;
 }
 
 .button-container {
   position: absolute;
-  top: -60px; /* Move the button above the box */
-  right: 0; /* Align the button to the right */
+  top: -60px;
+  right: 0;
   z-index: 1;
 }
 
@@ -86,7 +95,7 @@ export default {
   padding-left: 20px;
   text-align: left;
   position: relative;
-  margin-top: 60px; /* Add space for the button */
+  margin-top: 60px;
   margin-bottom: 60px;
 }
 
@@ -95,35 +104,8 @@ export default {
   color: black;
 }
 
-.text-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.text-list li {
-  margin-bottom: 10px;
-  font-size: 25px;
-  cursor: pointer;
-}
-
-.event-header {
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.arrow {
+.table {
   font-size: 20px;
-  margin-left: 10px;
-}
-
-.dropdown-content {
-  padding: 5px;
-  font-size: 20px;
-  background-color: white;
-  border: 1px solid #ccc;
-  margin-top: 5px;
+  color: black;
 }
 </style>
