@@ -26,14 +26,8 @@
           <li class="nav-item" :class="{ active: route.name === 'home' }">
             <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
           </li>
-          <li class="nav-item" :class="{ active: route.name === 'about' }">
-            <router-link :to="{ name: 'about' }" class="nav-link">About</router-link>
-          </li>
           <li class="nav-item" :class="{ active: route.name === 'events' }">
             <router-link to="/events" class="nav-link">Events Schedule</router-link>
-          </li>
-          <li class="nav-item" :class="{ active: route.name === 'blog' }">
-            <a href="/blog" class="nav-link">Blog</a>
           </li>
           <li class="nav-item" :class="{ active: route.name === 'faqs' }">
             <router-link :to="{ name: 'faqs' }" class="nav-link">FAQ's</router-link>
