@@ -51,7 +51,7 @@
 
         <div class="dropdown-content" v-show="isStaffOpen">
           <a href="#" class="dropdown-link">Add new staff</a>
-          <a href="#" class="dropdown-link">Manage staff</a>
+          <router-link :to="{ name: 'admin-staff' }" class="dropdown-link">Manage staff</router-link>
         </div>
       </div>
 

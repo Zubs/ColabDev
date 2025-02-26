@@ -2,6 +2,7 @@ from flask import jsonify, request
 from app.services.auth_service import AuthService
 from functools import wraps
 
+
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -29,6 +30,7 @@ def token_required(f):
         return f(user, token, *args, **kwargs)
 
     return decorated
+
 
 class AuthController:
     @staticmethod
@@ -58,13 +60,16 @@ class AuthController:
 
     @staticmethod
     @token_required
-    def get_profile(current_user):
-        return jsonify({
-            "message": "Profile retrieved successfully",
-            "data": current_user.serialize()
-        }), 200
+    def get_profiles(user, token):
+        users = AuthService.get_profiles()
 
-    # Method to be deleted later, just used to create first user(s)
+        return jsonify([{
+            "id": user.id,
+            "fullname": user.fullname,
+            "username": user.username,
+            "email": user.email
+        } for user in users])
+
     @staticmethod
     def register(data):
         if not data or 'fullname' not in data or 'username' not in data or 'email' not in data or 'password' not in data:

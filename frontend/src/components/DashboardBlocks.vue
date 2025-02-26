@@ -4,7 +4,7 @@
       <a href="/handle-events" class="dashboard-box">Events</a>
       <router-link :to="{ name: 'admin-registrations' }" class="dashboard-box">Registrations</router-link>
       <a href="/handle-venue" class="dashboard-box">Venue</a>
-      <a href="/handle-staff" class="dashboard-box">Staff</a>
+      <router-link :to="{ name: 'admin-staff' }" class="dashboard-box">Staff</router-link>
       <a href="/handle-FAQ" class="dashboard-box">FAQ</a>
       <a href="/security" class="dashboard-box">Security</a>
     </div>

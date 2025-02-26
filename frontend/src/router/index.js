@@ -36,6 +36,13 @@ const routes = [
         path: 'registrations',
         name: 'admin-registrations',
         component: HandleRegistrations,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'staff',
+        name: 'admin-staff',
+        component: HandleStaff,
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -63,11 +70,6 @@ const routes = [
     path: '/handle-venue',
     name: 'handle-venue',
     component: HandleVenue,
-  },
-  {
-    path: '/handle-staff',
-    name: 'handle-staff',
-    component: HandleStaff,
   },
   {
     path: '/handle-faq',

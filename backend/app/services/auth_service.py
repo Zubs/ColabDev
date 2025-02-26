@@ -116,3 +116,11 @@ class AuthService:
         except Exception as e:
             db.session.rollback()
             return None, str(e)
+
+    @staticmethod
+    def get_profiles():
+        try:
+            users = User.query.all()
+            return users
+        except Exception as e:
+            return None
