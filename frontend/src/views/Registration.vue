@@ -17,14 +17,14 @@
       <div class="container">
         <div class="row block-9">
           <div class="col-md-12 d-flex">
-            <form @submit.prevent="submitForm" class="p-5 contact-form w-100">
+            <form @submit.prevent="submitForm" class="px-5 contact-form w-100">
               <div class="section-heading mb-4">
                 <h3 class="h4">Personal Details</h3>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="title">Title*</label>
-                  <select id="title" v-model="formData.title" class="form-control" required>
+                  <select id="title" v-model="formData.title" class="form-control">
                     <option value="">Please select</option>
                     <option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
@@ -35,7 +35,7 @@
                     <option value="Mx">Mx</option>
                     <option value="Other">Other</option>
                   </select>
-                  <span v-if="errors.title" class="error-message">{{ errors.title }}</span>
+                  <span v-if="errors.title" class="text-danger">{{ errors.title }}</span>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="firstName">First Name*</label>
@@ -44,9 +44,8 @@
                     id="firstName"
                     v-model="formData.firstName"
                     class="form-control"
-                    required
                   />
-                  <span v-if="errors.firstName" class="error-message">{{ errors.firstName }}</span>
+                  <span v-if="errors.firstName" class="text-danger">{{ errors.firstName }}</span>
                 </div>
                 <div class="form-group col-md-5">
                   <label for="lastName">Last Name*</label>
@@ -55,22 +54,15 @@
                     id="lastName"
                     v-model="formData.lastName"
                     class="form-control"
-                    required
                   />
-                  <span v-if="errors.lastName" class="error-message">{{ errors.lastName }}</span>
+                  <span v-if="errors.lastName" class="text-danger">{{ errors.lastName }}</span>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="dob">Date of Birth*</label>
-                  <input
-                    type="date"
-                    id="dob"
-                    v-model="formData.dob"
-                    class="form-control"
-                    required
-                  />
-                  <span v-if="errors.dob" class="error-message">{{ errors.dob }}</span>
+                  <input type="date" id="dob" v-model="formData.dob" class="form-control" />
+                  <span v-if="errors.dob" class="text-danger">{{ errors.dob }}</span>
                 </div>
               </div>
               <div class="form-row">
@@ -90,9 +82,8 @@
                     id="carerFirstName"
                     v-model="formData.carerFirstName"
                     class="form-control"
-                    required
                   />
-                  <span v-if="errors.carerFirstName" class="error-message">{{
+                  <span v-if="errors.carerFirstName" class="text-danger">{{
                     errors.carerFirstName
                   }}</span>
                 </div>
@@ -103,9 +94,8 @@
                     id="carerLastName"
                     v-model="formData.carerLastName"
                     class="form-control"
-                    required
                   />
-                  <span v-if="errors.carerLastName" class="error-message">{{
+                  <span v-if="errors.carerLastName" class="text-danger">{{
                     errors.carerLastName
                   }}</span>
                 </div>
@@ -114,15 +104,12 @@
                 <div class="form-group col-md-6">
                   <label for="email">Email Address*</label>
                   <input
-                    type="email"
+                    type="text"
                     id="carerEmail"
                     v-model="formData.carerEmail"
                     class="form-control"
-                    required
                   />
-                  <span v-if="errors.carerEmail" class="error-message">{{
-                    errors.carerEmail
-                  }}</span>
+                  <span v-if="errors.carerEmail" class="text-danger">{{ errors.carerEmail }}</span>
                 </div>
               </div>
               <div class="section-heading mb-4 mt-5">
@@ -131,25 +118,13 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="email">Email Address*</label>
-                  <input
-                    type="email"
-                    id="email"
-                    v-model="formData.email"
-                    class="form-control"
-                    required
-                  />
-                  <span v-if="errors.email" class="error-message">{{ errors.email }}</span>
+                  <input type="text" id="email" v-model="formData.email" class="form-control" />
+                  <span v-if="errors.email" class="text-danger">{{ errors.email }}</span>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="phone">Phone Number*</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    v-model="formData.phone"
-                    class="form-control"
-                    required
-                  />
-                  <span v-if="errors.phone" class="error-message">{{ errors.phone }}</span>
+                  <input type="tel" id="phone" v-model="formData.phone" class="form-control" />
+                  <span v-if="errors.phone" class="text-danger">{{ errors.phone }}</span>
                 </div>
               </div>
               <div class="form-row">
@@ -160,9 +135,8 @@
                     id="address1"
                     v-model="formData.address1"
                     class="form-control"
-                    required
                   />
-                  <span v-if="errors.address1" class="error-message">{{ errors.address1 }}</span>
+                  <span v-if="errors.address1" class="text-danger">{{ errors.address1 }}</span>
                 </div>
               </div>
               <div class="form-row">
@@ -179,14 +153,8 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <label for="city">Town/City*</label>
-                  <input
-                    type="text"
-                    id="city"
-                    v-model="formData.city"
-                    class="form-control"
-                    required
-                  />
-                  <span v-if="errors.city" class="error-message">{{ errors.city }}</span>
+                  <input type="text" id="city" v-model="formData.city" class="form-control" />
+                  <span v-if="errors.city" class="text-danger">{{ errors.city }}</span>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -196,20 +164,19 @@
                     id="postcode"
                     v-model="formData.postcode"
                     class="form-control"
-                    required
                   />
-                  <span v-if="errors.postcode" class="error-message">{{ errors.postcode }}</span>
+                  <span v-if="errors.postcode" class="text-danger">{{ errors.postcode }}</span>
                 </div>
 
                 <div class="form-group col-md-4">
                   <label for="country">Country*</label>
-                  <select id="country" v-model="formData.country" class="form-control" required>
+                  <select id="country" v-model="formData.country" class="form-control">
                     <option value="">Please select</option>
                     <option v-for="(country, index) in countries" :key="index" :value="country">
                       {{ country }}
                     </option>
                   </select>
-                  <span v-if="errors.country" class="error-message">{{ errors.country }}</span>
+                  <span v-if="errors.country" class="text-danger">{{ errors.country }}</span>
                 </div>
               </div>
               <div class="section-heading mb-4 mt-5">
@@ -218,12 +185,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="studyLevel">Level of Study*</label>
-                  <select
-                    id="studyLevel"
-                    v-model="formData.studyLevel"
-                    class="form-control"
-                    required
-                  >
+                  <select id="studyLevel" v-model="formData.studyLevel" class="form-control">
                     <option value="">Please select</option>
                     <option value="Undergraduate">Undergraduate</option>
                     <option value="Postgraduate">Postgraduate</option>
@@ -232,24 +194,17 @@
                       International Foundation Year
                     </option>
                   </select>
-                  <span v-if="errors.studyLevel" class="error-message">{{
-                    errors.studyLevel
-                  }}</span>
+                  <span v-if="errors.studyLevel" class="text-danger">{{ errors.studyLevel }}</span>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="subjectArea">Subject Area*</label>
-                  <select
-                    id="subjectArea"
-                    v-model="formData.subjectArea"
-                    class="form-control"
-                    required
-                  >
+                  <select id="subjectArea" v-model="formData.subjectArea" class="form-control">
                     <option value="">Please select</option>
                     <option v-for="(subject, index) in subjectAreas" :value="subject" :key="index">
                       {{ subject }}
                     </option>
                   </select>
-                  <span v-if="errors.subjectArea" class="error-message">{{
+                  <span v-if="errors.subjectArea" class="text-danger">{{
                     errors.subjectArea
                   }}</span>
                 </div>
@@ -260,22 +215,17 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="eventDate">Event Date*</label>
-                  <select id="eventDate" v-model="formData.eventDate" class="form-control" required>
+                  <select id="eventDate" v-model="formData.eventDate" class="form-control">
                     <option value="">Please select</option>
                     <option v-for="(event, index) in eventDates" :key="index" :value="event.date">
                       {{ event.label }}
                     </option>
                   </select>
-                  <span v-if="errors.eventDate" class="error-message">{{ errors.eventDate }}</span>
+                  <span v-if="errors.eventDate" class="text-danger">{{ errors.eventDate }}</span>
                 </div>
                 <div class="form-group col-md-6">
                   <label>How many guests will you be bringing?*</label>
-                  <select
-                    id="guestCount"
-                    v-model="formData.guestCount"
-                    class="form-control"
-                    required
-                  >
+                  <select id="guestCount" v-model="formData.guestCount" class="form-control">
                     <option value="">Please select</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -283,9 +233,7 @@
                     <option value="3">3</option>
                     <option value="4">4</option>
                   </select>
-                  <span v-if="errors.guestCount" class="error-message">{{
-                    errors.guestCount
-                  }}</span>
+                  <span v-if="errors.guestCount" class="text-danger">{{ errors.guestCount }}</span>
                 </div>
               </div>
               <div class="form-row">
@@ -338,7 +286,7 @@
                       <label for="source_other">Other</label>
                     </div>
                   </div>
-                  <span v-if="errors.sources" class="error-message">{{ errors.sources }}</span>
+                  <span v-if="errors.sources" class="text-danger">{{ errors.sources }}</span>
                 </div>
               </div>
               <div class="section-heading mb-4 mt-5">
@@ -346,8 +294,8 @@
               </div>
               <div class="form-row">
                 <div class="checkbox-item">
-                  <input type="checkbox" id="carerCheck" v-model="carer" class="mr-2" />
-                  <label for="carerCheck"
+                  <input type="checkbox" id="privacyPolicy" v-model="privacyPolicy" class="mr-2" />
+                  <label for="privacyPolicy"
                     >I can confirm that I have read, understood, and agreed to the
                     <a
                       target="_blank"
@@ -357,11 +305,19 @@
                   >
                 </div>
               </div>
+              <span v-if="errors.privacyPolicy" class="text-danger">{{
+                errors.privacyPolicy
+              }}</span>
               <div class="form-group text-center mt-5">
-                <button type="submit" class="btn btn-primary py-3 px-5" :disabled="loading">
+                <button
+                  type="submit"
+                  class="btn btn-primary py-3 px-5 form-control"
+                  :disabled="loading"
+                >
                   <span v-if="loading">Processing...</span>
                   <span v-else>Register for Open Day</span>
                 </button>
+                <span v-if="errors.request" class="text-danger">{{ errors.request }}</span>
               </div>
             </form>
           </div>
@@ -369,24 +325,6 @@
       </div>
     </section>
     <Footer />
-
-    <!--    TODO: Fix dialog box-->
-    <div v-if="carer" class="modal-overlay">
-      <div class="modal-container">
-        <div class="modal-content bg-light p-5">
-          <h2 class="text-center mb-4">Registration Confirmed!</h2>
-          <p class="text-center">
-            Thank you for registering for our Open Day. We look forward to seeing you!
-          </p>
-          <p class="text-center">
-            A confirmation email has been sent to: <strong>{{ formData.email }}</strong>
-          </p>
-          <div class="text-center mt-4">
-            <button @click="closeConfirmation" class="btn btn-primary py-3 px-5">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -461,6 +399,7 @@
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import { ref } from 'vue'
+import api from '@/services/axios.js'
 
 const formData = ref({
   title: '',
@@ -509,6 +448,8 @@ const errors = ref({
   carerFirstName: '',
   carerLastName: '',
   carerEmail: '',
+  privacyPolicy: '',
+  request: '',
 })
 const countries = ref([
   'Afghanistan',
@@ -760,8 +701,268 @@ const eventDates = ref([
 ])
 const carer = ref(false)
 const loading = ref(false)
+const privacyPolicy = ref(false)
 
-const submitForm = () => {
-  // Add form submission logic here
+const validateForm = () => {
+  errors.value = {
+    title: '',
+    firstName: '',
+    lastName: '',
+    dob: '',
+    email: '',
+    phone: '',
+    address1: '',
+    address2: '',
+    city: '',
+    postcode: '',
+    country: '',
+    studyLevel: '',
+    subjectArea: '',
+    eventDate: '',
+    guestCount: '',
+    sources: '',
+    carerFirstName: '',
+    carerLastName: '',
+    carerEmail: '',
+    privacyPolicy: '',
+    request: '',
+  }
+  let isValid = true
+
+  if (!formData.value.title) {
+    errors.value.title = 'Please select a title'
+    isValid = false
+  }
+
+  if (!formData.value.firstName) {
+    errors.value.firstName = 'First name is required'
+    isValid = false
+  }
+
+  if (!formData.value.lastName) {
+    errors.value.lastName = 'Last name is required'
+    isValid = false
+  }
+
+  if (!formData.value.dob) {
+    errors.value.dob = 'Date of birth is required'
+    isValid = false
+  }
+
+  if (carer.value) {
+    if (!formData.value.carerFirstName) {
+      errors.value.carerFirstName = 'Carer first name is required'
+      isValid = false
+    }
+
+    if (!formData.value.carerLastName) {
+      errors.value.carerLastName = 'Carer last name is required'
+      isValid = false
+    }
+
+    if (!formData.value.carerEmail) {
+      errors.value.carerEmail = 'Carer email is required'
+      isValid = false
+    }
+  }
+
+  if (!formData.value.email) {
+    errors.value.email = 'Email is required'
+    isValid = false
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.value.email)) {
+    errors.value.email = 'Please enter a valid email address'
+    isValid = false
+  }
+
+  if (!formData.value.phone) {
+    errors.value.phone = 'Phone number is required'
+    isValid = false
+  }
+
+  if (!formData.value.address1) {
+    errors.value.address1 = 'Address line 1 is required'
+    isValid = false
+  }
+
+  if (!formData.value.city) {
+    errors.value.city = 'Town/City is required'
+    isValid = false
+  }
+
+  if (!formData.value.postcode) {
+    errors.value.postcode = 'Postcode is required'
+    isValid = false
+  }
+
+  if (!formData.value.country) {
+    errors.value.country = 'Country is required'
+    isValid = false
+  }
+
+  // Course Interest validation
+  if (!formData.value.studyLevel) {
+    errors.value.studyLevel = 'Please select a level of study'
+    isValid = false
+  }
+
+  if (!formData.value.subjectArea) {
+    errors.value.subjectArea = 'Please select a subject area'
+    isValid = false
+  }
+
+  // Event Details validation
+  if (!formData.value.eventDate) {
+    errors.value.eventDate = 'Please select an event date'
+    isValid = false
+  }
+
+  if (!formData.value.guestCount && formData.value.guestCount !== 0) {
+    errors.value.guestCount = 'Please select number of guests'
+    isValid = false
+  }
+
+  // Check if at least one source is selected
+  const anySourceSelected = Object.values(formData.value.sources).some((value) => value)
+  if (!anySourceSelected) {
+    errors.value.sources = 'Please select at least one option'
+    isValid = false
+  }
+
+  if (!privacyPolicy.value) {
+    errors.value.privacyPolicy = 'Please accept the privacy policy'
+    isValid = false
+  }
+
+  return isValid
+}
+
+const submitForm = async () => {
+  if (!validateForm()) {
+    // Scroll to the first error
+    const firstErrorElement = document.querySelector('.text-danger')
+    if (firstErrorElement) {
+      firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+    return
+  }
+
+  loading.value = true
+
+  try {
+    const payload = {
+      personalDetails: {
+        title: formData.value.title,
+        firstName: formData.value.firstName,
+        lastName: formData.value.lastName,
+        dateOfBirth: formData.value.dob,
+      },
+      carerDetails: {
+        firstName: formData.value.carerFirstName,
+        lastName: formData.value.carerLastName,
+        email: formData.value.carerEmail,
+      },
+      contactDetails: {
+        email: formData.value.email,
+        phoneNumber: formData.value.phone,
+        address: {
+          line1: formData.value.address1,
+          line2: formData.value.address2 || '',
+          city: formData.value.city,
+          postcode: formData.value.postcode,
+          country: formData.value.country,
+        },
+      },
+      courseInterest: {
+        levelOfStudy: formData.value.studyLevel,
+        subjectArea: formData.value.subjectArea,
+      },
+      eventDetails: {
+        date: formData.value.eventDate,
+        guestCount: parseInt(formData.value.guestCount),
+        marketingSources: Object.entries(formData.value.sources)
+          .filter(([_, value]) => value)
+          .map(([key]) => key),
+      },
+    }
+
+    console.log('Submitting form with payload:', payload)
+
+    const response = await api.post('/registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      throw new Error('Registration failed')
+    }
+
+    // TODO: Handle successful registration; e.g., show success message, redirect to confirmation page
+
+    // Reset the form after successful submission
+    resetForm()
+  } catch (error) {
+    console.error('Error submitting form:', error)
+    errors.value.request = 'There was an error submitting your registration. Please try again.'
+  } finally {
+    loading.value = false
+  }
+}
+
+const resetForm = () => {
+  formData.value = {
+    title: '',
+    firstName: '',
+    lastName: '',
+    dob: '',
+    email: '',
+    phone: '',
+    address1: '',
+    address2: '',
+    city: '',
+    postcode: '',
+    country: '',
+    studyLevel: '',
+    subjectArea: '',
+    eventDate: '',
+    guestCount: '',
+    sources: {
+      email: false,
+      social: false,
+      search: false,
+      school: false,
+      other: false,
+    },
+    carerFirstName: '',
+    carerLastName: '',
+    carerEmail: '',
+  }
+  carer.value = false
+  privacyPolicy.value = false
+  errors.value = {
+    title: '',
+    firstName: '',
+    lastName: '',
+    dob: '',
+    email: '',
+    phone: '',
+    address1: '',
+    address2: '',
+    city: '',
+    postcode: '',
+    country: '',
+    studyLevel: '',
+    subjectArea: '',
+    eventDate: '',
+    guestCount: '',
+    sources: '',
+    carerFirstName: '',
+    carerLastName: '',
+    carerEmail: '',
+    privacyPolicy: '',
+    request: '',
+  }
 }
 </script>
