@@ -887,21 +887,24 @@ const submitForm = async () => {
 
     console.log('Submitting form with payload:', payload)
 
-    const response = await api.post('/registration', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await api.post(
+      '/registration',
+      {
+        ...payload,
       },
-      body: JSON.stringify(payload),
-    })
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
 
-    if (!response.ok) {
+    if (response.status !== 201) {
       throw new Error('Registration failed')
     }
 
     // TODO: Handle successful registration; e.g., show success message, redirect to confirmation page
 
-    // Reset the form after successful submission
     resetForm()
   } catch (error) {
     console.error('Error submitting form:', error)
