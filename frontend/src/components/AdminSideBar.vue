@@ -63,8 +63,9 @@
         </button>
 
         <div class="dropdown-content" v-show="isRegistrationsOpen">
-          <a href="#" class="dropdown-link">New registrations</a>
-          <a href="#" class="dropdown-link">View registrations</a>
+          <router-link :to="{ name: 'admin-registrations' }" class="dropdown-link"
+            >View registrations
+          </router-link>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
-  <admin-side-bar></admin-side-bar>
-  <admin-dashboard-nav-bar></admin-dashboard-nav-bar>
-  <dashboard-blocks />
+  <AdminSideBar />
+  <AdminDashboardNavBar />
+  <DashboardBlocks />
 </template>
 
 <script setup lang="ts">

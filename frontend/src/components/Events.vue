@@ -307,13 +307,13 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
+import api from '@/services/axios.js'
 
 const events = ref([])
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://opendaywlvapi.onrender.com/events?group_by=date')
+    const response = await api.get('/events?group_by=date')
     events.value = response.data
   } catch (error) {
     console.error('Error fetching events:', error)

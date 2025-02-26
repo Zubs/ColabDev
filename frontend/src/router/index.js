@@ -32,6 +32,11 @@ const routes = [
         component: DashboardView,
         meta: { requiresAuth: true },
       },
+      {
+        path: 'registrations',
+        name: 'admin-registrations',
+        component: HandleRegistrations,
+      },
     ],
   },
   {
@@ -53,11 +58,6 @@ const routes = [
     path: '/handle-events',
     name: 'handle-events',
     component: HandleEvents,
-  },
-  {
-    path: '/handle-registrations',
-    name: 'handle-registrations',
-    component: HandleRegistrations,
   },
   {
     path: '/handle-venue',
