@@ -78,6 +78,9 @@ class AuthService:
             )
             return int(payload['sub'])
         except jwt.ExpiredSignatureError:
+            Token.query.filter_by(token=token).delete()
+            db.session.commit()
+
             return 'Token expired. Please login again.'
         except jwt.InvalidTokenError:
             return 'Invalid token. Please login again.'
