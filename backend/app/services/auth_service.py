@@ -1,8 +1,10 @@
 from app.models.user import User
+from app.models.token import Token
 from app import db
 from datetime import datetime, timedelta
 import jwt
 from flask import current_app
+
 
 class AuthService:
     @staticmethod
@@ -11,8 +13,18 @@ class AuthService:
             user = User.query.filter_by(username=username).first()
 
             if user and user.check_password(password):
-                # Generate token
-                token = AuthService.generate_token(user.id)
+                token, exp_datetime = AuthService.generate_token(user.id)
+
+                if not token:
+                    return None, "Unable to login"
+
+                new_token = Token(
+                    token=token,
+                    user_id=user.id,
+                    expires_at=exp_datetime
+                )
+                db.session.add(new_token)
+                db.session.commit()
 
                 return {
                     'user': user.serialize(),
@@ -36,11 +48,12 @@ class AuthService:
                 'iat': datetime.utcnow(),
                 'sub': user_id
             }
-            return jwt.encode(
+            token = jwt.encode(
                 payload,
                 current_app.config.get('JWT_SECRET_KEY'),
                 algorithm='HS256'
             )
+            return token, payload['exp']
         except Exception as e:
             return None
 
