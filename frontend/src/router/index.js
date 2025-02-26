@@ -5,6 +5,7 @@ import HandleEvents from '../views/admin-dashboard/HandleEvents.vue'
 import HandleRegistrations from '../views/admin-dashboard/HandleRegistrations.vue'
 import HandleVenue from '../views/admin-dashboard/HandleVenue.vue'
 import HandleStaff from '../views/admin-dashboard/HandleStaff.vue'
+import CreateStaff from '../views/admin-dashboard/CreateStaff.vue'
 import HandleFAQ from '../views/admin-dashboard/HandleFAQ.vue'
 import HandleSecurity from '../views/admin-dashboard/Security.vue'
 import DashboardView from '@/views/admin-dashboard/DashboardView.vue'
@@ -44,6 +45,11 @@ const routes = [
         component: HandleStaff,
         meta: { requiresAuth: true },
       },
+      {
+        path: 'staff/create',
+        name: 'admin-staff-create',
+        component: CreateStaff,
+      }
     ],
   },
   {

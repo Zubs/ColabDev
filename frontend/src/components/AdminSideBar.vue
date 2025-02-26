@@ -50,7 +50,7 @@
         </button>
 
         <div class="dropdown-content" v-show="isStaffOpen">
-          <a href="#" class="dropdown-link">Add new staff</a>
+          <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-link">Add new staff</router-link>
           <router-link :to="{ name: 'admin-staff' }" class="dropdown-link">Manage staff</router-link>
         </div>
       </div>
