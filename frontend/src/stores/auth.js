@@ -5,7 +5,6 @@ import api from '@/services/axios'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('user')) || null)
   const token = ref(localStorage.getItem('token') || null)
-
   const isAuthenticated = computed(() => !!user.value && !!token.value)
 
   const login = async (credentials) => {
@@ -31,7 +30,11 @@ export const useAuthStore = defineStore('auth', () => {
 
   const logout = async () => {
     try {
-      const response = await api.post('/auth/logout', credentials)
+      const response = await api.post('/auth/logout', null, {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+        },
+      })
       user.value = null
       token.value = null
       localStorage.removeItem('user')

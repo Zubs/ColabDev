@@ -37,8 +37,19 @@ class AuthService:
             return None, str(e)
 
     @staticmethod
-    def logout():
-        return True
+    def logout(token):
+        try:
+            token = Token.query.filter_by(token=token).first()
+
+            if not token:
+                return False, "Token not found"
+
+            db.session.delete(token)
+            db.session.commit()
+            return True, None
+        except Exception as e:
+            db.session.rollback()
+            return False, str(e)
 
     @staticmethod
     def generate_token(user_id):
@@ -46,7 +57,7 @@ class AuthService:
             payload = {
                 'exp': datetime.utcnow() + timedelta(days=1),
                 'iat': datetime.utcnow(),
-                'sub': user_id
+                'sub': str(user_id)
             }
             token = jwt.encode(
                 payload,
@@ -61,11 +72,11 @@ class AuthService:
     def decode_token(token):
         try:
             payload = jwt.decode(
-                token,
+                str(token),
                 current_app.config.get('JWT_SECRET_KEY'),
                 algorithms=['HS256']
             )
-            return payload['sub']
+            return int(payload['sub'])
         except jwt.ExpiredSignatureError:
             return 'Token expired. Please login again.'
         except jwt.InvalidTokenError:

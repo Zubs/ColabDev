@@ -2,7 +2,6 @@ from flask import jsonify, request
 from app.services.auth_service import AuthService
 from functools import wraps
 
-
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -24,7 +23,10 @@ def token_required(f):
         if error:
             return jsonify({'error': error}), 401
 
-        return f(user, *args, **kwargs)
+        # request.user = user
+        # request.token = token
+
+        return f(user, token, *args, **kwargs)
 
     return decorated
 
@@ -45,8 +47,11 @@ class AuthController:
         return jsonify({"error": "Invalid username or password"}), 401
 
     @staticmethod
-    def logout():
-        if AuthService.logout():
+    @token_required
+    def logout(user, token):
+        success, error = AuthService.logout(token)
+
+        if success:
             return jsonify({"message": "Logout successful"}), 200
 
         return jsonify({"error": "No active session"}), 400

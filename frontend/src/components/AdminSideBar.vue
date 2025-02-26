@@ -1,38 +1,7 @@
-<script setup>
-import { ref } from 'vue'
-
-// Separate state for each dropdown
-const isEventsOpen = ref(false)
-const isVenueOpen = ref(false)
-const isFAQOpen = ref(false)
-const isStaffOpen = ref(false)
-const isRegistrationsOpen = ref(false)
-
-const toggleEvents = () => {
-  isEventsOpen.value = !isEventsOpen.value
-}
-
-const toggleVenue = () => {
-  isVenueOpen.value = !isVenueOpen.value
-}
-
-const toggleFAQ = () => {
-  isFAQOpen.value = !isFAQOpen.value
-}
-
-const toggleStaff = () => {
-  isStaffOpen.value = !isStaffOpen.value
-}
-
-const toggleRegistrations = () => {
-  isRegistrationsOpen.value = !isRegistrationsOpen.value
-}
-</script>
-
 <template>
   <div class="container">
     <div class="sidebar">
-      <a href="http://localhost:5180/admin-dashboard" class="sidebar-link">Home</a>
+      <router-link :to="{ name: 'admin-dashboard' }" class="sidebar-link">Home</router-link>
 
       <!-- Events dropdown -->
       <div class="dropdown">
@@ -101,8 +70,48 @@ const toggleRegistrations = () => {
     </div>
   </div>
 
-  <button class="logout-button">LOGOUT</button>
+  <button class="logout-button" @click="logout">LOGOUT</button>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+// Separate state for each dropdown
+const isEventsOpen = ref(false)
+const isVenueOpen = ref(false)
+const isFAQOpen = ref(false)
+const isStaffOpen = ref(false)
+const isRegistrationsOpen = ref(false)
+const authStore = useAuthStore()
+const router = useRouter()
+
+const toggleEvents = () => {
+  isEventsOpen.value = !isEventsOpen.value
+}
+
+const toggleVenue = () => {
+  isVenueOpen.value = !isVenueOpen.value
+}
+
+const toggleFAQ = () => {
+  isFAQOpen.value = !isFAQOpen.value
+}
+
+const toggleStaff = () => {
+  isStaffOpen.value = !isStaffOpen.value
+}
+
+const toggleRegistrations = () => {
+  isRegistrationsOpen.value = !isRegistrationsOpen.value
+}
+
+const logout = async () => {
+  await authStore.logout()
+  await router.push({ name: 'admin-login' })
+}
+</script>
 
 <style>
 /* Reset default margins and padding */
