@@ -11,6 +11,7 @@ import HandleSecurity from '../views/admin-dashboard/Security.vue'
 import DashboardView from '@/views/admin-dashboard/DashboardView.vue'
 import FAQView from '../views/faq/faq.vue'
 import { useAuthStore } from '@/stores/auth'
+import CreateNewEvents from '@/views/events/CreateNewEvents.vue'
 
 const routes = [
   {
@@ -92,6 +93,11 @@ const routes = [
     name: 'faqs',
     component: FAQView,
   },
+  {
+    path: '/create-new-events',
+    name: 'CreateNewEvent',
+    component: CreateNewEvents,
+  }
 ]
 
 const router = createRouter({
@@ -107,6 +113,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next() // Allow access
   }
+
 })
 
 export default router
