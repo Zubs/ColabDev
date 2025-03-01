@@ -46,6 +46,8 @@ const events = ref({
 
 const addEvent = async () => {
   try {
+    const formattedDate = new Date(events.value.date).toLocaleDateString('en-GB'); // 'en-GB' ensures the format DD/MM/YYYY
+    events.value.date = formattedDate;
     const response = await fetch('https://opendaywlvapi.onrender.com/events', {
       method: 'POST',
       headers: {
