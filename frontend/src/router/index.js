@@ -12,6 +12,7 @@ import DashboardView from '@/views/admin-dashboard/DashboardView.vue'
 import FAQView from '../views/faq/faq.vue'
 import { useAuthStore } from '@/stores/auth'
 import CreateNewEvents from '@/views/events/CreateNewEvents.vue'
+import EditEvents from '@/views/events/EditEvents.vue'
 
 const routes = [
   {
@@ -97,6 +98,11 @@ const routes = [
     path: '/create-new-events',
     name: 'CreateNewEvent',
     component: CreateNewEvents,
+  },
+  {
+    path : '/edit-event/:id',
+    name: 'EditEvents',
+    component: EditEvents
   }
 ]
 
