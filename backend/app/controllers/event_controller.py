@@ -40,6 +40,27 @@ class EventController:
         } for event in events])
 
     @staticmethod
+    def get_event(event_id):
+        try:
+            event = EventService.get_event(event_id)
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+        if event:
+            return jsonify({
+                "id": event.id,
+                "title": event.title,
+                "description": event.description,
+                "date": event.date,
+                "time": event.time,
+                "duration": event.duration,
+                "location": event.location,
+                "public": event.public
+            })
+
+        return jsonify({"error": "Event not found"}), 404
+
+    @staticmethod
     def create_event(data):
         validation_error = EventController.validate_event_data(data)
         if validation_error:
