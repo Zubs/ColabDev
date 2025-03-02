@@ -24,7 +24,7 @@
             <td>{{ event.time }}</td>
             <td>{{ new Date(event.date).toDateString() }}</td>
             <td>
-              <router-link :to="`/events/edit/${event.id}`" class="btn btn-warning">Edit</router-link>
+              <router-link :to="`/edit-event/${event.id}`" class="btn btn-warning">Edit</router-link>
             </td>
             <td>
               <button class="btn btn-danger">Delete</button>
