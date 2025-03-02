@@ -2,7 +2,7 @@
   <admin-side-bar></admin-side-bar>
   <div class="box-container">
     <div class="button-container">
-      <button class="add-button" @click="addNewEvent">Add New Event</button>
+      <router-link to="/create-new-events" class="add-button">Create New Event</router-link>
     </div>
     <div class="box">
       <p class="text">Active events:</p>
@@ -40,6 +40,7 @@
 import AdminSideBar from '@/components/AdminSideBar.vue'
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
+import CreateNewEvents from '@/views/events/CreateNewEvents.vue'
 
 const events = ref([])
 
