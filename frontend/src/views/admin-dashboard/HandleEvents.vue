@@ -8,28 +8,28 @@
       <p class="text">Active events:</p>
       <table class="table">
         <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Event</th>
-            <th scope="col">Time</th>
-            <th scope="col">Date</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Event</th>
+          <th scope="col">Time</th>
+          <th scope="col">Date</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
         </thead>
         <tbody>
-          <tr v-for="(event, index) in events" :key="index">
-            <th scope="row">{{ event.id }}</th>
-            <td>{{ event.title }}</td>
-            <td>{{ event.time }}</td>
-            <td>{{ new Date(event.date).toDateString() }}</td>
-            <td>
-              <router-link :to="`/edit-event/${event.id}`" class="btn btn-warning">Edit</router-link>
-            </td>
-            <td>
-              <button class="btn btn-danger">Delete</button>
-            </td>
-          </tr>
+        <tr v-for="(event, index) in events" :key="index">
+          <th scope="row">{{ event.id }}</th>
+          <td>{{ event.title }}</td>
+          <td>{{ event.time }}</td>
+          <td>{{ new Date(event.date).toDateString() }}</td>
+          <td>
+            <router-link :to="`/edit-event/${event.id}`" class="btn btn-warning">Edit</router-link>
+          </td>
+          <td>
+            <button @click="deleteEvent(event.id)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -40,19 +40,38 @@
 import AdminSideBar from '@/components/AdminSideBar.vue'
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
-import CreateNewEvents from '@/views/events/CreateNewEvents.vue'
 
 const events = ref([])
 
+// Fetch all events
 const fetchEvents = async () => {
   try {
     const response = await axios.get(`https://opendaywlvapi.onrender.com/events`)
     events.value = response.data
   } catch (error) {
     console.error('Error fetching Events:', error)
+    alert('Failed to fetch events. Please try again later.')
   }
 }
 
+// Delete an event
+const deleteEvent = async (eventId) => {
+  if (!confirm('Are you sure you want to delete this event?')) {
+    return // Exit if the user cancels
+  }
+  try {
+    const response = await axios.delete(`https://opendaywlvapi.onrender.com/events/${eventId}`)
+    if (response.status === 200) {
+      alert('Event deleted successfully')
+      fetchEvents() // Refresh the events list
+    }
+  } catch (error) {
+    console.error('Error deleting event:', error)
+    alert('Failed to delete event')
+  }
+}
+
+// Fetch events when the component is mounted
 onMounted(() => {
   fetchEvents()
 })

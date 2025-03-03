@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 from flask import jsonify
-from app.services.event_service import EventService
+from    app.services.event_service import EventService
 
 
 class EventController:
