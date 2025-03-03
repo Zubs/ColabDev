@@ -24,9 +24,13 @@ def token_required(f):
         if error:
             return jsonify({'error': error}), 401
 
-        return f(user, *args, **kwargs)
+        # request.user = user
+        # request.token = token
+
+        return f(user, token, *args, **kwargs)
 
     return decorated
+
 
 class AuthController:
     @staticmethod
@@ -45,21 +49,27 @@ class AuthController:
         return jsonify({"error": "Invalid username or password"}), 401
 
     @staticmethod
-    def logout():
-        if AuthService.logout():
+    @token_required
+    def logout(user, token):
+        success, error = AuthService.logout(token)
+
+        if success:
             return jsonify({"message": "Logout successful"}), 200
 
         return jsonify({"error": "No active session"}), 400
 
     @staticmethod
     @token_required
-    def get_profile(current_user):
-        return jsonify({
-            "message": "Profile retrieved successfully",
-            "data": current_user.serialize()
-        }), 200
+    def get_profiles(user, token):
+        users = AuthService.get_profiles()
 
-    # Method to be deleted later, just used to create first user(s)
+        return jsonify([{
+            "id": user.id,
+            "fullname": user.fullname,
+            "username": user.username,
+            "email": user.email
+        } for user in users])
+
     @staticmethod
     def register(data):
         if not data or 'fullname' not in data or 'username' not in data or 'email' not in data or 'password' not in data:

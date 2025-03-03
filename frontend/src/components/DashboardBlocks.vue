@@ -1,15 +1,14 @@
 <template>
   <div class="container">
-  <div class = "dashboard">
-    <a href="/handle-events" class = "dashboard-box">Events</a>
-    <a href="/handle-registrations" class = "dashboard-box">Registrations</a>
-    <a href="/handle-venue" class = "dashboard-box">Venue</a>
-    <a href="/handle-staff" class = "dashboard-box">Staff</a>
-    <a href = "/handle-FAQ" class = "dashboard-box">FAQ</a>
-    <a href="/security" class = "dashboard-box">Security</a>
+    <div class="dashboard">
+      <a href="/handle-events" class="dashboard-box">Events</a>
+      <router-link :to="{ name: 'admin-registrations' }" class="dashboard-box">Registrations</router-link>
+      <a href="/handle-venue" class="dashboard-box">Venue</a>
+      <router-link :to="{ name: 'admin-staff' }" class="dashboard-box">Staff</router-link>
+      <a href="/handle-FAQ" class="dashboard-box">FAQ</a>
+      <a href="/security" class="dashboard-box">Security</a>
+    </div>
   </div>
-  </div>
-
 </template>
 
 <style scoped>
@@ -20,6 +19,7 @@
   padding: 20px;
   text-align: center;
 }
+
 .dashboard-box {
   display: flex;
   align-items: center;
@@ -37,11 +37,9 @@
 .dashboard-box:hover {
   background-color: #2980b9; /* Darker blue on hover */
 }
+
 .container {
   padding-top: 9px;
   margin-right: 100px;
 }
 </style>
-
-<script setup lang="ts">
-</script>

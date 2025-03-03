@@ -10,8 +10,8 @@ class User(db.Model):
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now().astimezone)
+    updated_at = db.Column(db.DateTime, default=datetime.now().astimezone, onupdate=datetime.now().astimezone)
     deleted_at = db.Column(db.DateTime, nullable=True)
 
     def set_password(self, password):

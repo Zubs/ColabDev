@@ -22,15 +22,17 @@ The University of Wolverhampton is a leading modern university with a tradition 
             - [ ] Updating directions
             - [ ] Deleting directions
         - [ ] Attendance/Engagements
-            - [ ] View registration details
+            - [x] View registration details
             - [ ] View single registration detail
             - [ ] How many visitors scanned a given QR Code
     - [ ] Authentication
-        - [ ] Login
+        - [x] Login
+        - [x] Logout
         - [ ] Forgot Password
         - [ ] Reset Password
+        - [x] Add New Admin
 - [ ] Clients (Users)
-    - [ ] [Registration form] (https://join.wlv.ac.uk/form/openday?event_id=1712)
+    - [x] [Registration form] (https://join.wlv.ac.uk/form/openday?event_id=1712)
     - [x] View programmes listing
         - [ ] View single programme
     - [ ] [Open days] (https://www.wlv.ac.uk/news-and-events/open-day/)
@@ -44,7 +46,7 @@ The University of Wolverhampton is a leading modern university with a tradition 
             - [ ] Walsall campus
             - [ ] Springfield campus
             - [ ] Telford campus
-    - [ ] FAQs
+    - [x] FAQs
 - [ ] Notifications
     - [ ] Mails (Mailchimp)
         - [ ] Registration confirmation mail
@@ -57,11 +59,11 @@ The University of Wolverhampton is a leading modern university with a tradition 
     - [ ] Generation for registration confirmation email
 
 ## Schemas (drafts)
-User
-
-Programme
-
-Attendee? (registrations)
+Events
+FAQs
+Registrations
+Tokens (JWT)
+Users (Admins)
 
 ## Stacks
 - [Frontend](./frontend/README.md)
