@@ -1,4 +1,4 @@
-<template>
+<<template>
   <admin-side-bar></admin-side-bar>
   <admin-dashboard-nav-bar></admin-dashboard-nav-bar>
 
@@ -218,3 +218,4 @@ function closeModal() {
   border-top: 1px solid #ddd;
 }
 </style>
+
