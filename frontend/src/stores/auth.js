@@ -40,8 +40,15 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.removeItem('user')
       localStorage.removeItem('token')
     } catch (error) {
-      console.error('Login failed:', error)
-      throw error
+      if (error.response.status === 401 && error.response.data.message === 'Token expired. Please login again.') {
+        user.value = null
+        token.value = null
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
+      } else {
+        console.error('Logout failed:', error)
+        throw error
+      }
     }
   }
 
