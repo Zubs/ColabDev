@@ -47,3 +47,7 @@ class EventService:
             grouped_events[date].append(event)
 
         return grouped_events
+
+    @staticmethod
+    def get_event(event_id):
+        return Event.query.get(event_id)
