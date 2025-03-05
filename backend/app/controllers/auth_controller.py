@@ -24,9 +24,6 @@ def token_required(f):
         if error:
             return jsonify({'error': error}), 401
 
-        # request.user = user
-        # request.token = token
-
         return f(user, token, *args, **kwargs)
 
     return decorated

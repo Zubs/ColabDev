@@ -11,8 +11,12 @@
         </button>
 
         <div class="dropdown-content" v-show="isEventsOpen">
-          <a href="#" class="dropdown-link">Create new events</a>
-          <a href="#" class="dropdown-link">Existing events</a>
+          <router-link :to="{ name: 'admin-events-create' }" class="dropdown-link"
+            >Create new events
+          </router-link>
+          <router-link :to="{ name: 'admin-events' }" class="dropdown-link"
+            >Existing events
+          </router-link>
         </div>
       </div>
 
@@ -50,8 +54,12 @@
         </button>
 
         <div class="dropdown-content" v-show="isStaffOpen">
-          <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-link">Add new staff</router-link>
-          <router-link :to="{ name: 'admin-staff' }" class="dropdown-link">Manage staff</router-link>
+          <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-link"
+            >Add new staff
+          </router-link>
+          <router-link :to="{ name: 'admin-staff' }" class="dropdown-link"
+            >Manage staff
+          </router-link>
         </div>
       </div>
 

@@ -1,14 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import EventView from '../views/events/EventView.vue'
-import HandleEvents from '../views/admin-dashboard/HandleEvents.vue'
-import HandleRegistrations from '../views/admin-dashboard/HandleRegistrations.vue'
 import HandleVenue from '../views/admin-dashboard/HandleVenue.vue'
-import HandleStaff from '../views/admin-dashboard/HandleStaff.vue'
-import CreateStaff from '../views/admin-dashboard/CreateStaff.vue'
 import HandleFAQ from '../views/admin-dashboard/HandleFAQ.vue'
 import HandleSecurity from '../views/admin-dashboard/Security.vue'
-import DashboardView from '@/views/admin-dashboard/DashboardView.vue'
 import FAQView from '../views/faq/faq.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -16,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: () => import('../views/HomeView.vue'),
   },
   {
     path: '/admin',
@@ -30,26 +24,45 @@ const routes = [
       {
         path: '',
         name: 'admin-dashboard',
-        component: DashboardView,
+        component: () => import('../views/admin-dashboard/DashboardView.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: 'registrations',
         name: 'admin-registrations',
-        component: HandleRegistrations,
+        component: () => import('../views/admin-dashboard/HandleRegistrations.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: 'staff',
         name: 'admin-staff',
-        component: HandleStaff,
+        component: () => import('../views/admin-dashboard/HandleStaff.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: 'staff/create',
         name: 'admin-staff-create',
-        component: CreateStaff,
-      }
+        component: () => import('../views/admin-dashboard/CreateStaff.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'events',
+        name: 'admin-events',
+        component: () => import('../views/admin-dashboard/HandleEvents.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'events/create',
+        name: 'admin-events-create',
+        component: () => import('../views/events/CreateNewEvents.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'events/:id/edit',
+        name: 'admin-events-edit',
+        component: () => import('../views/events/EditEvents.vue'),
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {
@@ -66,11 +79,6 @@ const routes = [
     path: '/registration',
     name: 'registration',
     component: () => import('../views/Registration.vue'),
-  },
-  {
-    path: '/handle-events',
-    name: 'handle-events',
-    component: HandleEvents,
   },
   {
     path: '/handle-venue',

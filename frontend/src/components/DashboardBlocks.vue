@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="dashboard">
-      <a href="/handle-events" class="dashboard-box">Events</a>
+      <router-link :to="{ name: 'admin-events' }" class="dashboard-box">Events</router-link>
       <router-link :to="{ name: 'admin-registrations' }" class="dashboard-box">Registrations</router-link>
       <a href="/handle-venue" class="dashboard-box">Venue</a>
       <router-link :to="{ name: 'admin-staff' }" class="dashboard-box">Staff</router-link>
