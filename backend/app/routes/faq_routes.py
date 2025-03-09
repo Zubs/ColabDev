@@ -7,6 +7,10 @@ bp = Blueprint('faq', __name__, url_prefix='/faqs')
 def get_faqs():
     return FAQController.get_faqs()
 
+@bp.route('/<int:faq_id>', methods=['GET'])
+def get_faq(faq_id):
+    return FAQController.get_faq(faq_id)
+
 @bp.route('', methods=['POST'])
 def create_faq():
     return FAQController.create_faq(request.json)

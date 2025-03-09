@@ -15,6 +15,20 @@ class FAQController:
 
     @staticmethod
     @token_required
+    def get_faq(user, token, faq_id):
+        faq = FAQService.get_faq(faq_id)
+
+        if faq:
+            return jsonify({
+                "id": faq.id,
+                "question": faq.question,
+                "answer": faq.answer
+            })
+
+        return jsonify({"error": "FAQ not found"}), 404
+
+    @staticmethod
+    @token_required
     def create_faq(user, token, data):
         if not data or 'question' not in data or 'answer' not in data:
             return jsonify({"error": "Invalid data"}), 400
