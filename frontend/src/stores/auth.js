@@ -40,7 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (error) {
       if (
         error.response.status === 401 &&
-        error.response.data.message === 'Token expired. Please login again.'
+        error.response.data.error === 'Token expired. Please login again.'
       ) {
         user.value = null
         token.value = null

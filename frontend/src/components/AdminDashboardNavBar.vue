@@ -8,7 +8,7 @@
         />
       </div>
       <a href="/settings" class="box">Settings</a>
-      <a href="/home" class="box">Home</a>
+      <router-link :to="{ name: 'admin' }" class="box">Home</router-link>
       <a href="/profile" class="box">Profile</a>
     </div>
   </div>

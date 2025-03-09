@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EventView from '../views/events/EventView.vue'
-import HandleVenue from '../views/admin-dashboard/HandleVenue.vue'
-import HandleFAQ from '../views/admin-dashboard/HandleFAQ.vue'
 import HandleSecurity from '../views/admin-dashboard/Security.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -62,6 +60,24 @@ const routes = [
         component: () => import('../views/events/EditEvents.vue'),
         meta: { requiresAuth: true },
       },
+      {
+        path: 'faqs',
+        name: 'admin-faqs',
+        component: () => import('../views/admin-dashboard/HandleFAQ.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'faqs/create',
+        name: 'admin-faqs-create',
+        component: () => import('../views/admin-dashboard/CreateFAQ.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'faqs/:id/edit',
+        name: 'admin-faqs-edit',
+        component: () => import('../views/admin-dashboard/EditFAQ.vue'),
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {
@@ -78,16 +94,6 @@ const routes = [
     path: '/registration',
     name: 'registration',
     component: () => import('../views/RegistrationView.vue'),
-  },
-  {
-    path: '/handle-venue',
-    name: 'handle-venue',
-    component: HandleVenue,
-  },
-  {
-    path: '/handle-faq',
-    name: 'handle-faq',
-    component: HandleFAQ,
   },
   {
     path: '/security',
