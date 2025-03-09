@@ -3,7 +3,6 @@ import EventView from '../views/events/EventView.vue'
 import HandleVenue from '../views/admin-dashboard/HandleVenue.vue'
 import HandleFAQ from '../views/admin-dashboard/HandleFAQ.vue'
 import HandleSecurity from '../views/admin-dashboard/Security.vue'
-import FAQView from '../views/faq/faq.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const routes = [
@@ -78,7 +77,7 @@ const routes = [
   {
     path: '/registration',
     name: 'registration',
-    component: () => import('../views/Registration.vue'),
+    component: () => import('../views/RegistrationView.vue'),
   },
   {
     path: '/handle-venue',
@@ -98,7 +97,7 @@ const routes = [
   {
     path: '/faqs',
     name: 'faqs',
-    component: FAQView,
+    component: () => import('../views/faq/FAQView.vue'),
   },
 ]
 
