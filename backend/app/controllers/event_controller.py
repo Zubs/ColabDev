@@ -63,7 +63,7 @@ class EventController:
 
     @staticmethod
     @token_required
-    def create_event(data):
+    def create_event(user, token, data):
         validation_error = EventController.validate_event_data(data)
         if validation_error:
             return validation_error
@@ -84,7 +84,7 @@ class EventController:
 
     @staticmethod
     @token_required
-    def update_event(event_id, data):
+    def update_event(user, token, event_id, data):
         validation_error = EventController.validate_event_data(data)
         if validation_error:
             return validation_error
@@ -109,7 +109,7 @@ class EventController:
 
     @staticmethod
     @token_required
-    def delete_event(event_id):
+    def delete_event(user, token, event_id):
         try:
             if EventService.delete_event(event_id):
                 return jsonify({"message": "Event deleted successfully"})

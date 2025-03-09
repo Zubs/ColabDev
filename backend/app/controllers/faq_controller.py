@@ -15,7 +15,7 @@ class FAQController:
 
     @staticmethod
     @token_required
-    def create_faq(data):
+    def create_faq(user, token, data):
         if not data or 'question' not in data or 'answer' not in data:
             return jsonify({"error": "Invalid data"}), 400
 
@@ -25,7 +25,7 @@ class FAQController:
 
     @staticmethod
     @token_required
-    def update_faq(faq_id, data):
+    def update_faq(user, token, faq_id, data):
         faq = FAQService.update_faq(faq_id, data['question'], data['answer'])
 
         if faq:
@@ -35,7 +35,7 @@ class FAQController:
 
     @staticmethod
     @token_required
-    def delete_faq(faq_id):
+    def delete_faq(user, token, faq_id):
         if FAQService.delete_faq(faq_id):
             return jsonify({"message": "FAQ deleted successfully"})
 
