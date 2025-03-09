@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EventView from '../views/events/EventView.vue'
-import HandleSecurity from '../views/admin-dashboard/Security.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const routes = [
@@ -88,17 +86,12 @@ const routes = [
   {
     path: '/events',
     name: 'events',
-    component: EventView,
+    component: () => import('../views/events/EventView.vue'),
   },
   {
     path: '/registration',
     name: 'registration',
     component: () => import('../views/RegistrationView.vue'),
-  },
-  {
-    path: '/security',
-    name: 'security',
-    component: HandleSecurity,
   },
   {
     path: '/faqs',

@@ -6,8 +6,7 @@
         >Registrations
       </router-link>
       <router-link :to="{ name: 'admin-staff' }" class="dashboard-box">Staff</router-link>
-      <a href="/handle-FAQ" class="dashboard-box">FAQ</a>
-      <a href="/security" class="dashboard-box">Security</a>
+      <router-link :to="{ name: 'admin-faqs' }" class="dashboard-box">FAQ</router-link>
     </div>
   </div>
 </template>
