@@ -33,7 +33,7 @@
       </div>
       <div v-else class="events-container">
         <div v-for="event in filteredEvents" :key="event.id || event['Event Title']" class="event-card">
-          <div class="event-content">
+          <div class="event-content"> 
             <h2>📌 {{ event.title }}</h2>
             <p>{{ event.description || "No description available." }}</p>
             <p><strong>📅 Date:</strong> {{ formatDate(event.date) }}</p>
