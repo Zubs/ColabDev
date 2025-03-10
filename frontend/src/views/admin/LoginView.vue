@@ -37,6 +37,26 @@
           </div>
         </li>
       </ul>
+      <div class="form-group">
+            <input
+              type="submit"
+              value="Login"
+              class="btn btn-primary py-3 px-5 form-control"
+              :disabled="loading"
+            />
+            <span v-if="loading" class="text-info">Loading...</span>
+            <span v-if="errors.request" class="text-danger">{{ errors.request }}</span>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6 d-flex">
+        <img
+          src="https://cdn-wlvacuk.terminalfour.net/media/departments/digital-content-and-communications/images-18-19/DSC_0103.JPG"
+          alt="Responsive image"
+          class="img-fluid"
+          style="margin-left: 150px"
+        />
+      </div>
     </div>
 
     <!-- Edit FAQ Modal -->
@@ -67,7 +87,6 @@
 
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -116,8 +135,53 @@ export default {
         this.error = "";
       }
     }
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const username = ref('')
+const password = ref('')
+const errors = ref({ username: '', password: '', request: '' })
+const loading = ref(false)
+const authStore = useAuthStore()
+const router = useRouter()
+
+const validateUsername = () => {
+  errors.value.username = ''
+  if (!username.value) {
+    errors.value.username = 'Username is required'
+  } else if (username.value.length < 5) {
+    errors.value.username = 'Username must be at least 5 characters'
   }
-};
+}
+
+const validate = () => {
+  validateUsername()
+  errors.value.password = ''
+  if (!password.value) {
+    errors.value.password = 'Password is required'
+  }
+  return !errors.value.username && !errors.value.password
+}
+
+const login = async () => {
+  if (!validate()) return
+  loading.value = true
+  errors.value.request = ''
+
+  try {
+    await authStore.login({ username: username.value, password: password.value })
+    await router.push({ name: 'admin-dashboard' })
+  } catch (error) {
+    errors.value.request = `Login failed: ${error.response.data.error || error.message}`
+  }
+
+  loading.value = false
+}
 </script>
 
 <style>

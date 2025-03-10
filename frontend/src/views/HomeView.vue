@@ -7,7 +7,7 @@
     <Events />
     <Testimonies />
     <Pricing />
-    <Blogs />
+    <BlogsComponent />
     <Newsletter />
     <Gallery />
     <Footer />
@@ -22,7 +22,7 @@ import Speakers from "@/components/Speakers.vue";
 import Events from "@/components/Events.vue";
 import Testimonies from "@/components/Testimonies.vue";
 import Pricing from "@/components/Pricing.vue";
-import Blogs from "@/components/Blogs.vue";
+import BlogsComponent from "@/components/BlogsComponent.vue";
 import Newsletter from "@/components/Newsletter.vue";
 import Gallery from "@/components/Gallery.vue";
 import Footer from "@/components/Footer.vue";

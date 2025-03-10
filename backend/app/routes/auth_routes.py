@@ -11,9 +11,9 @@ def login():
 def logout():
     return AuthController.logout()
 
-@bp.route('/profile', methods=['GET'])
-def get_profile():
-    return AuthController.get_profile()
+@bp.route('/users', methods=['GET'])
+def get_profiles():
+    return AuthController.get_profiles()
 
 @bp.route('/register', methods=['POST'])
 def register():

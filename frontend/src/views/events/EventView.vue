@@ -3,6 +3,7 @@
     <NavBar />
     <div class="background-container">
       <section class="content">
+        <!-- Wrapping the heading and paragraph in a div with a background box -->
         <div class="text-box">
           <h1 class="move-rightheader">EVENTS LINED UP</h1>
         </div>

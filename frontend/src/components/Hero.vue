@@ -13,7 +13,7 @@
             <div class="time pl-4" id="minutes"></div>
             <div class="time pl-4" id="seconds"></div>
           </div>
-          <a href="/registration" class="btn btn-primary btn-lg mt-5">Book Now</a>
+          <router-link :to="{ name: 'registration' }" class="btn btn-primary btn-lg mt-5">Book Now</router-link>
         </div>
       </div>
     </div>

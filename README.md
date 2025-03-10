@@ -11,26 +11,33 @@ The University of Wolverhampton is a leading modern university with a tradition 
     - [ ] Open day guide
 - [ ] Admin
     - [ ] Dashboard
-        - [ ] Programmes
-            - [ ] Adding programmes
-            - [ ] Viewing programmes
-            - [ ] Updating/managing programmes
-            - [ ] Removing/deleting programmes
+        - [x] Events
+            - [x] Adding events
+            - [x] Viewing events
+            - [x] Updating/managing events
+            - [x] Removing/deleting events
+        - [x] FAQs
+            - [x] Adding FAQs
+            - [x] Viewing FAQs
+            - [x] Updating/managing FAQs
+            - [x] Removing/deleting FAQs
         - [ ] Directions
             - [ ] Adding directions
             - [ ] Viewing directions
             - [ ] Updating directions
             - [ ] Deleting directions
         - [ ] Attendance/Engagements
-            - [ ] View registration details
+            - [x] View registration details
             - [ ] View single registration detail
             - [ ] How many visitors scanned a given QR Code
     - [ ] Authentication
-        - [ ] Login
+        - [x] Login
+        - [x] Logout
         - [ ] Forgot Password
         - [ ] Reset Password
+        - [x] Add New Admin
 - [ ] Clients (Users)
-    - [ ] [Registration form] (https://join.wlv.ac.uk/form/openday?event_id=1712)
+    - [x] [Registration form] (https://join.wlv.ac.uk/form/openday?event_id=1712)
     - [x] View programmes listing
         - [ ] View single programme
     - [ ] [Open days] (https://www.wlv.ac.uk/news-and-events/open-day/)
@@ -44,7 +51,7 @@ The University of Wolverhampton is a leading modern university with a tradition 
             - [ ] Walsall campus
             - [ ] Springfield campus
             - [ ] Telford campus
-    - [ ] FAQs
+    - [x] FAQs
 - [ ] Notifications
     - [ ] Mails (Mailchimp)
         - [ ] Registration confirmation mail
@@ -57,11 +64,11 @@ The University of Wolverhampton is a leading modern university with a tradition 
     - [ ] Generation for registration confirmation email
 
 ## Schemas (drafts)
-User
-
-Programme
-
-Attendee? (registrations)
+- Events
+- FAQs
+- Registrations
+- Tokens (JWT)
+- Users (Admins)
 
 ## Stacks
 - [Frontend](./frontend/README.md)
