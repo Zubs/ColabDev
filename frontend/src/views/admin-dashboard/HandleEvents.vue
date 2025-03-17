@@ -69,7 +69,11 @@ const deleteEvent = async (eventId) => {
   }
 
   try {
-    const response = await api.delete(`/events/${eventId}`)
+    const response = await api.delete(`/events/${eventId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
 
     if (response.status === 200) {
       alert('Event deleted successfully')

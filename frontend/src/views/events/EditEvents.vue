@@ -99,7 +99,11 @@ const updateEvent = async () => {
   try {
     // 'en-GB' ensures the format DD/MM/YYYY
     event.value.date = new Date(event.value.date).toLocaleDateString('en-GB')
-    const response = await api.put(`/events/${event.value.id}`, event.value)
+    const response = await api.put(`/events/${event.value.id}`, event.value, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+    })
 
     if (response.status === 200) {
       alert('Event updated successfully!')
