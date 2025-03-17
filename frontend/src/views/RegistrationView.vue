@@ -903,6 +903,8 @@ const submitForm = async () => {
       throw new Error('Registration failed')
     }
 
+    alert("Registration successful! Check your email for confirmation. We're looking forward to seeing you at the event.")
+
     // TODO: Handle successful registration; e.g., show success message, redirect to confirmation page
 
     resetForm()
