@@ -11,11 +11,16 @@ The University of Wolverhampton is a leading modern university with a tradition 
     - [ ] Open day guide
 - [ ] Admin
     - [ ] Dashboard
-        - [ ] Programmes
-            - [ ] Adding programmes
-            - [ ] Viewing programmes
-            - [ ] Updating/managing programmes
-            - [ ] Removing/deleting programmes
+        - [x] Events
+            - [x] Adding events
+            - [x] Viewing events
+            - [x] Updating/managing events
+            - [x] Removing/deleting events
+        - [x] FAQs
+            - [x] Adding FAQs
+            - [x] Viewing FAQs
+            - [x] Updating/managing FAQs
+            - [x] Removing/deleting FAQs
         - [ ] Directions
             - [ ] Adding directions
             - [ ] Viewing directions
@@ -59,11 +64,11 @@ The University of Wolverhampton is a leading modern university with a tradition 
     - [ ] Generation for registration confirmation email
 
 ## Schemas (drafts)
-Events
-FAQs
-Registrations
-Tokens (JWT)
-Users (Admins)
+- Events
+- FAQs
+- Registrations
+- Tokens (JWT)
+- Users (Admins)
 
 ## Stacks
 - [Frontend](./frontend/README.md)

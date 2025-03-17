@@ -11,21 +11,12 @@
         </button>
 
         <div class="dropdown-content" v-show="isEventsOpen">
-          <a href="#" class="dropdown-link">Create new events</a>
-          <a href="#" class="dropdown-link">Existing events</a>
-        </div>
-      </div>
-
-      <!-- Venue dropdown -->
-      <div class="dropdown">
-        <button class="dropdown-button" @click="toggleVenue">
-          Venue
-          <span class="arrow" :class="{ 'arrow-down': isVenueOpen }">▸</span>
-        </button>
-
-        <div class="dropdown-content" v-show="isVenueOpen">
-          <a href="#" class="dropdown-link">Create new venue</a>
-          <a href="#" class="dropdown-link">Existing venues</a>
+          <router-link :to="{ name: 'admin-events-create' }" class="dropdown-link"
+            >Create new events
+          </router-link>
+          <router-link :to="{ name: 'admin-events' }" class="dropdown-link"
+            >Existing events
+          </router-link>
         </div>
       </div>
 
@@ -37,8 +28,10 @@
         </button>
 
         <div class="dropdown-content" v-show="isFAQOpen">
-          <a href="#" class="dropdown-link">Add new FAQs</a>
-          <a href="#" class="dropdown-link">Current FAQs</a>
+          <router-link :to="{ name: 'admin-faqs-create' }" class="dropdown-link"
+            >Add new FAQs
+          </router-link>
+          <router-link :to="{ name: 'admin-faqs' }" class="dropdown-link">Current FAQs</router-link>
         </div>
       </div>
 
@@ -50,8 +43,12 @@
         </button>
 
         <div class="dropdown-content" v-show="isStaffOpen">
-          <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-link">Add new staff</router-link>
-          <router-link :to="{ name: 'admin-staff' }" class="dropdown-link">Manage staff</router-link>
+          <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-link"
+            >Add new staff
+          </router-link>
+          <router-link :to="{ name: 'admin-staff' }" class="dropdown-link"
+            >Manage staff
+          </router-link>
         </div>
       </div>
 
@@ -81,7 +78,6 @@ import { useRouter } from 'vue-router'
 
 // Separate state for each dropdown
 const isEventsOpen = ref(false)
-const isVenueOpen = ref(false)
 const isFAQOpen = ref(false)
 const isStaffOpen = ref(false)
 const isRegistrationsOpen = ref(false)
@@ -90,10 +86,6 @@ const router = useRouter()
 
 const toggleEvents = () => {
   isEventsOpen.value = !isEventsOpen.value
-}
-
-const toggleVenue = () => {
-  isVenueOpen.value = !isVenueOpen.value
 }
 
 const toggleFAQ = () => {

@@ -10,8 +10,8 @@
                 alt="University Of Wolverhampton Logo"
             /></a>
             <p>
-              Far far away, behind the word mountains, far from the countries Vokalia and
-              Consonantia, there live the blind texts.
+              The University of Wolverhampton is a public university in Wolverhampton, England,
+               located on four campuses across the West Midlands, Shropshire and Staffordshire and Originally founded in 1827.
             </p>
             <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
               <li class="ftco-animate">
@@ -59,7 +59,12 @@
                 </li>
                 <li>
                   <a href="#"
-                    ><span class="icon icon-phone"></span><span class="text">01902321000</span></a
+                    ><span class="icon icon-phone"></span><span class="phone">+44 (0) 1902 323 505</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><span class="icon icon-envelope"></span><span class="email">admissions@wlv.ac.uk</span></a
                   >
                 </li>
               </ul>

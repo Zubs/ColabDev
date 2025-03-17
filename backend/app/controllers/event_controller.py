@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 from flask import jsonify
+from app.controllers.auth_controller import token_required
 from app.services.event_service import EventService
 
 
@@ -61,7 +62,8 @@ class EventController:
         return jsonify({"error": "Event not found"}), 404
 
     @staticmethod
-    def create_event(data):
+    @token_required
+    def create_event(user, token, data):
         validation_error = EventController.validate_event_data(data)
         if validation_error:
             return validation_error
@@ -81,7 +83,8 @@ class EventController:
         return jsonify({"message": "Event added successfully", "id": event.id}), 201
 
     @staticmethod
-    def update_event(event_id, data):
+    @token_required
+    def update_event(user, token, event_id, data):
         validation_error = EventController.validate_event_data(data)
         if validation_error:
             return validation_error
@@ -105,7 +108,8 @@ class EventController:
         return jsonify({"error": "Event not found"}), 404
 
     @staticmethod
-    def delete_event(event_id):
+    @token_required
+    def delete_event(user, token, event_id):
         try:
             if EventService.delete_event(event_id):
                 return jsonify({"message": "Event deleted successfully"})

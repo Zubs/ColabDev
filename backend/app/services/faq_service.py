@@ -7,6 +7,10 @@ class FAQService:
         return FAQ.query.filter_by(public=True).order_by(FAQ.updated_at.desc()).all()
 
     @staticmethod
+    def get_faq(faq_id):
+        return FAQ.query.get(faq_id)
+
+    @staticmethod
     def create_faq(question, answer):
         faq = FAQ(question=question, answer=answer)
         db.session.add(faq)
