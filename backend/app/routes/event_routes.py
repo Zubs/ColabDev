@@ -15,6 +15,10 @@ def create_event():
 def update_event(event_id):
     return EventController.update_event(event_id, request.json)
 
+@bp.route('/<int:event_id>', methods=['GET'])
+def get_event(event_id):
+    return EventController.get_event(event_id)
+
 @bp.route('/<int:event_id>', methods=['DELETE'])
 def delete_event(event_id):
     return EventController.delete_event(event_id)

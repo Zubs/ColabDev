@@ -1,8 +1,11 @@
 <template>
-  <admin-side-bar></admin-side-bar>
+  <AdminSideBar />
+  <AdminDashboardNavBar />
   <div class="box-container">
     <div class="button-container">
-      <button class="add-button" @click="addNewEvent">Add New Event</button>
+      <router-link :to="{ name: 'admin-events-create' }" class="add-button"
+        >Create New Event
+      </router-link>
     </div>
     <div class="box">
       <p class="text">Active events:</p>
@@ -24,10 +27,14 @@
             <td>{{ event.time }}</td>
             <td>{{ new Date(event.date).toDateString() }}</td>
             <td>
-              <button class="btn btn-warning">Edit</button>
+              <router-link
+                :to="{ name: 'admin-events-edit', params: { id: event.id } }"
+                class="btn btn-warning"
+                >Edit
+              </router-link>
             </td>
             <td>
-              <button class="btn btn-danger">Delete</button>
+              <button @click="deleteEvent(event.id)" class="btn btn-danger">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -39,19 +46,46 @@
 <script setup>
 import AdminSideBar from '@/components/AdminSideBar.vue'
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
+import api from '@/services/axios.js'
+import AdminDashboardNavBar from '@/components/AdminDashboardNavBar.vue'
 
 const events = ref([])
 
+// Fetch all events
 const fetchEvents = async () => {
   try {
-    const response = await axios.get(`https://opendaywlvapi.onrender.com/events`)
+    const response = await api.get(`/events`)
     events.value = response.data
   } catch (error) {
     console.error('Error fetching Events:', error)
+    alert('Failed to fetch events. Please try again later.')
   }
 }
 
+// Delete an event
+const deleteEvent = async (eventId) => {
+  if (!confirm('Are you sure you want to delete this event?')) {
+    return // Exit if the user cancels
+  }
+
+  try {
+    const response = await api.delete(`/events/${eventId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+
+    if (response.status === 200) {
+      alert('Event deleted successfully')
+      events.value = events.value.filter((event) => event.id !== eventId)
+    }
+  } catch (error) {
+    console.error('Error deleting event:', error)
+    alert('Failed to delete event')
+  }
+}
+
+// Fetch events when the component is mounted
 onMounted(() => {
   fetchEvents()
 })
@@ -90,7 +124,6 @@ onMounted(() => {
 
 .box {
   width: 850px;
-  height: 500px;
   background-color: lightcyan;
   padding-left: 20px;
   text-align: left;

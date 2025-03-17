@@ -1,4 +1,5 @@
 from flask import jsonify
+from app.controllers.auth_controller import token_required
 from app.services.faq_service import FAQService
 
 class FAQController:
@@ -13,7 +14,22 @@ class FAQController:
         } for faq in faqs])
 
     @staticmethod
-    def create_faq(data):
+    @token_required
+    def get_faq(user, token, faq_id):
+        faq = FAQService.get_faq(faq_id)
+
+        if faq:
+            return jsonify({
+                "id": faq.id,
+                "question": faq.question,
+                "answer": faq.answer
+            })
+
+        return jsonify({"error": "FAQ not found"}), 404
+
+    @staticmethod
+    @token_required
+    def create_faq(user, token, data):
         if not data or 'question' not in data or 'answer' not in data:
             return jsonify({"error": "Invalid data"}), 400
 
@@ -22,7 +38,8 @@ class FAQController:
         return jsonify({"message": "FAQ added successfully", "id": faq.id}), 201
 
     @staticmethod
-    def update_faq(faq_id, data):
+    @token_required
+    def update_faq(user, token, faq_id, data):
         faq = FAQService.update_faq(faq_id, data['question'], data['answer'])
 
         if faq:
@@ -31,7 +48,8 @@ class FAQController:
         return jsonify({"error": "FAQ not found"}), 404
 
     @staticmethod
-    def delete_faq(faq_id):
+    @token_required
+    def delete_faq(user, token, faq_id):
         if FAQService.delete_faq(faq_id):
             return jsonify({"message": "FAQ deleted successfully"})
 
