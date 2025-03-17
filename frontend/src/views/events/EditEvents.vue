@@ -99,6 +99,7 @@ const updateEvent = async () => {
   try {
     // 'en-GB' ensures the format DD/MM/YYYY
     event.value.date = new Date(event.value.date).toLocaleDateString('en-GB')
+    event.value.time = event.value.time.slice(0, 5)
     const response = await api.put(`/events/${event.value.id}`, event.value, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
