@@ -7,9 +7,7 @@
         <div class="text-box">
           <h1 class="move-rightheader">EVENTS LINED UP</h1>
         </div>
-        <p class="move-right">
-          Check out the exciting events taking place during our open days!
-        </p>
+        <p class="move-right">Check out the exciting events taking place during our open days!</p>
       </section>
     </div>
 
@@ -33,87 +31,88 @@
         No events available for this date.
       </div>
       <div v-else class="events-container">
-        <div v-for="event in filteredEvents" :key="event.id || event['Event Title']" class="event-card">
-          <div class="event-content"> 
+        <div
+          v-for="event in filteredEvents"
+          :key="event.id || event['Event Title']"
+          class="event-card"
+        >
+          <div class="event-content">
             <h2>📌 {{ event.title }}</h2>
-            <p>{{ event.description || "No description available." }}</p>
+            <p>{{ event.description || 'No description available.' }}</p>
             <p><strong>📅 Date:</strong> {{ formatDate(event.date) }}</p>
-            <p><strong>⏰ Time:</strong> {{ event.time || "TBA" }}</p>
-            <p><strong>⏳ Duration:</strong> {{ event.duration || "TBA" }}</p>
-            <p><strong>📍 Location:</strong> {{ event.location || "TBA" }}</p>
+            <p><strong>⏰ Time:</strong> {{ event.time || 'TBA' }}</p>
+            <p><strong>⏳ Duration:</strong> {{ event.duration || 'TBA' }}</p>
+            <p><strong>📍 Location:</strong> {{ event.location || 'TBA' }}</p>
           </div>
         </div>
       </div>
     </section>
-
     <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import axios from "axios";
-import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
+import { ref, computed, onMounted } from 'vue'
+import api from '@/services/axios.js'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
 
 // Stating variables
-const events = ref<any[]>([]);
-const loading = ref(true);
-const error = ref("");
-const selectedDate = ref<string>("");
+const events = ref<any[]>([])
+const loading = ref(true)
+const error = ref('')
+const selectedDate = ref<string>('')
 
 // Fetch events from API
 const fetchEvents = async () => {
   try {
-    const response = await axios.get("https://opendaywlvapi.onrender.com/events");
-
-    console.log("API Response:", response.data); // Debugging API response
+    const response = await api.get('/events')
 
     // Ensure response
     if (Array.isArray(response.data)) {
-      events.value = response.data;
+      events.value = response.data
 
       // Set default selected date to the first available date
       if (eventDates.value.length > 0) {
-        selectedDate.value = eventDates.value[0];
+        selectedDate.value = eventDates.value[0]
       }
     } else {
-      throw new Error("Invalid API response format");
+      throw new Error('Invalid API response format')
     }
   } catch (err: any) {
-    error.value = err.message || "Failed to load events. Please try again later.";
+    error.value = err.message || 'Failed to load events. Please try again later.'
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 
 // Extract unique dates from events
 const eventDates = computed(() => {
-  const uniqueDates = new Set(events.value.map(event => event.date));
-  return Array.from(uniqueDates).sort(); // Sort dates in ascending order DONOT CANGE
-});
+  const uniqueDates = new Set(events.value.map((event) => event.date))
+  return Array.from(uniqueDates).sort() // Sort dates in ascending order DO NOT CANGE
+})
 
-// Filtering events based on selected date DONOT CHANGE
+// Filtering events based on selected date DO NOT CHANGE
 const filteredEvents = computed(() => {
-  return events.value.filter(event => event.date === selectedDate.value);
-});
+  return events.value.filter((event) => event.date === selectedDate.value)
+})
 
 // Format date function
 const formatDate = (dateString: string | undefined) => {
-  if (!dateString) return "Unknown date";
-  const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
-  return new Date(dateString).toLocaleDateString("en-GB", options);
-};
+  if (!dateString) return 'Unknown date'
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+  return new Date(dateString).toLocaleDateString('en-GB', options)
+}
 
-// Fetch events 
-onMounted(fetchEvents);
+// Fetch events
+onMounted(fetchEvents)
 </script>
 
 <style scoped>
 /* Background container */
 .background-container {
   position: relative;
-  background-image: url("https://study-net.eu/wp-content/uploads/2020/02/pic_3.jpg");
+  background-image: url('https://study-net.eu/wp-content/uploads/2020/02/pic_3.jpg');
   background-size: cover;
   background-position: center;
   min-height: 50vh;
@@ -124,7 +123,7 @@ onMounted(fetchEvents);
 
 /* Blur effeect */
 .background-container::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -218,12 +217,12 @@ onMounted(fetchEvents);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease-in-out;
   text-align: left;
-  background: url("/wlvcourtyard.jpg") center/cover no-repeat;
+  background: url('/wlvcourtyard.jpg') center/cover no-repeat;
 }
 
 /*it doesnt work */
 .event-card::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
