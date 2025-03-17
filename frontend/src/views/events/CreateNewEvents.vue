@@ -81,6 +81,10 @@ const addEvent = async () => {
     events.value.date = new Date(events.value.date).toLocaleDateString('en-GB')
     const response = await api.post('/events', {
       ...events.value,
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
     })
 
     if (response.status === 201) {
