@@ -3,7 +3,6 @@
     <NavBar />
     <div class="background-container">
       <section class="content">
-        <!-- Wrapping the heading and paragraph in a div with a background box -->
         <div class="text-box">
           <h1 class="move-rightheader">EVENTS LINED UP</h1>
         </div>
@@ -11,7 +10,6 @@
       </section>
     </div>
 
-    <!-- Date Selection -->
     <section class="date-selector">
       <button
         v-for="(date, index) in eventDates"
@@ -23,7 +21,6 @@
       </button>
     </section>
 
-    <!-- Events Section -->
     <section class="events-section">
       <div v-if="loading" class="loading">Loading events...</div>
       <div v-else-if="error" class="error">{{ error }}</div>
@@ -57,22 +54,22 @@ import api from '@/services/axios.js'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 
-// Stating variables
 const events = ref<any[]>([])
 const loading = ref(true)
 const error = ref('')
 const selectedDate = ref<string>('')
 
-// Fetch events from API
 const fetchEvents = async () => {
   try {
     const response = await api.get('/events')
 
-    // Ensure response
     if (Array.isArray(response.data)) {
-      events.value = response.data
+      events.value = response.data.sort((a, b) => {
+        const dateTimeA = new Date(`${a.date} ${a.time}`).getTime()
+        const dateTimeB = new Date(`${b.date} ${b.time}`).getTime()
+        return dateTimeA - dateTimeB
+      })
 
-      // Set default selected date to the first available date
       if (eventDates.value.length > 0) {
         selectedDate.value = eventDates.value[0]
       }
@@ -86,30 +83,27 @@ const fetchEvents = async () => {
   }
 }
 
-// Extract unique dates from events
 const eventDates = computed(() => {
   const uniqueDates = new Set(events.value.map((event) => event.date))
-  return Array.from(uniqueDates).sort() // Sort dates in ascending order DO NOT CANGE
+  return Array.from(uniqueDates).sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
 })
 
-// Filtering events based on selected date DO NOT CHANGE
 const filteredEvents = computed(() => {
-  return events.value.filter((event) => event.date === selectedDate.value)
+  return events.value
+    .filter((event) => event.date === selectedDate.value)
+    .sort((a, b) => new Date(`${a.date} ${a.time}`).getTime() - new Date(`${b.date} ${b.time}`).getTime())
 })
 
-// Format date function
 const formatDate = (dateString: string | undefined) => {
   if (!dateString) return 'Unknown date'
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(dateString).toLocaleDateString('en-GB', options)
 }
 
-// Fetch events
 onMounted(fetchEvents)
 </script>
 
 <style scoped>
-/* Background container */
 .background-container {
   position: relative;
   background-image: url('https://study-net.eu/wp-content/uploads/2020/02/pic_3.jpg');
@@ -121,7 +115,6 @@ onMounted(fetchEvents)
   align-items: center;
 }
 
-/* Blur effeect */
 .background-container::before {
   content: '';
   position: absolute;
@@ -136,7 +129,6 @@ onMounted(fetchEvents)
   z-index: -1;
 }
 
-/* Content tex styled here */
 .content {
   text-align: center;
 }
@@ -163,7 +155,6 @@ onMounted(fetchEvents)
   color: black;
 }
 
-/* Date selector applied here */
 .date-selector {
   display: flex;
   justify-content: center;
@@ -193,13 +184,11 @@ onMounted(fetchEvents)
   transform: scale(1.05);
 }
 
-/* Events section */
 .events-section {
   padding: 20px;
   text-align: center;
 }
 
-/* Ensure events stack vertically or horizantlyy make ameds here  */
 .events-container {
   display: flex;
   flex-direction: column;
@@ -207,7 +196,6 @@ onMounted(fetchEvents)
   gap: 20px;
 }
 
-/* it doesnt work */
 .event-card {
   position: relative;
   width: 80%;
@@ -220,7 +208,6 @@ onMounted(fetchEvents)
   background: url('/wlvcourtyard.jpg') center/cover no-repeat;
 }
 
-/*it doesnt work */
 .event-card::before {
   content: '';
   position: absolute;
@@ -233,7 +220,6 @@ onMounted(fetchEvents)
   z-index: -1;
 }
 
-/* Stuff inside the event card */
 .event-content {
   position: relative;
   padding: 25px;
