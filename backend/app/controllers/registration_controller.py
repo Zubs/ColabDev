@@ -141,54 +141,121 @@ class RegistrationController:
 
     @classmethod
     def send_confirmation_email(cls, registration):
-        """Send a confirmation email to the registrant"""
+        """Send a confirmation email to the registrant with HTML template"""
         try:
+            html_body = f"""
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {{
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }}
+      .email-container {{
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }}
+      .email-header {{
+        font-size: 26px;
+        color: #333333;
+        text-align: center;
+        margin-bottom: 20px;
+      }}
+      .email-image {{
+        display: block;
+        width: 100%;
+        max-width: 560px;
+        height: auto;
+        margin: 0 auto 20px auto;
+        border-radius: 6px;
+      }}
+      .email-body {{
+        font-size: 16px;
+        color: #555555;
+        line-height: 1.6;
+        text-align: center;
+      }}
+      .email-footer {{
+        font-size: 14px;
+        color: #888888;
+        text-align: center;
+        margin-top: 30px;
+      }}
+      ul {{
+        font-size: 16px;
+        line-height: 1.6;
+        padding-left: 20px;
+        text-align: left;
+        display: inline-block;
+      }}
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-header">Your Open Day Booking is Confirmed!</div>
+
+      <img
+        class="email-image"
+        src="https://i.ibb.co/hRmWS5rv/bannerwlv.jpg"
+        alt="Open Day Banner"
+      />
+
+      <div class="email-body">
+        Thank you for booking your spot, {registration.title} {registration.first_name} {registration.last_name}!<br />
+        We're excited to welcome you for {registration.subject_area} on <strong>{registration.event_date}</strong>.<br /><br />
+        Keep an eye on your inbox—we'll send more details about:<br /><br />
+        <ul>
+            <li>Welcome tour and presentations</li>
+            <li>Department-specific sessions</li>
+            <li>Campus tours and accommodation</li>
+            <li>Meeting current students (bring {registration.guest_count} guests)</li>
+        </ul>
+        <br>
+        See you soon!
+      </div>
+
+      <div class="email-footer">
+        © 2025 University Name – All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
+            """
+
+            text_body = f"""
+Dear {registration.title} {registration.first_name} {registration.last_name},
+
+Thank you for booking our Open Day on {registration.event_date} for {registration.subject_area} ({registration.level_of_study}).
+
+We're excited to show you our facilities and answer your questions.
+
+Event details:
+- Date: {registration.event_date}
+- Subject: {registration.subject_area}
+- Level: {registration.level_of_study}
+- Guests: {registration.guest_count}
+
+See you soon!
+The University Team
+            """
+
             cls.postmark.emails.send(
                 From=os.environ.get('EMAIL_FROM', 'noreply@example.com'),
                 To=registration.email,
-                Subject=f"Registration Confirmation - {registration.event_date}",
-                TextBody=f"""
-                Dear {registration.title} {registration.first_name} {registration.last_name},
-
-                Thank you for registering for our event on {registration.event_date}.
-
-                Event Details:
-                - Date: {registration.event_date}
-                - Subject Area: {registration.subject_area}
-                - Level of Study: {registration.level_of_study}
-                - Number of Guests: {registration.guest_count}
-
-                We are looking forward to seeing you!
-
-                Best regards,
-                The Events Team
-                """,
-                HtmlBody=f"""
-                <html>
-                <body>
-                    <h2>Registration Confirmation</h2>
-                    <p>Dear {registration.title} {registration.first_name} {registration.last_name},</p>
-                    <p>Thank you for registering for our event on <strong>{registration.event_date}</strong>.</p>
-
-                    <h3>Event Details:</h3>
-                    <ul>
-                        <li>Date: {registration.event_date}</li>
-                        <li>Subject Area: {registration.subject_area}</li>
-                        <li>Level of Study: {registration.level_of_study}</li>
-                        <li>Number of Guests: {registration.guest_count}</li>
-                    </ul>
-
-                    <p>We are looking forward to seeing you!</p>
-
-                    <p>Best regards,<br>
-                    The Events Team</p>
-                </body>
-                </html>
-                """
+                Subject=f"Open Day Confirmation - {registration.event_date}",
+                HtmlBody=html_body,
+                TextBody=text_body
             )
             return True
         except Exception as e:
-            # Log the error but don't stop the registration process
             print(f"Error sending confirmation email: {str(e)}")
             return False
 
