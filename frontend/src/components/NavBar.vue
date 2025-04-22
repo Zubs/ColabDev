@@ -1,8 +1,12 @@
 <template>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-    id="ftco-navbar"
-  >
+ <nav
+  :class="[
+    'navbar navbar-expand-lg ftco_navbar ftco-navbar-light',
+    { 'solid-bg': solidBackground, 'bg-dark navbar-dark': !solidBackground }
+  ]"
+  id="ftco-navbar"
+>
+
     <div class="container">
       <router-link class="navbar-brand" :to="{ name: 'home' }">
         <img
