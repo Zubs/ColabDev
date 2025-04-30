@@ -1,74 +1,94 @@
 <template>
-  <div class="container">
-    <div class="sidebar">
-      <router-link :to="{ name: 'admin-dashboard' }" class="sidebar-link">Home</router-link>
+  <div class="container-fluid p-0">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light-blue sidebar">
+      <router-link :to="{ name: 'admin-dashboard' }" class="text-dark text-decoration-none mb-3 fs-3">Home</router-link>
 
       <!-- Events dropdown -->
-      <div class="dropdown">
-        <button class="dropdown-button" @click="toggleEvents">
-          Events
-          <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
-        </button>
+      <div class="dropdown mb-3">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="fs-3">Events</span>
+          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleEvents">
+            <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
+          </button>
+        </div>
 
-        <div class="dropdown-content" v-show="isEventsOpen">
-          <router-link :to="{ name: 'admin-events-create' }" class="dropdown-link"
-            >Create new events
+        <div v-show="isEventsOpen" class="dropdown-content ms-4 mt-2">
+          <router-link :to="{ name: 'admin-events-create' }"
+                       class="dropdown-item text-dark text-decoration-none fs-5 hover-margin">
+            Create new events
           </router-link>
-          <router-link :to="{ name: 'admin-events' }" class="dropdown-link"
-            >Existing events
+          <router-link :to="{ name: 'admin-events' }"
+                       class="dropdown-item text-dark text-decoration-none fs-5 hover-margin">
+            Existing events
           </router-link>
         </div>
       </div>
 
       <!-- FAQ dropdown -->
-      <div class="dropdown">
-        <button class="dropdown-button" @click="toggleFAQ">
-          FAQ
-          <span class="arrow" :class="{ 'arrow-down': isFAQOpen }">▸</span>
-        </button>
+      <div class="dropdown mb-3">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="fs-3">FAQ</span>
+          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleFAQ">
+            <span class="arrow" :class="{ 'arrow-down': isFAQOpen }">▸</span>
+          </button>
+        </div>
 
-        <div class="dropdown-content" v-show="isFAQOpen">
-          <router-link :to="{ name: 'admin-faqs-create' }" class="dropdown-link"
-            >Add new FAQs
+        <div v-show="isFAQOpen" class="dropdown-content ms-4 mt-2">
+          <router-link :to="{ name: 'admin-faqs-create' }"
+                       class="dropdown-item text-dark text-decoration-none fs-5 hover-margin">
+            Add new FAQs
           </router-link>
-          <router-link :to="{ name: 'admin-faqs' }" class="dropdown-link">Current FAQs</router-link>
+          <router-link :to="{ name: 'admin-faqs' }"
+                       class="dropdown-item text-dark text-decoration-none fs-5 hover-margin">
+            Current FAQs
+          </router-link>
         </div>
       </div>
 
       <!-- Staff dropdown -->
-      <div class="dropdown">
-        <button class="dropdown-button" @click="toggleStaff">
-          Staff
-          <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
-        </button>
+      <div class="dropdown mb-3">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="fs-3">Staff</span>
+          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleStaff">
+            <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
+          </button>
+        </div>
 
-        <div class="dropdown-content" v-show="isStaffOpen">
-          <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-link"
-            >Add new staff
+        <div v-show="isStaffOpen" class="dropdown-content ms-4 mt-2">
+          <router-link :to="{ name: 'admin-staff-create' }"
+                       class="dropdown-item text-dark text-decoration-none fs-5 hover-margin">
+            Add new staff
           </router-link>
-          <router-link :to="{ name: 'admin-staff' }" class="dropdown-link"
-            >Manage staff
+          <router-link :to="{ name: 'admin-staff' }"
+                       class="dropdown-item text-dark text-decoration-none fs-5 hover-margin">
+            Manage staff
           </router-link>
         </div>
       </div>
 
       <!-- Registrations dropdown -->
-      <div class="dropdown">
-        <button class="dropdown-button" @click="toggleRegistrations">
-          Registrations
-          <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
-        </button>
+      <div class="dropdown mb-3">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="fs-3">Registrations</span>
+          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleRegistrations">
+            <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
+          </button>
+        </div>
 
-        <div class="dropdown-content" v-show="isRegistrationsOpen">
-          <router-link :to="{ name: 'admin-registrations' }" class="dropdown-link"
-            >View registrations
+        <div v-show="isRegistrationsOpen" class="dropdown-content ms-4 mt-2">
+          <router-link :to="{ name: 'admin-registrations' }"
+                       class="dropdown-item text-dark text-decoration-none fs-5 hover-margin">
+            View registrations
           </router-link>
         </div>
       </div>
     </div>
-  </div>
 
-  <button class="logout-button" @click="logout">LOGOUT</button>
+    <button class="btn btn-outline-dark position-fixed bottom-0 start-50 translate-middle-x mb-3 fs-5 fw-bold logout-button"
+            @click="logout">
+      LOGOUT
+    </button>
+  </div>
 </template>
 
 <script setup>
@@ -106,103 +126,77 @@ const logout = async () => {
 }
 </script>
 
-<style>
-/* Reset default margins and padding */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-</style>
-
 <style scoped>
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+/* Custom light blue background */
+.bg-light-blue {
   background-color: lightblue;
+}
+
+/* Sidebar fixed positioning and width */
+.sidebar {
   width: 300px;
-  height: 100%;
+  height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
-  bottom: 0;
+  z-index: 1000;
 }
 
-.sidebar-link {
-  color: black;
-  text-decoration: none;
-  margin-bottom: 10px;
-  font-size: 30px;
-}
-
-.container {
-  display: flex;
-}
-
-/* Dropdown styles */
-.dropdown {
-  margin-top: 10px;
-}
-
-.dropdown-button {
+/* Arrow button styling */
+.arrow-button {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0;
-  font-size: 30px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: black;
-  text-align: left;
+  justify-content: center;
 }
 
+/* Arrow rotation animation */
 .arrow {
   transition: transform 0.3s ease;
   display: inline-block;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .arrow-down {
   transform: rotate(90deg);
 }
 
+/* Dropdown content styling */
 .dropdown-content {
-  margin-left: 20px;
-  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  font-size: 1.20rem;
 }
 
-.dropdown-link {
-  color: black;
-  text-decoration: none;
-  font-size: 20px;
-  transition: margin-left 0.3s ease;
-}
-
-.dropdown-link:hover {
-  margin-left: 5px;
+/* Hover effect for dropdown links */
+.hover-margin:hover {
+  margin-left: 5px !important;
+  transition: margin-left 0.2s ease;
 }
 
 .logout-button {
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
-  position: fixed; /* Keep it visible even when scrolling */
-  bottom: 20px; /* Position at the bottom */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-590%); /* Adjust to be exactly centered */
-  background-color: white;
-  border: 2px solid black;
   padding: 10px 20px;
-  cursor: pointer;
+  font-size: 1.25rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 20px;
+  right: 87%;
+  transform: translateX(-50%);
+  z-index: 1001;
 }
+
+.dropdown > div > span.fs-3 {
+  font-size: 1.75rem;
+  color: black;
+}
+.router-link-active, .text-dark {
+  font-size: 2rem;
+}
+
 </style>
