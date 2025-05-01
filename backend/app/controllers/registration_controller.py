@@ -1,13 +1,16 @@
 from flask import jsonify
 from app.services.registration_service import RegistrationService
 from app.controllers.auth_controller import token_required
-from postmarker.core import PostmarkClient
 import os
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 class RegistrationController:
-    # Initialize Postmark client
-    postmark = PostmarkClient(server_token=os.environ.get('POSTMARK_SERVER_TOKEN'))
+    # Initialize Brevo
+    sender_email = os.environ.get('EMAIL_FROM', 'zubairidrisaweda@gmail.com')
+    smtp_password = os.environ.get('BREVO_SMTP_KEY')
 
     @staticmethod
     @token_required
@@ -143,117 +146,124 @@ class RegistrationController:
     def send_confirmation_email(cls, registration):
         """Send a confirmation email to the registrant with HTML template"""
         try:
-            html_body = f"""
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <style>
-      body {{
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-      }}
-      .email-container {{
-        max-width: 600px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }}
-      .email-header {{
-        font-size: 26px;
-        color: #333333;
-        text-align: center;
-        margin-bottom: 20px;
-      }}
-      .email-image {{
-        display: block;
-        width: 100%;
-        max-width: 560px;
-        height: auto;
-        margin: 0 auto 20px auto;
-        border-radius: 6px;
-      }}
-      .email-body {{
-        font-size: 16px;
-        color: #555555;
-        line-height: 1.6;
-        text-align: center;
-      }}
-      .email-footer {{
-        font-size: 14px;
-        color: #888888;
-        text-align: center;
-        margin-top: 30px;
-      }}
-      ul {{
-        font-size: 16px;
-        line-height: 1.6;
-        padding-left: 20px;
-        text-align: left;
-        display: inline-block;
-      }}
-    </style>
-  </head>
-  <body>
-    <div class="email-container">
-      <div class="email-header">Your Open Day Booking is Confirmed!</div>
-
-      <img
-        class="email-image"
-        src="https://i.ibb.co/hRmWS5rv/bannerwlv.jpg"
-        alt="Open Day Banner"
-      />
-
-      <div class="email-body">
-        Thank you for booking your spot, {registration.title} {registration.first_name} {registration.last_name}!<br />
-        We're excited to welcome you for {registration.subject_area} on <strong>{registration.event_date}</strong>.<br /><br />
-        Keep an eye on your inbox—we'll send more details about:<br /><br />
-        <ul>
-            <li>Welcome tour and presentations</li>
-            <li>Department-specific sessions</li>
-            <li>Campus tours and accommodation</li>
-            <li>Meeting current students (bring {registration.guest_count} guests)</li>
-        </ul>
-        <br>
-        See you soon!
-      </div>
-
-      <div class="email-footer">
-        © 2025 University Name – All rights reserved.
-      </div>
-    </div>
-  </body>
-</html>
+            recipient_email = registration.email
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = f"Open Day Confirmation - {registration.event_date}"
+            msg["From"] = cls.sender_email
+            msg["To"] = recipient_email
+            text = f"""
+            Dear {registration.title} {registration.first_name} {registration.last_name},
+            
+            Thank you for booking our Open Day on {registration.event_date} for {registration.subject_area} ({registration.level_of_study}).
+            
+            We're excited to show you our facilities and answer your questions.
+            
+            Event details:
+            - Date: {registration.event_date}
+            - Subject: {registration.subject_area}
+            - Level: {registration.level_of_study}
+            - Guests: {registration.guest_count}
+            
+            See you soon!
+            The University Team
+            """
+            html = f"""
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <meta charset="UTF-8" />
+                <style>
+                  body {{
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    margin: 0;
+                    padding: 20px;
+                  }}
+                  .email-container {{
+                    max-width: 600px;
+                    margin: 0 auto;
+                    background-color: #ffffff;
+                    padding: 30px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  }}
+                  .email-header {{
+                    font-size: 26px;
+                    color: #333333;
+                    text-align: center;
+                    margin-bottom: 20px;
+                  }}
+                  .email-image {{
+                    display: block;
+                    width: 100%;
+                    max-width: 560px;
+                    height: auto;
+                    margin: 0 auto 20px auto;
+                    border-radius: 6px;
+                  }}
+                  .email-body {{
+                    font-size: 16px;
+                    color: #555555;
+                    line-height: 1.6;
+                    text-align: center;
+                  }}
+                  .email-footer {{
+                    font-size: 14px;
+                    color: #888888;
+                    text-align: center;
+                    margin-top: 30px;
+                  }}
+                  ul {{
+                    font-size: 16px;
+                    line-height: 1.6;
+                    padding-left: 20px;
+                    text-align: left;
+                    display: inline-block;
+                  }}
+                </style>
+              </head>
+              <body>
+                <div class="email-container">
+                  <div class="email-header">Your Open Day Booking is Confirmed!</div>
+            
+                  <img
+                    class="email-image"
+                    src="https://i.ibb.co/hRmWS5rv/bannerwlv.jpg"
+                    alt="Open Day Banner"
+                  />
+            
+                  <div class="email-body">
+                    Thank you for booking your spot, {registration.title} {registration.first_name} {registration.last_name}!<br />
+                    We're excited to welcome you for {registration.subject_area} on <strong>{registration.event_date}</strong>.<br /><br />
+                    Keep an eye on your inbox—we'll send more details about:<br /><br />
+                    <ul>
+                        <li>Welcome tour and presentations</li>
+                        <li>Department-specific sessions</li>
+                        <li>Campus tours and accommodation</li>
+                        <li>Meeting current students (bring {registration.guest_count} guests)</li>
+                    </ul>
+                    <br>
+                    See you soon!
+                  </div>
+            
+                  <div class="email-footer">
+                    © 2025 University Name – All rights reserved.
+                  </div>
+                </div>
+              </body>
+            </html>
             """
 
-            text_body = f"""
-Dear {registration.title} {registration.first_name} {registration.last_name},
+            msg.attach(MIMEText(text, "plain"))
+            msg.attach(MIMEText(html, "html"))
 
-Thank you for booking our Open Day on {registration.event_date} for {registration.subject_area} ({registration.level_of_study}).
+            with smtplib.SMTP(os.environ.get('BREVO_SMTP_SERVER', "smtp-relay.brevo.com"),
+                              os.environ.get('BREVO_SMTP_PORT', 587)) as server:
+                server.starttls()
+                server.login(os.environ.get("BREVO_SMTP_LOGIN"), cls.smtp_password)
+                server.send_message(msg)
+                print("Sent using Brevo")
 
-We're excited to show you our facilities and answer your questions.
-
-Event details:
-- Date: {registration.event_date}
-- Subject: {registration.subject_area}
-- Level: {registration.level_of_study}
-- Guests: {registration.guest_count}
-
-See you soon!
-The University Team
-            """
-
-            cls.postmark.emails.send(
-                From=os.environ.get('EMAIL_FROM', 'noreply@example.com'),
-                To=registration.email,
-                Subject=f"Open Day Confirmation - {registration.event_date}",
-                HtmlBody=html_body,
-                TextBody=text_body
-            )
             return True
         except Exception as e:
             print(f"Error sending confirmation email: {str(e)}")
@@ -263,60 +273,71 @@ The University Team
     def send_admin_notification(cls, registration, admin_email):
         """Send a notification email to the admin"""
         try:
-            cls.postmark.emails.send(
-                From=os.environ.get('EMAIL_FROM', 'noreply@example.com'),
-                To=admin_email,
-                Subject=f"New Registration - {registration.first_name} {registration.last_name}",
-                TextBody=f"""
-                A new registration has been submitted:
+            recipient_email = admin_email
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = f"New Registration - {registration.first_name} {registration.last_name}"
+            msg["From"] = cls.sender_email
+            msg["To"] = recipient_email
+            text = f"""
+            A new registration has been submitted:
 
-                Name: {registration.title} {registration.first_name} {registration.last_name}
-                Email: {registration.email}
-                Phone: {registration.phone_number}
-                Event Date: {registration.event_date}
-                Subject Area: {registration.subject_area}
-                Level of Study: {registration.level_of_study}
-                Guest Count: {registration.guest_count}
+            Name: {registration.title} {registration.first_name} {registration.last_name}
+            Email: {registration.email}
+            Phone: {registration.phone_number}
+            Event Date: {registration.event_date}
+            Subject Area: {registration.subject_area}
+            Level of Study: {registration.level_of_study}
+            Guest Count: {registration.guest_count}
 
-                Address:
-                {registration.address_line1}
-                {registration.address_line2}
-                {registration.city}, {registration.postcode}
-                {registration.country}
+            Address:
+            {registration.address_line1}
+            {registration.address_line2}
+            {registration.city}, {registration.postcode}
+            {registration.country}
 
-                Marketing Sources: {registration.marketing_sources}
-                """,
-                HtmlBody=f"""
-                <html>
-                <body>
-                    <h2>New Registration</h2>
+            Marketing Sources: {registration.marketing_sources}
+            """
+            html = f"""
+            <html>
+            <body>
+                <h2>New Registration</h2>
 
-                    <h3>Registrant Details:</h3>
-                    <p>
-                        <strong>Name:</strong> {registration.title} {registration.first_name} {registration.last_name}<br>
-                        <strong>Email:</strong> {registration.email}<br>
-                        <strong>Phone:</strong> {registration.phone_number}<br>
-                        <strong>Event Date:</strong> {registration.event_date}<br>
-                        <strong>Subject Area:</strong> {registration.subject_area}<br>
-                        <strong>Level of Study:</strong> {registration.level_of_study}<br>
-                        <strong>Guest Count:</strong> {registration.guest_count}
-                    </p>
+                <h3>Registrant Details:</h3>
+                <p>
+                    <strong>Name:</strong> {registration.title} {registration.first_name} {registration.last_name}<br>
+                    <strong>Email:</strong> {registration.email}<br>
+                    <strong>Phone:</strong> {registration.phone_number}<br>
+                    <strong>Event Date:</strong> {registration.event_date}<br>
+                    <strong>Subject Area:</strong> {registration.subject_area}<br>
+                    <strong>Level of Study:</strong> {registration.level_of_study}<br>
+                    <strong>Guest Count:</strong> {registration.guest_count}
+                </p>
 
-                    <h3>Address:</h3>
-                    <p>
-                        {registration.address_line1}<br>
-                        {registration.address_line2}<br>
-                        {registration.city}, {registration.postcode}<br>
-                        {registration.country}
-                    </p>
+                <h3>Address:</h3>
+                <p>
+                    {registration.address_line1}<br>
+                    {registration.address_line2}<br>
+                    {registration.city}, {registration.postcode}<br>
+                    {registration.country}
+                </p>
 
-                    <p><strong>Marketing Sources:</strong> {registration.marketing_sources}</p>
+                <p><strong>Marketing Sources:</strong> {registration.marketing_sources}</p>
 
-                    {f'<h3>Carer Details:</h3><p><strong>Name:</strong> {registration.carer_first_name} {registration.carer_last_name}<br><strong>Email:</strong> {registration.carer_email}</p>' if registration.carer_first_name else ''}
-                </body>
-                </html>
-                """
-            )
+                {f'<h3>Carer Details:</h3><p><strong>Name:</strong> {registration.carer_first_name} {registration.carer_last_name}<br><strong>Email:</strong> {registration.carer_email}</p>' if registration.carer_first_name else ''}
+            </body>
+            </html>
+            """
+
+            msg.attach(MIMEText(text, "plain"))
+            msg.attach(MIMEText(html, "html"))
+
+            with smtplib.SMTP(os.environ.get('BREVO_SMTP_SERVER', "smtp-relay.brevo.com"),
+                              os.environ.get('BREVO_SMTP_PORT', 587)) as server:
+                server.starttls()
+                server.login(os.environ.get("BREVO_SMTP_LOGIN"), cls.smtp_password)
+                server.send_message(msg)
+                print("Sent using Brevo")
+
             return True
         except Exception as e:
             print(f"Error sending admin notification email: {str(e)}")
@@ -329,49 +350,60 @@ The University Team
             return False
 
         try:
-            cls.postmark.emails.send(
-                From=os.environ.get('EMAIL_FROM', 'noreply@example.com'),
-                To=registration.carer_email,
-                Subject=f"Event Registration Confirmation for {registration.first_name} {registration.last_name}",
-                TextBody=f"""
-                Dear {registration.carer_first_name} {registration.carer_last_name},
+            recipient_email = registration.carer_email
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = f"Event Registration Confirmation for {registration.first_name} {registration.last_name}",
+            msg["From"] = cls.sender_email
+            msg["To"] = recipient_email
+            text = f"""
+            Dear {registration.carer_first_name} {registration.carer_last_name},
 
-                This email is to inform you that {registration.first_name} {registration.last_name} has registered for our event on {registration.event_date}.
+            This email is to inform you that {registration.first_name} {registration.last_name} has registered for our event on {registration.event_date}.
 
-                Event Details:
-                - Date: {registration.event_date}
-                - Subject Area: {registration.subject_area}
-                - Level of Study: {registration.level_of_study}
-                - Number of Guests: {registration.guest_count}
+            Event Details:
+            - Date: {registration.event_date}
+            - Subject Area: {registration.subject_area}
+            - Level of Study: {registration.level_of_study}
+            - Number of Guests: {registration.guest_count}
 
-                If you have any questions, please contact us.
+            If you have any questions, please contact us.
 
-                Best regards,
-                The Events Team
-                """,
-                HtmlBody=f"""
-                <html>
-                <body>
-                    <h2>Event Registration Notification</h2>
-                    <p>Dear {registration.carer_first_name} {registration.carer_last_name},</p>
-                    <p>This email is to inform you that <strong>{registration.first_name} {registration.last_name}</strong> has registered for our event on <strong>{registration.event_date}</strong>.</p>
+            Best regards,
+            The Events Team
+            """
+            html = f"""
+            <html>
+            <body>
+                <h2>Event Registration Notification</h2>
+                <p>Dear {registration.carer_first_name} {registration.carer_last_name},</p>
+                <p>This email is to inform you that <strong>{registration.first_name} {registration.last_name}</strong> has registered for our event on <strong>{registration.event_date}</strong>.</p>
 
-                    <h3>Event Details:</h3>
-                    <ul>
-                        <li>Date: {registration.event_date}</li>
-                        <li>Subject Area: {registration.subject_area}</li>
-                        <li>Level of Study: {registration.level_of_study}</li>
-                        <li>Number of Guests: {registration.guest_count}</li>
-                    </ul>
+                <h3>Event Details:</h3>
+                <ul>
+                    <li>Date: {registration.event_date}</li>
+                    <li>Subject Area: {registration.subject_area}</li>
+                    <li>Level of Study: {registration.level_of_study}</li>
+                    <li>Number of Guests: {registration.guest_count}</li>
+                </ul>
 
-                    <p>If you have any questions, please contact us.</p>
+                <p>If you have any questions, please contact us.</p>
 
-                    <p>Best regards,<br>
-                    The Events Team</p>
-                </body>
-                </html>
-                """
-            )
+                <p>Best regards,<br>
+                The Events Team</p>
+            </body>
+            </html>
+            """
+
+            msg.attach(MIMEText(text, "plain"))
+            msg.attach(MIMEText(html, "html"))
+
+            with smtplib.SMTP(os.environ.get('BREVO_SMTP_SERVER', "smtp-relay.brevo.com"),
+                              os.environ.get('BREVO_SMTP_PORT', 587)) as server:
+                server.starttls()
+                server.login(os.environ.get("BREVO_SMTP_LOGIN"), cls.smtp_password)
+                server.send_message(msg)
+                print("Sent using Brevo")
+
             return True
         except Exception as e:
             print(f"Error sending carer notification email: {str(e)}")
