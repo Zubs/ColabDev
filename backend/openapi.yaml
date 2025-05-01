@@ -1,0 +1,716 @@
+openapi: 3.0.3
+info:
+  title: ColabDev Open Day Management System API
+  description: "FitKit - ColabDev API provides a comprehensive suite of endpoints for managing university open day events, registrations, and related information. This API allows you to:\n\n- Manage event schedules and details\n- Handle participant registrations\n- Maintain FAQs\n- Authenticate users and manage permissions\n\nBase URL: https://colabdev-api.azurewebsites.net/api\n\nAuthentication:\n- Bearer token authentication required for protected endpoints\n- Obtain token through /auth/login endpoint\n\nFeatures:\n- Event Management: Create, update, and delete open day events\n- Registration System: Handle participant registrations with detailed information\n- FAQ Management: Maintain frequently asked questions\n- User Authentication: Secure endpoint access with JWT tokens\n\nTechnology Stack:\n- Backend: Python Flask\n- Database: PostgreSQL (Azure)\n- Authentication: JWT"
+  version: 2.0.0
+  contact:
+    email: A.Olayade@wlv.ac.uk
+
+servers:
+  - url: https://colabdev-api.azurewebsites.net/api
+    description: Production server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "testuser"
+        password:
+          type: string
+          format: password
+          example: "password123"
+        fullname:
+          type: string
+          example: "Test User"
+        email:
+          type: string
+          format: email
+          example: "test@example.com"
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        title:
+          type: string
+          example: "Computer Science Open Day"
+        description:
+          type: string
+          example: "Explore our Computer Science facilities"
+        date:
+          type: string
+          format: date
+          example: "2024-04-01"
+        time:
+          type: string
+          example: "14:00"
+        duration:
+          type: string
+          example: "2 hours"
+        location:
+          type: string
+          example: "Main Campus"
+        public:
+          type: boolean
+          example: true
+        capacity:
+          type: integer
+          example: 100
+        registered_count:
+          type: integer
+          example: 45
+
+    Registration:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+        - event_date
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        title:
+          type: string
+          example: "Mr"
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Doe"
+        date_of_birth:
+          type: string
+          format: date
+          example: "2000-01-01"
+        email:
+          type: string
+          format: email
+          example: "john@example.com"
+        phone_number:
+          type: string
+          example: "+44123456789"
+        level_of_study:
+          type: string
+          enum: ["Undergraduate", "Postgraduate", "PhD"]
+          example: "Undergraduate"
+        subject_area:
+          type: string
+          example: "Computer Science"
+        event_date:
+          type: string
+          format: date
+          example: "2024-04-01"
+        guest_count:
+          type: integer
+          minimum: 0
+          maximum: 5
+          example: 2
+        registration_date:
+          type: string
+          format: date-time
+          example: "2024-03-15T14:30:00Z"
+        status:
+          type: string
+          enum: ["confirmed", "pending", "cancelled"]
+          example: "confirmed"
+
+    FAQ:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        question:
+          type: string
+          example: "What is the event location?"
+        answer:
+          type: string
+          example: "The event will be held at the Main Campus."
+        public:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-04-01T12:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-04-01T12:00:00Z"
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login to get access token
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "testuser"
+                password:
+                  type: string
+                  example: "password123"
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  user:
+                    $ref: '#/components/schemas/User'
+              example:
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                user:
+                  username: "testuser"
+                  fullname: "Test User"
+                  email: "test@example.com"
+        '400':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Invalid username or password"
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Rate limit exceeded. Try again in 60 seconds"
+
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  user_id:
+                    type: string
+              example:
+                message: "User registered successfully"
+                user_id: "123e4567-e89b-12d3-a456-426614174000"
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  details:
+                    type: object
+              example:
+                error: "Invalid input"
+                details:
+                  email: "Invalid email format"
+                  password: "Password must be at least 8 characters"
+        '409':
+          description: Username/email already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Username or email already exists"
+
+  /events:
+    get:
+      tags:
+        - Events
+      summary: Get all events
+      operationId: getAllEvents
+      responses:
+        '200':
+          description: List of all events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+                  total:
+                    type: integer
+                  page:
+                    type: integer
+              example:
+                events:
+                  - id: "123e4567-e89b-12d3-a456-426614174000"
+                    title: "Computer Science Open Day"
+                    description: "Explore our Computer Science facilities"
+                    date: "2024-04-01"
+                    time: "14:00"
+                    duration: "2 hours"
+                    location: "Main Campus"
+                    public: true
+                    capacity: 100
+                    registered_count: 45
+                total: 1
+                page: 1
+
+    post:
+      tags:
+        - Events
+      summary: Create a new event
+      operationId: createEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Event created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  event:
+                    $ref: '#/components/schemas/Event'
+              example:
+                message: "Event created successfully"
+                event:
+                  id: "123e4567-e89b-12d3-a456-426614174000"
+                  title: "Computer Science Open Day"
+                  description: "Explore our Computer Science facilities"
+                  date: "2024-04-01"
+                  time: "14:00"
+                  duration: "2 hours"
+                  location: "Main Campus"
+                  public: true
+                  capacity: 100
+                  registered_count: 0
+
+  /events/grouped:
+    get:
+      tags:
+        - Events
+      summary: Get events grouped by date
+      operationId: getEventsGroupedByDate
+      responses:
+        '200':
+          description: Events grouped by date
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grouped_events:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Event'
+              example:
+                grouped_events:
+                  "2024-04-01":
+                    - id: "123e4567-e89b-12d3-a456-426614174000"
+                      title: "Computer Science Open Day"
+                      description: "Explore our Computer Science facilities"
+                      date: "2024-04-01"
+                      time: "14:00"
+                      duration: "2 hours"
+                      location: "Main Campus"
+                      public: true
+                      capacity: 100
+                      registered_count: 45
+
+  /events/{event_id}:
+    get:
+      tags:
+        - Events
+      summary: Get event by ID
+      operationId: getEventById
+      parameters:
+        - in: path
+          name: event_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Event found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Event not found"
+
+    put:
+      tags:
+        - Events
+      summary: Update an event
+      operationId: updateEvent
+      parameters:
+        - in: path
+          name: event_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  event:
+                    $ref: '#/components/schemas/Event'
+
+  /registration:
+    post:
+      tags:
+        - Registrations
+      summary: Register for an open day
+      operationId: createRegistration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Registration'
+      responses:
+        '201':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  registration_id:
+                    type: string
+                  registration:
+                    $ref: '#/components/schemas/Registration'
+                  confirmation_email_sent:
+                    type: boolean
+              example:
+                message: "Registration successful"
+                registration_id: "123e4567-e89b-12d3-a456-426614174000"
+                registration:
+                  id: "123e4567-e89b-12d3-a456-426614174000"
+                  title: "Mr"
+                  first_name: "John"
+                  last_name: "Doe"
+                  email: "john@example.com"
+                  phone_number: "+44123456789"
+                  level_of_study: "Undergraduate"
+                  subject_area: "Computer Science"
+                  event_date: "2024-04-01"
+                  guest_count: 2
+                  registration_date: "2024-03-15T14:30:00Z"
+                  status: "confirmed"
+                confirmation_email_sent: true
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  details:
+                    type: object
+              example:
+                error: "Invalid input"
+                details:
+                  email: "Invalid email format"
+                  event_date: "Event is fully booked"
+                  guest_count: "Maximum 5 guests allowed"
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Rate limit exceeded"
+
+  /faqs:
+    get:
+      tags:
+        - FAQs
+      summary: Get all FAQs
+      operationId: getFaqs
+      responses:
+        '200':
+          description: List of FAQs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  faqs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FAQ'
+              example:
+                faqs:
+                  - id: 1
+                    question: "What is the event location?"
+                    answer: "The event will be held at the Main Campus."
+                    public: true
+                    created_at: "2024-04-01T12:00:00Z"
+                    updated_at: "2024-04-01T12:00:00Z"
+                    deleted_at: null
+                  - id: 2
+                    question: "Is parking available?"
+                    answer: "Yes, free parking is available on site."
+                    public: true
+                    created_at: "2024-04-01T12:00:00Z"
+                    updated_at: "2024-04-01T12:00:00Z"
+                    deleted_at: null
+
+    post:
+      tags:
+        - FAQs
+      summary: Create a new FAQ
+      operationId: createFaq
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FAQ'
+      responses:
+        '201':
+          description: FAQ created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  faq:
+                    $ref: '#/components/schemas/FAQ'
+              example:
+                message: "FAQ created successfully"
+                faq:
+                  id: 3
+                  question: "What should I bring?"
+                  answer: "Please bring your student ID."
+                  public: true
+                  created_at: "2024-04-01T12:00:00Z"
+                  updated_at: "2024-04-01T12:00:00Z"
+                  deleted_at: null
+
+  /faqs/{faq_id}:
+    get:
+      tags:
+        - FAQs
+      summary: Get a single FAQ by ID
+      operationId: getFaqById
+      parameters:
+        - in: path
+          name: faq_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: FAQ found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FAQ'
+        '404':
+          description: FAQ not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "FAQ not found"
+
+    put:
+      tags:
+        - FAQs
+      summary: Update an FAQ
+      operationId: updateFaq
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: faq_id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FAQ'
+      responses:
+        '200':
+          description: FAQ updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  faq:
+                    $ref: '#/components/schemas/FAQ'
+              example:
+                message: "FAQ updated successfully"
+                faq:
+                  id: 1
+                  question: "Updated question?"
+                  answer: "Updated answer."
+                  public: true
+                  created_at: "2024-04-01T12:00:00Z"
+                  updated_at: "2024-04-02T12:00:00Z"
+                  deleted_at: null
+        '404':
+          description: FAQ not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "FAQ not found"
+
+    delete:
+      tags:
+        - FAQs
+      summary: Delete an FAQ
+      operationId: deleteFaq
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: faq_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: FAQ deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: "FAQ deleted successfully"
+        '404':
+          description: FAQ not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "FAQ not found"
+
+security:
+  - bearerAuth: []
