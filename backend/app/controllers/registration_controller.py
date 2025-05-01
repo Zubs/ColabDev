@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 class RegistrationController:
     # Initialize Brevo
     sender_email = os.environ.get('EMAIL_FROM', 'zubairidrisaweda@gmail.com')
-    smtp_password = 'xsmtpsib-3840fca59308d41b3102c036aa4a1fd3cf51f2eeef3481da5ca04add4db1b727-qKD3b1VHzNwRYmEX'
+    smtp_password = os.environ.get('BREVO_SMTP_KEY')
 
     @staticmethod
     @token_required
