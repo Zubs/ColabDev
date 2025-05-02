@@ -6,91 +6,93 @@
     </button>
 
     <!-- Sidebar only shown when toggled -->
-    <div v-if="isSidebarOpen" class="d-flex flex-column flex-shrink-0 p-3 bg-light-blue sidebar">
-      <!-- Close button at top-right corner -->
-      <div class="d-flex justify-content-end mb-3">
-        <button type="button" class="btn-close-custom" aria-label="Close" @click="toggleSidebar">
-          <i class="fs-4">×</i>
-        </button>
+    <div v-if="isSidebarOpen" class="sidebar-wrapper">
+      <!-- Main sidebar with scrollable content -->
+      <div class="sidebar bg-light-blue">
+        <!-- Close button at top-right corner -->
+        <div class="d-flex justify-content-end mb-3">
+          <button type="button" class="btn-close-custom" aria-label="Close" @click="toggleSidebar">
+            <i class="fs-4">×</i>
+          </button>
+        </div>
+
+        <div class="sidebar-nav">
+          <router-link :to="{ name: 'admin-dashboard' }" class="text-dark text-decoration-none mb-3 fs-3">Home</router-link>
+
+          <!-- Events -->
+          <div class="dropdown mb-3">
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <span class="fs-3">Events</span>
+              <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleEvents">
+                <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
+              </button>
+            </div>
+            <div v-show="isEventsOpen" class="dropdown-content ms-4 mt-2">
+              <router-link :to="{ name: 'admin-events-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+                Create new events
+              </router-link>
+              <router-link :to="{ name: 'admin-events' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+                Existing events
+              </router-link>
+            </div>
+          </div>
+
+          <!-- FAQ -->
+          <div class="dropdown mb-3">
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <span class="fs-3">FAQ</span>
+              <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleFAQ">
+                <span class="arrow" :class="{ 'arrow-down': isFAQOpen }">▸</span>
+              </button>
+            </div>
+            <div v-show="isFAQOpen" class="dropdown-content ms-4 mt-2">
+              <router-link :to="{ name: 'admin-faqs-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+                Add new FAQs
+              </router-link>
+              <router-link :to="{ name: 'admin-faqs' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+                Current FAQs
+              </router-link>
+            </div>
+          </div>
+
+          <!-- Staff -->
+          <div class="dropdown mb-3">
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <span class="fs-3">Staff</span>
+              <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleStaff">
+                <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
+              </button>
+            </div>
+            <div v-show="isStaffOpen" class="dropdown-content ms-4 mt-2">
+              <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+                Add new staff
+              </router-link>
+              <router-link :to="{ name: 'admin-staff' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+                Manage staff
+              </router-link>
+            </div>
+          </div>
+
+          <!-- Registrations -->
+          <div class="dropdown mb-3">
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <span class="fs-3">Registrations</span>
+              <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleRegistrations">
+                <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
+              </button>
+            </div>
+            <div v-show="isRegistrationsOpen" class="dropdown-content ms-4 mt-2">
+              <router-link :to="{ name: 'admin-registrations' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+                View registrations
+              </router-link>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Scrollable content container -->
-      <div class="sidebar-content">
-        <router-link :to="{ name: 'admin-dashboard' }" class="text-dark text-decoration-none mb-3 fs-3">Home</router-link>
-
-        <!-- Events -->
-        <div class="dropdown mb-3">
-          <div class="d-flex align-items-center justify-content-between w-100">
-            <span class="fs-3">Events</span>
-            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleEvents">
-              <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
-            </button>
-          </div>
-          <div v-show="isEventsOpen" class="dropdown-content ms-4 mt-2">
-            <router-link :to="{ name: 'admin-events-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-              Create new events
-            </router-link>
-            <router-link :to="{ name: 'admin-events' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-              Existing events
-            </router-link>
-          </div>
-        </div>
-
-        <!-- FAQ -->
-        <div class="dropdown mb-3">
-          <div class="d-flex align-items-center justify-content-between w-100">
-            <span class="fs-3">FAQ</span>
-            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleFAQ">
-              <span class="arrow" :class="{ 'arrow-down': isFAQOpen }">▸</span>
-            </button>
-          </div>
-          <div v-show="isFAQOpen" class="dropdown-content ms-4 mt-2">
-            <router-link :to="{ name: 'admin-faqs-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-              Add new FAQs
-            </router-link>
-            <router-link :to="{ name: 'admin-faqs' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-              Current FAQs
-            </router-link>
-          </div>
-        </div>
-
-        <!-- Staff -->
-        <div class="dropdown mb-3">
-          <div class="d-flex align-items-center justify-content-between w-100">
-            <span class="fs-3">Staff</span>
-            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleStaff">
-              <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
-            </button>
-          </div>
-          <div v-show="isStaffOpen" class="dropdown-content ms-4 mt-2">
-            <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-              Add new staff
-            </router-link>
-            <router-link :to="{ name: 'admin-staff' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-              Manage staff
-            </router-link>
-          </div>
-        </div>
-
-        <!-- Registrations -->
-        <div class="dropdown mb-3">
-          <div class="d-flex align-items-center justify-content-between w-100">
-            <span class="fs-3">Registrations</span>
-            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleRegistrations">
-              <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
-            </button>
-          </div>
-          <div v-show="isRegistrationsOpen" class="dropdown-content ms-4 mt-2">
-            <router-link :to="{ name: 'admin-registrations' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-              View registrations
-            </router-link>
-          </div>
-        </div>
-      </div>
-
-      <!-- Logout Button in fixed position at bottom -->
-      <div class="logout-container">
-        <button class="btn btn-outline-dark logout-button" @click="logout">
+      <!-- Fixed Logout Button - Separate from scrollable area -->
+      <div class="logout-fixed">
+        <button class="btn btn-outline-dark logout-button w-100" @click="logout">
           LOGOUT
         </button>
       </div>
@@ -140,36 +142,47 @@ const logout = async () => {
   background-color: lightblue;
 }
 
-.sidebar {
-  width: 300px;
-  height: 100vh;
+/* Wrapper to hold both sidebar and fixed logout button */
+.sidebar-wrapper {
   position: fixed;
   left: 0;
   top: 0;
+  width: 300px;
+  height: 100%;
   z-index: 1000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
-/* Scrollable content area */
-.sidebar-content {
+.sidebar {
+  width: 100%;
+  height: calc(100% - 70px); /* Make room for the logout button */
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-nav {
   flex: 1;
   overflow-y: auto;
   padding-right: 5px;
-  margin-bottom: 10px;
+  padding-bottom: 15px;
 }
 
-/* Fixed logout button container */
-.logout-container {
-  padding-top: 10px;
-  border-top: 1px solid #ccc;
+/* Fixed logout button that stays at bottom */
+.logout-fixed {
+  height: 70px;
   width: 100%;
-  position: sticky;
-  bottom: 0;
   background-color: lightblue;
-  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+  z-index: 1001;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .arrow-button {
@@ -213,7 +226,6 @@ const logout = async () => {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%;
 }
 
 .dropdown > div > span.fs-3 {
@@ -258,12 +270,5 @@ const logout = async () => {
 .btn-close-custom:hover {
   background-color: #c82333;
   transform: scale(1.1);
-}
-
-/* Media query for small screens */
-@media (max-height: 600px) {
-  .sidebar-content {
-    max-height: calc(100vh - 120px);
-  }
 }
 </style>
