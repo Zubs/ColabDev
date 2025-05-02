@@ -14,81 +14,86 @@
         </button>
       </div>
 
-      <router-link :to="{ name: 'admin-dashboard' }" class="text-dark text-decoration-none mb-3 fs-3">Home</router-link>
+      <!-- Scrollable content container -->
+      <div class="sidebar-content">
+        <router-link :to="{ name: 'admin-dashboard' }" class="text-dark text-decoration-none mb-3 fs-3">Home</router-link>
 
-      <!-- Events -->
-      <div class="dropdown mb-3">
-        <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="fs-3">Events</span>
-          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleEvents">
-            <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
-          </button>
+        <!-- Events -->
+        <div class="dropdown mb-3">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <span class="fs-3">Events</span>
+            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleEvents">
+              <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
+            </button>
+          </div>
+          <div v-show="isEventsOpen" class="dropdown-content ms-4 mt-2">
+            <router-link :to="{ name: 'admin-events-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+              Create new events
+            </router-link>
+            <router-link :to="{ name: 'admin-events' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+              Existing events
+            </router-link>
+          </div>
         </div>
-        <div v-show="isEventsOpen" class="dropdown-content ms-4 mt-2">
-          <router-link :to="{ name: 'admin-events-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-            Create new events
-          </router-link>
-          <router-link :to="{ name: 'admin-events' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-            Existing events
-          </router-link>
+
+        <!-- FAQ -->
+        <div class="dropdown mb-3">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <span class="fs-3">FAQ</span>
+            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleFAQ">
+              <span class="arrow" :class="{ 'arrow-down': isFAQOpen }">▸</span>
+            </button>
+          </div>
+          <div v-show="isFAQOpen" class="dropdown-content ms-4 mt-2">
+            <router-link :to="{ name: 'admin-faqs-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+              Add new FAQs
+            </router-link>
+            <router-link :to="{ name: 'admin-faqs' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+              Current FAQs
+            </router-link>
+          </div>
+        </div>
+
+        <!-- Staff -->
+        <div class="dropdown mb-3">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <span class="fs-3">Staff</span>
+            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleStaff">
+              <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
+            </button>
+          </div>
+          <div v-show="isStaffOpen" class="dropdown-content ms-4 mt-2">
+            <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+              Add new staff
+            </router-link>
+            <router-link :to="{ name: 'admin-staff' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+              Manage staff
+            </router-link>
+          </div>
+        </div>
+
+        <!-- Registrations -->
+        <div class="dropdown mb-3">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <span class="fs-3">Registrations</span>
+            <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleRegistrations">
+              <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
+            </button>
+          </div>
+          <div v-show="isRegistrationsOpen" class="dropdown-content ms-4 mt-2">
+            <router-link :to="{ name: 'admin-registrations' }" class="dropdown-item text-dark text-decoration-none hover-margin">
+              View registrations
+            </router-link>
+          </div>
         </div>
       </div>
 
-      <!-- FAQ -->
-      <div class="dropdown mb-3">
-        <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="fs-3">FAQ</span>
-          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleFAQ">
-            <span class="arrow" :class="{ 'arrow-down': isFAQOpen }">▸</span>
-          </button>
-        </div>
-        <div v-show="isFAQOpen" class="dropdown-content ms-4 mt-2">
-          <router-link :to="{ name: 'admin-faqs-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-            Add new FAQs
-          </router-link>
-          <router-link :to="{ name: 'admin-faqs' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-            Current FAQs
-          </router-link>
-        </div>
+      <!-- Logout Button in fixed position at bottom -->
+      <div class="logout-container">
+        <button class="btn btn-outline-dark logout-button" @click="logout">
+          LOGOUT
+        </button>
       </div>
-
-      <!-- Staff -->
-      <div class="dropdown mb-3">
-        <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="fs-3">Staff</span>
-          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleStaff">
-            <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
-          </button>
-        </div>
-        <div v-show="isStaffOpen" class="dropdown-content ms-4 mt-2">
-          <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-            Add new staff
-          </router-link>
-          <router-link :to="{ name: 'admin-staff' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-            Manage staff
-          </router-link>
-        </div>
-      </div>
-
-      <!-- Registrations -->
-      <div class="dropdown mb-3">
-        <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="fs-3">Registrations</span>
-          <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleRegistrations">
-            <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
-          </button>
-        </div>
-        <div v-show="isRegistrationsOpen" class="dropdown-content ms-4 mt-2">
-          <router-link :to="{ name: 'admin-registrations' }" class="dropdown-item text-dark text-decoration-none hover-margin">
-            View registrations
-          </router-link>
-        </div>
-      </div>
-
-      <!-- Logout Button -->
-      <button class="btn btn-outline-dark logout-button mt-auto" @click="logout">
-        LOGOUT
-      </button>
     </div>
   </div>
 </template>
@@ -145,7 +150,26 @@ const logout = async () => {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+/* Scrollable content area */
+.sidebar-content {
+  flex: 1;
   overflow-y: auto;
+  padding-right: 5px;
+  margin-bottom: 10px;
+}
+
+/* Fixed logout button container */
+.logout-container {
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  background-color: lightblue;
+  z-index: 10;
 }
 
 .arrow-button {
@@ -234,5 +258,12 @@ const logout = async () => {
 .btn-close-custom:hover {
   background-color: #c82333;
   transform: scale(1.1);
+}
+
+/* Media query for small screens */
+@media (max-height: 600px) {
+  .sidebar-content {
+    max-height: calc(100vh - 120px);
+  }
 }
 </style>
