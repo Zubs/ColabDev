@@ -86,7 +86,7 @@
       </div>
 
       <!-- Logout Button -->
-      <button class="btn btn-outline-dark logout-button" @click="logout">
+      <button class="btn btn-outline-dark logout-button mt-auto" @click="logout">
         LOGOUT
       </button>
     </div>
@@ -143,6 +143,9 @@ const logout = async () => {
   top: 0;
   z-index: 1000;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .arrow-button {
@@ -181,12 +184,12 @@ const logout = async () => {
 }
 
 .logout-button {
-  margin-top: auto;
   padding: 10px 20px;
   font-size: 1.25rem;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 100%;
 }
 
 .dropdown > div > span.fs-3 {
