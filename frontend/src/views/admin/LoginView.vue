@@ -16,51 +16,50 @@
             </p>
           </div>
         </div>
+        <div class="row container">
+          <div class="col-md-6 order-md-last bg-light">
+            <form @submit.prevent="login" class="bg-light p-5 contact-form">
+              <div class="form-group">
+                <input
+                  v-model="username"
+                  @input="validateUsername"
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                />
+                <span v-if="errors.username" class="text-danger">{{ errors.username }}</span>
+              </div>
+              <div class="form-group">
+                <input
+                  v-model="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                />
+                <span v-if="errors.password" class="text-danger">{{ errors.password }}</span>
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Login"
+                  class="btn btn-primary py-3 px-5 form-control"
+                  :disabled="loading"
+                />
+                <span v-if="loading" class="text-info">Loading...</span>
+                <span v-if="errors.request" class="text-danger">{{ errors.request }}</span>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6 bg-light">
+            <img
+              src="https://cdn-wlvacuk.terminalfour.net/media/departments/digital-content-and-communications/images-18-19/DSC_0103.JPG"
+              alt="Responsive image"
+              class="img-fluid"
+            />
+          </div>
+        </div>
       </div>
     </section>
-    <div class="row block-9">
-      <div class="col-md-6 order-md-last d-flex">
-        <form
-          @submit.prevent="login"
-          class="bg-light p-5 contact-form"
-          style="width: 65%; max-width: 600px; padding: 50px; margin-left: 100px"
-        >
-          <div class="form-group" style="width: 100%; max-width: 1000px">
-            <input
-              v-model="username"
-              @input="validateUsername"
-              type="text"
-              class="form-control"
-              placeholder="Username"
-              style="width: 100%; max-width: 1000px"
-            />
-            <span v-if="errors.username" class="text-danger">{{ errors.username }}</span>
-          </div>
-          <div class="form-group">
-            <input v-model="password" type="password" class="form-control" placeholder="Password" />
-            <span v-if="errors.password" class="text-danger">{{ errors.password }}</span>
-          </div>
-          <div class="form-group">
-            <input
-              type="submit"
-              value="Login"
-              class="btn btn-primary py-3 px-5 form-control"
-              :disabled="loading"
-            />
-            <span v-if="loading" class="text-info">Loading...</span>
-            <span v-if="errors.request" class="text-danger">{{ errors.request }}</span>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-6 d-flex">
-        <img
-          src="https://cdn-wlvacuk.terminalfour.net/media/departments/digital-content-and-communications/images-18-19/DSC_0103.JPG"
-          alt="Responsive image"
-          class="img-fluid"
-          style="margin-left: 150px"
-        />
-      </div>
-    </div>
   </section>
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
