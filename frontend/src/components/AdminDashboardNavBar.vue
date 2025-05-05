@@ -8,7 +8,7 @@
         />
       </div>
       <router-link :to="{ name: 'admin' }" class="box">Home</router-link>
-      <a href="/profile" class="box"><span class="flaticon-guest"></span>&nbsp;&nbsp;&nbsp;Profile</a>
+      <a href="#" class="box"><span class="flaticon-guest"></span>&nbsp;&nbsp;&nbsp;Profile</a>
     </div>
   </div>
 </template>
@@ -43,26 +43,8 @@
   background-color: #2980b9;
 }
 
-.avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: grey;
-  color: black;
-  padding: 20px 30px;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.avatar:hover {
-  background-color: #2980b9;
-}
-
 .logo {
   margin-right: 270px;
 }
 </style>
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>

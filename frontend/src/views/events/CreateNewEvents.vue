@@ -1,44 +1,65 @@
 <template>
   <AdminSideBar />
   <AdminDashboardNavBar />
-  <div class="container mt-5">
-    <h2>Add New Event</h2>
-    <form @submit.prevent="addEvent">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" id="title" v-model="events.title" />
-        <span v-if="errors.title" class="text-danger">{{ errors.title }}</span>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10 container">
+        <h1>Add New Event</h1>
+        <form class="contact-form w-100" @submit.prevent="addEvent">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="title">Event Title:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                v-model="events.title"
+                placeholder="Enter event title"
+              />
+              <span v-if="errors.title" class="text-danger">{{ errors.title }}</span>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="description">Event Description:</label>
+              <textarea
+                id="description"
+                v-model="events.description"
+                class="form-control"
+                placeholder="Enter Event Description"
+              ></textarea>
+              <span v-if="errors.description" class="text-danger">{{ errors.description }}</span>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="date">Event Date:</label>
+              <input type="date" id="date" v-model="events.date" class="form-control" />
+              <span v-if="errors.date" class="text-danger">{{ errors.date }}</span>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="time">Event Time:</label>
+              <input type="time" id="time" v-model="events.time" class="form-control" />
+              <span v-if="errors.time" class="text-danger">{{ errors.time }}</span>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="duration">Event Duration:</label>
+              <input type="text" id="duration" v-model="events.duration" class="form-control" placeholder="Enter duration like 2hr, 1hr, etc" />
+              <span v-if="errors.duration" class="text-danger">{{ errors.duration }}</span>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="location">Event Location:</label>
+              <input type="text" id="location" v-model="events.location" class="form-control" placeholder="Enter event location" />
+              <span v-if="errors.location" class="text-danger">{{ errors.location }}</span>
+            </div>
+            <div class="form-group col-md-12 text-center">
+              <button type="submit" class="btn btn-primary px-5 form-control" :disabled="loading">
+                <span v-if="loading">Processing...</span>
+                <span v-else>Add Event</span>
+              </button>
+              <span v-if="errors.request" class="text-danger">{{ errors.request }}</span>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" v-model="events.description"></textarea>
-        <span v-if="errors.description" class="text-danger">{{ errors.description }}</span>
-      </div>
-      <div class="form-group">
-        <label for="date">Date:</label>
-        <input type="date" id="date" v-model="events.date" />
-        <span v-if="errors.date" class="text-danger">{{ errors.date }}</span>
-      </div>
-      <div class="form-group">
-        <label for="time">Time:</label>
-        <input type="time" id="time" v-model="events.time" />
-        <span v-if="errors.time" class="text-danger">{{ errors.time }}</span>
-      </div>
-      <div class="form-group">
-        <label for="duration">Duration:</label>
-        <input type="text" id="duration" v-model="events.duration" />
-        <span v-if="errors.duration" class="text-danger">{{ errors.duration }}</span>
-      </div>
-      <div class="form-group">
-        <label for="location">Location:</label>
-        <input type="text" id="location" v-model="events.location" />
-        <span v-if="errors.location" class="text-danger">{{ errors.location }}</span>
-      </div>
-      <button type="submit" class="add-event-button" :disabled="loading">
-        {{ loading ? 'Loading...' : 'Add Event' }}
-      </button>
-      <span v-if="errors.request" class="text-danger">{{ errors.request }}</span>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -79,13 +100,17 @@ const addEvent = async () => {
   try {
     // 'en-GB' ensures the format DD/MM/YYYY
     events.value.date = new Date(events.value.date).toLocaleDateString('en-GB')
-    const response = await api.post('/events', {
-      ...events.value,
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+    const response = await api.post(
+      '/events',
+      {
+        ...events.value,
       },
-    })
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      },
+    )
 
     if (response.status === 201) {
       alert('Event added successfully!')
@@ -154,65 +179,3 @@ const validate = () => {
   )
 }
 </script>
-
-<style scoped>
-.container {
-  width: 600px;
-  height: auto; /* Adjust height to fit content */
-  background-color: lightcyan;
-  padding: 20px;
-  border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  margin-right: 100px;
-  margin-top: 120px !important;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-input[type='text'],
-input[type='date'],
-input[type='time'],
-textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-textarea {
-  resize: vertical;
-  height: 100px;
-}
-
-.add-event-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.add-event-button:hover {
-  background-color: #45a049;
-}
-</style>

@@ -49,3 +49,11 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 </script>
+
+<style scoped>
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    color: white !important;
+  }
+}
+</style>
