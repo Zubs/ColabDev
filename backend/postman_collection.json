@@ -1,0 +1,579 @@
+{
+	"info": {
+		"_postman_id": "unique-id-123",
+		"name": "FitKit - ColabDev Open Day Management API",
+		"description": "FitKit - ColabDev API provides a comprehensive suite of endpoints for managing university open day events, registrations, and related information. This API allows you to:\n\n- Manage event schedules and details\n- Handle participant registrations\n- Maintain FAQs\n- Authenticate users and manage permissions\n\nBase URL: https://colabdev-api.azurewebsites.net/api\n\nAuthentication:\n- Bearer token authentication required for protected endpoints\n- Obtain token through /auth/login endpoint\n\nFeatures:\n- Event Management: Create, update, and delete open day events\n- Registration System: Handle participant registrations with detailed information\n- FAQ Management: Maintain frequently asked questions\n- User Authentication: Secure endpoint access with JWT tokens\n\nTechnology Stack:\n- Backend: Python Flask\n- Database: PostgreSQL (Azure)\n- Authentication: JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://colabdev-api.azurewebsites.net/api",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"your_username\",\n    \"password\": \"your_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						},
+						"description": "Login to get authentication token"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"status": "OK",
+							"code": 200,
+							"body": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+								"user": {
+									"username": "testuser",
+									"fullname": "Test User",
+									"email": "test@example.com"
+								}
+							}
+						},
+						{
+							"name": "Invalid Credentials",
+							"status": "Bad Request",
+							"code": 400,
+							"body": {
+								"error": "Invalid username or password"
+							}
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Test User\",\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "register"]
+						},
+						"description": "Register a new user"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"status": "Created",
+							"code": 201,
+							"body": {
+								"message": "User registered successfully",
+								"user_id": "123e4567-e89b-12d3-a456-426614174000"
+							}
+						},
+						{
+							"name": "Validation Error",
+							"status": "Bad Request",
+							"code": 400,
+							"body": {
+								"error": "Invalid input",
+								"details": {
+									"email": "Invalid email format",
+									"password": "Password must be at least 8 characters"
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "logout"]
+						},
+						"description": "Logout and invalidate token"
+					}
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/users",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "users"]
+						},
+						"description": "Get all user profiles (requires authentication)"
+					}
+				}
+			]
+		},
+		{
+			"name": "FAQs",
+			"item": [
+				{
+					"name": "Get All FAQs",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/faqs",
+							"host": ["{{base_url}}"],
+							"path": ["faqs"]
+						},
+						"description": "Get all FAQs"
+					}
+				},
+				{
+					"name": "Get FAQ by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/faqs/1",
+							"host": ["{{base_url}}"],
+							"path": ["faqs", "1"]
+						},
+						"description": "Get a specific FAQ by ID"
+					}
+				},
+				{
+					"name": "Create FAQ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\": \"What is ColabDev?\",\n    \"answer\": \"ColabDev is a collaborative development platform.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/faqs",
+							"host": ["{{base_url}}"],
+							"path": ["faqs"]
+						},
+						"description": "Create a new FAQ"
+					}
+				},
+				{
+					"name": "Update FAQ",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\": \"Updated question\",\n    \"answer\": \"Updated answer\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/faqs/1",
+							"host": ["{{base_url}}"],
+							"path": ["faqs", "1"]
+						},
+						"description": "Update an existing FAQ"
+					}
+				},
+				{
+					"name": "Delete FAQ",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/faqs/1",
+							"host": ["{{base_url}}"],
+							"path": ["faqs", "1"]
+						},
+						"description": "Delete an FAQ"
+					}
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": ["{{base_url}}"],
+							"path": ["events"]
+						},
+						"description": "Get all events"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"status": "OK",
+							"code": 200,
+							"body": {
+								"events": [
+									{
+										"id": "123e4567-e89b-12d3-a456-426614174000",
+										"title": "Computer Science Open Day",
+										"description": "Explore our Computer Science facilities",
+										"date": "2024-04-01",
+										"time": "14:00",
+										"duration": "2 hours",
+										"location": "Main Campus",
+										"public": true,
+										"capacity": 100,
+										"registered_count": 45
+									},
+									{
+										"id": "987fcdeb-51a2-43f7-9876-543210abcdef",
+										"title": "Engineering Open Day",
+										"description": "Discover our Engineering programs",
+										"date": "2024-04-15",
+										"time": "10:00",
+										"duration": "3 hours",
+										"location": "Engineering Building",
+										"public": true,
+										"capacity": 150,
+										"registered_count": 72
+									}
+								],
+								"total": 2,
+								"page": 1
+							}
+						}
+					]
+				},
+				{
+					"name": "Get Events Grouped by Date",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/events?group_by=date",
+							"host": ["{{base_url}}"],
+							"path": ["events"],
+							"query": [
+								{
+									"key": "group_by",
+									"value": "date"
+								}
+							]
+						},
+						"description": "Get events grouped by date"
+					}
+				},
+				{
+					"name": "Get Event by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/events/1",
+							"host": ["{{base_url}}"],
+							"path": ["events", "1"]
+						},
+						"description": "Get a specific event by ID"
+					}
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New Event\",\n    \"description\": \"Event description\",\n    \"date\": \"2024-04-01\",\n    \"time\": \"14:00\",\n    \"duration\": \"2 hours\",\n    \"location\": \"Main Campus\",\n    \"public\": true,\n    \"capacity\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": ["{{base_url}}"],
+							"path": ["events"]
+						},
+						"description": "Create a new event"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"status": "Created",
+							"code": 201,
+							"body": {
+								"message": "Event created successfully",
+								"event_id": "123e4567-e89b-12d3-a456-426614174000",
+								"event": {
+									"id": "123e4567-e89b-12d3-a456-426614174000",
+									"title": "Computer Science Open Day",
+									"description": "Explore our Computer Science facilities",
+									"date": "2024-04-01",
+									"time": "14:00",
+									"duration": "2 hours",
+									"location": "Main Campus",
+									"public": true,
+									"capacity": 100,
+									"registered_count": 0
+								}
+							}
+						},
+						{
+							"name": "Validation Error",
+							"status": "Bad Request",
+							"code": 400,
+							"body": {
+								"error": "Invalid input",
+								"details": {
+									"date": "Date must be in the future",
+									"capacity": "Capacity must be greater than 0"
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Event\",\n    \"description\": \"Updated description\",\n    \"date\": \"2024-04-02\",\n    \"time\": \"15:00\",\n    \"duration\": \"3 hours\",\n    \"location\": \"South Campus\",\n    \"public\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/events/1",
+							"host": ["{{base_url}}"],
+							"path": ["events", "1"]
+						},
+						"description": "Update an existing event"
+					}
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/events/1",
+							"host": ["{{base_url}}"],
+							"path": ["events", "1"]
+						},
+						"description": "Delete an event"
+					}
+				}
+			]
+		},
+		{
+			"name": "Registrations",
+			"item": [
+				{
+					"name": "Get All Registrations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/registration",
+							"host": ["{{base_url}}"],
+							"path": ["registration"]
+						},
+						"description": "Get all registrations (requires authentication)"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"status": "OK",
+							"code": 200,
+							"body": {
+								"registrations": [
+									{
+										"id": "123e4567-e89b-12d3-a456-426614174000",
+										"title": "Mr",
+										"first_name": "John",
+										"last_name": "Doe",
+										"email": "john@example.com",
+										"phone_number": "+44123456789",
+										"level_of_study": "Undergraduate",
+										"subject_area": "Computer Science",
+										"event_date": "2024-04-01",
+										"guest_count": 2,
+										"registration_date": "2024-03-15T14:30:00Z",
+										"status": "confirmed"
+									}
+								],
+								"total": 1,
+								"page": 1
+							}
+						},
+						{
+							"name": "Unauthorized",
+							"status": "Unauthorized",
+							"code": 401,
+							"body": {
+								"error": "Authentication required"
+							}
+						}
+					]
+				},
+				{
+					"name": "Get Registration by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/registration/1",
+							"host": ["{{base_url}}"],
+							"path": ["registration", "1"]
+						},
+						"description": "Get a specific registration by ID"
+					}
+				},
+				{
+					"name": "Create Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Mr\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"date_of_birth\": \"2000-01-01\",\n    \"email\": \"john@example.com\",\n    \"phone_number\": \"+44123456789\",\n    \"level_of_study\": \"Undergraduate\",\n    \"subject_area\": \"Computer Science\",\n    \"event_date\": \"2024-04-01\",\n    \"guest_count\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/registration",
+							"host": ["{{base_url}}"],
+							"path": ["registration"]
+						},
+						"description": "Create a new registration",
+						"response": [
+							{
+								"name": "Success",
+								"status": "Created",
+								"code": 201,
+								"body": {
+									"message": "Registration successful",
+									"registration_id": "123e4567-e89b-12d3-a456-426614174000",
+									"registration": {
+										"id": "123e4567-e89b-12d3-a456-426614174000",
+										"title": "Mr",
+										"first_name": "John",
+										"last_name": "Doe",
+										"email": "john@example.com",
+										"phone_number": "+44123456789",
+										"level_of_study": "Undergraduate",
+										"subject_area": "Computer Science",
+										"event_date": "2024-04-01",
+										"guest_count": 2,
+										"registration_date": "2024-03-15T14:30:00Z",
+										"status": "confirmed"
+									},
+									"confirmation_email_sent": true
+								}
+							},
+							{
+								"name": "Validation Error",
+								"status": "Bad Request",
+								"code": 400,
+								"body": {
+									"error": "Invalid input",
+									"details": {
+										"email": "Invalid email format",
+										"event_date": "Event is fully booked",
+										"guest_count": "Maximum 5 guests allowed"
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+} 
