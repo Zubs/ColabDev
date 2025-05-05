@@ -10,8 +10,18 @@
               <h2 class="call-to-action-bar__title">Open Day Guide</h2>
             </div>
             <div class="call-to-action-bar__cta">
-              <a href="https://www.wlv.ac.uk/news-and-events/open-day/open-day-guide/?utm_medium=cpc&amp;utm_source=google&amp;utm_campaign=ug2025_ucasextra" target="_self" class="btn call-to-action-bar__cta-process" title="Click Here">Click Here</a>
-              <span class="call-to-action-bar__cta-link"><p><span>This is your go-to resource for everything you need on your visit</span></p></span>
+              <a
+                href="https://www.wlv.ac.uk/news-and-events/open-day/open-day-guide/?utm_medium=cpc&amp;utm_source=google&amp;utm_campaign=ug2025_ucasextra"
+                target="_self"
+                class="btn call-to-action-bar__cta-process"
+                title="Click Here"
+                >Click Here</a
+              >
+              <span class="call-to-action-bar__cta-link"
+                ><p>
+                  <span>This is your go-to resource for everything you need on your visit</span>
+                </p></span
+              >
             </div>
           </section>
         </div>
@@ -25,11 +35,11 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <div class="header">
-            Prepare for undergraduate open day...
-          </div>
+          <div class="header">Prepare for undergraduate open day...</div>
           <div class="content">
-            Our undergraduate open day is ideal for every prospective student. Whether you just want to get an idea of what the University is like, or want to find out more about a specific subject or course, it's the perfect chance to discover what it's like to study with us.
+            Our undergraduate open day is ideal for every prospective student. Whether you just want
+            to get an idea of what the University is like, or want to find out more about a specific
+            subject or course, it's the perfect chance to discover what it's like to study with us.
           </div>
         </div>
       </div>
@@ -48,7 +58,8 @@
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
+              allowfullscreen
+            >
             </iframe>
           </div>
         </div>
@@ -61,11 +72,11 @@
 </template>
 
 <script setup>
-import NavBar from "@/components/NavBar.vue";
-import Hero from "@/components/Hero.vue";
-import Events from "@/components/Events.vue";
-import Gallery from "@/components/Gallery.vue";
-import Footer from "@/components/Footer.vue";
+import NavBar from '@/components/NavBar.vue'
+import Hero from '@/components/Hero.vue'
+import Events from '@/components/Events.vue'
+import Gallery from '@/components/Gallery.vue'
+import Footer from '@/components/Footer.vue'
 </script>
 
 <style scoped>
@@ -136,7 +147,7 @@ import Footer from "@/components/Footer.vue";
   border-radius: 8px;
   width: 100%;
   margin: 0 auto;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .call-to-action-bar__headings {
@@ -174,7 +185,7 @@ import Footer from "@/components/Footer.vue";
 .call-to-action-bar__cta-process:hover {
   background-color: #c2185b;
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .call-to-action-bar__cta-link {
