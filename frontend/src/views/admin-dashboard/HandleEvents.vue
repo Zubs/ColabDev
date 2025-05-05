@@ -77,7 +77,7 @@ const deleteEvent = async (eventId) => {
 
     if (response.status === 200) {
       alert('Event deleted successfully')
-      events.value = events.value.filter((event) => event.id !== eventId)
+      events.value = events.value.filter((event) => event?.id !== eventId)
     }
   } catch (error) {
     console.error('Error deleting event:', error)
@@ -95,10 +95,8 @@ onMounted(() => {
 .box-container {
   position: relative;
   width: 850px;
-  margin: 0 auto;
-  margin-bottom: 60px;
   bottom: -70px;
-  margin-left: 493px;
+  margin: 0 auto 60px 493px;
 }
 
 .button-container {
