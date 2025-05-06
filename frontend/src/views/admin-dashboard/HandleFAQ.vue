@@ -1,32 +1,29 @@
 <template>
   <AdminSideBar />
   <AdminDashboardNavBar />
-  <div class="container mt-4">
+  <div class="container">
     <div class="row">
       <div class="col-md-2"></div>
-      <div class="col-md-10">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h1 class="mb-0">FAQs: {{ faqs.length }}</h1>
-          <button class="btn btn-primary" @click="goToCreatePage">Add New FAQ</button>
-        </div>
-
+      <div class="col-md-10 container">
+        <h1>
+          FAQs: {{ faqs.length }}
+          <button class="btn btn-primary float-right" @click="goToCreatePage">Add New FAQ</button>
+        </h1>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Data</th>
-              <th></th>
-              <th></th>
+              <th scope="col">#</th>
+              <th scope="col">Data</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="faq in faqs" :key="faq.id">
+            <tr v-for="(faq, index) in faqs" :key="index">
               <th scope="row">{{ faq.id }}</th>
               <td>
-                <p class="mb-1">
-                  <strong>Question:</strong> {{ faq.question }}
-                </p>
-                <p class="mb-0">
+                <p>
+                  <strong>Question:</strong> {{ faq.question }} <br />
                   <strong>Answer:</strong> {{ faq.answer }}
                 </p>
               </td>
@@ -47,31 +44,37 @@
 </template>
 
 <script setup lang="ts">
+import AdminDashboardNavBar from '../../components/AdminDashboardNavBar.vue'
+import AdminSideBar from '@/components/AdminSideBar.vue'
 import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import api from '@/services/axios.js'
 import { useAuthStore } from '@/stores/auth'
-import AdminDashboardNavBar from '@/components/AdminDashboardNavBar.vue'
-import AdminSideBar from '@/components/AdminSideBar.vue'
+import { useRouter } from 'vue-router'
 
 const faqs = ref([])
-const router = useRouter()
 const authStore = useAuthStore()
+const router = useRouter()
+
+onMounted(() => {
+  fetchFAQs()
+})
 
 const fetchFAQs = async () => {
   try {
-    const response = await api.get('/faqs', {
+    const response = await api.get(`/faqs`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
+
     faqs.value = response.data
   } catch (error) {
-    if (error.response?.status === 401) {
-      alert('You are not authorized. Redirecting to login.')
+    if (error.response.status === 401) {
+      alert('Sorry, you are not authorized to view this page. Please log in.')
       await authStore.logout()
-      router.push({ name: 'admin-login' })
+      await router.push({ name: 'admin-login' })
     }
+
     console.error('Error fetching FAQs:', error)
   }
 }
@@ -80,8 +83,10 @@ const goToCreatePage = () => {
   router.push({ name: 'admin-faqs-create' })
 }
 
-const deleteFAQ = async (faqId: number) => {
-  if (!confirm('Are you sure you want to delete this FAQ?')) return
+const deleteFAQ = async (faqId) => {
+  if (!confirm('Are you sure you want to delete this faq?')) {
+    return // Exit if the user cancels
+  }
 
   try {
     const response = await api.delete(`/faqs/${faqId}`, {
@@ -91,14 +96,12 @@ const deleteFAQ = async (faqId: number) => {
     })
 
     if (response.status === 200) {
-      faqs.value = faqs.value.filter(faq => faq.id !== faqId)
-      alert('FAQ deleted successfully')
+      alert('Event deleted successfully')
+      faqs.value = faqs.value.filter((faq) => faq.id !== faqId)
     }
   } catch (error) {
     console.error('Error deleting FAQ:', error)
     alert('Failed to delete FAQ')
   }
 }
-
-onMounted(fetchFAQs)
 </script>
