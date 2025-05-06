@@ -7,8 +7,6 @@
           alt="University Of Wolverhampton Logo"
         />
       </div>
-      <router-link :to="{ name: 'admin' }" class="box">Home</router-link>
-      <a href="#" class="box"><span class="flaticon-guest"></span>&nbsp;&nbsp;&nbsp;Profile</a>
     </div>
   </div>
 </template>
@@ -26,25 +24,7 @@
   gap: 20px;
 }
 
-.box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: grey;
-  color: black;
-  padding: 20px 30px;
-  border-radius: 8px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.box:hover {
-  background-color: #2980b9;
-}
-
 .logo {
   margin-right: 270px;
 }
 </style>
-<script setup lang="ts"></script>
