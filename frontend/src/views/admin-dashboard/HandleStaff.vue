@@ -5,7 +5,10 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-10 container">
-        <h1>Staffs: {{ staffs.length }} <button class="btn btn-primary float-right" @click="goToCreatePage">Add New Staff</button></h1>
+        <h1>
+          Staffs: {{ staffs.length }}
+          <button class="btn btn-primary float-right" @click="goToCreatePage">Add New Staff</button>
+        </h1>
         <table class="table table-hover">
           <thead>
             <tr>

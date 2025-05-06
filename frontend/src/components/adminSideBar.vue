@@ -1,7 +1,9 @@
 <template>
   <div class="container-fluid p-0">
     <!-- Hamburger button, only shows when sidebar is closed -->
-    <button v-if="!isSidebarOpen" class="hamburger-button" @click="toggleSidebar">☰</button>
+    <button v-if="!isSidebarOpen" class="hamburger-button" @click="toggleSidebar">
+      ☰
+    </button>
 
     <!-- Sidebar only shown when toggled -->
     <div v-if="isSidebarOpen" class="sidebar-wrapper">
@@ -15,34 +17,21 @@
         </div>
 
         <div class="sidebar-nav">
-          <router-link
-            :to="{ name: 'admin-dashboard' }"
-            class="text-dark text-decoration-none mb-3 fs-3"
-            >Home
-          </router-link>
+          <router-link :to="{ name: 'admin-dashboard' }" class="text-dark text-decoration-none mb-3 fs-3">Home</router-link>
 
           <!-- Events -->
           <div class="dropdown mb-3">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span class="fs-3">Events</span>
-              <button
-                class="btn p-0 border-0 bg-transparent arrow-button"
-                @click.stop="toggleEvents"
-              >
+              <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleEvents">
                 <span class="arrow" :class="{ 'arrow-down': isEventsOpen }">▸</span>
               </button>
             </div>
             <div v-show="isEventsOpen" class="dropdown-content ms-4 mt-2">
-              <router-link
-                :to="{ name: 'admin-events-create' }"
-                class="dropdown-item text-dark text-decoration-none hover-margin"
-              >
+              <router-link :to="{ name: 'admin-events-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
                 Create new events
               </router-link>
-              <router-link
-                :to="{ name: 'admin-events' }"
-                class="dropdown-item text-dark text-decoration-none hover-margin"
-              >
+              <router-link :to="{ name: 'admin-events' }" class="dropdown-item text-dark text-decoration-none hover-margin">
                 Existing events
               </router-link>
             </div>
@@ -57,16 +46,10 @@
               </button>
             </div>
             <div v-show="isFAQOpen" class="dropdown-content ms-4 mt-2">
-              <router-link
-                :to="{ name: 'admin-faqs-create' }"
-                class="dropdown-item text-dark text-decoration-none hover-margin"
-              >
+              <router-link :to="{ name: 'admin-faqs-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
                 Add new FAQs
               </router-link>
-              <router-link
-                :to="{ name: 'admin-faqs' }"
-                class="dropdown-item text-dark text-decoration-none hover-margin"
-              >
+              <router-link :to="{ name: 'admin-faqs' }" class="dropdown-item text-dark text-decoration-none hover-margin">
                 Current FAQs
               </router-link>
             </div>
@@ -76,24 +59,15 @@
           <div class="dropdown mb-3">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span class="fs-3">Staff</span>
-              <button
-                class="btn p-0 border-0 bg-transparent arrow-button"
-                @click.stop="toggleStaff"
-              >
+              <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleStaff">
                 <span class="arrow" :class="{ 'arrow-down': isStaffOpen }">▸</span>
               </button>
             </div>
             <div v-show="isStaffOpen" class="dropdown-content ms-4 mt-2">
-              <router-link
-                :to="{ name: 'admin-staff-create' }"
-                class="dropdown-item text-dark text-decoration-none hover-margin"
-              >
+              <router-link :to="{ name: 'admin-staff-create' }" class="dropdown-item text-dark text-decoration-none hover-margin">
                 Add new staff
               </router-link>
-              <router-link
-                :to="{ name: 'admin-staff' }"
-                class="dropdown-item text-dark text-decoration-none hover-margin"
-              >
+              <router-link :to="{ name: 'admin-staff' }" class="dropdown-item text-dark text-decoration-none hover-margin">
                 Manage staff
               </router-link>
             </div>
@@ -103,18 +77,12 @@
           <div class="dropdown mb-3">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span class="fs-3">Registrations</span>
-              <button
-                class="btn p-0 border-0 bg-transparent arrow-button"
-                @click.stop="toggleRegistrations"
-              >
+              <button class="btn p-0 border-0 bg-transparent arrow-button" @click.stop="toggleRegistrations">
                 <span class="arrow" :class="{ 'arrow-down': isRegistrationsOpen }">▸</span>
               </button>
             </div>
             <div v-show="isRegistrationsOpen" class="dropdown-content ms-4 mt-2">
-              <router-link
-                :to="{ name: 'admin-registrations' }"
-                class="dropdown-item text-dark text-decoration-none hover-margin"
-              >
+              <router-link :to="{ name: 'admin-registrations' }" class="dropdown-item text-dark text-decoration-none hover-margin">
                 View registrations
               </router-link>
             </div>
@@ -124,7 +92,9 @@
 
       <!-- Fixed Logout Button - Separate from scrollable area -->
       <div class="logout-fixed">
-        <button class="btn btn-outline-dark logout-button w-100" @click="logout">LOGOUT</button>
+        <button class="btn btn-outline-dark logout-button w-100" @click="logout">
+          LOGOUT
+        </button>
       </div>
     </div>
   </div>
@@ -263,6 +233,11 @@ const logout = async () => {
   color: black;
 }
 
+.router-link-active,
+.text-dark {
+  font-size: 1.5rem;
+}
+
 /* Hamburger button styling */
 .hamburger-button {
   position: fixed;
@@ -288,9 +263,7 @@ const logout = async () => {
   justify-content: center;
   cursor: pointer;
   font-weight: bold;
-  transition:
-    background-color 0.2s,
-    transform 0.2s;
+  transition: background-color 0.2s, transform 0.2s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 

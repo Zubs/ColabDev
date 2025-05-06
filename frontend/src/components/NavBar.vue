@@ -1,9 +1,6 @@
 <template>
   <nav
-    :class="[
-      'navbar navbar-expand-lg ftco_navbar ftco-navbar-light',
-      { 'solid-bg': solidBackground, 'bg-dark navbar-dark': !solidBackground }
-    ]"
+    class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
     id="ftco-navbar"
   >
     <div class="container">
@@ -49,30 +46,14 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
+
 const route = useRoute()
 </script>
 
 <style scoped>
-.navbar-dark .navbar-nav .nav-link {
-  color: white;
-}
-
-.navbar-dark .navbar-nav .nav-link:hover {
-  color: #cccccc;
-}
-
-.navbar-dark .nav-item.cta .nav-link {
-  background-color: #6c63ff;
-  color: white;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-}
-
-.navbar-dark .nav-item.cta .nav-link:hover {
-  background-color: #574fd3;
-}
-
-.navbar-dark .navbar-brand img {
-  filter: brightness(0) invert(1);
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    color: white !important;
+  }
 }
 </style>
