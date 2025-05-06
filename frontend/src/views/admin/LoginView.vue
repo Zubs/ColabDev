@@ -10,7 +10,7 @@
             <h1 class="mb-3 bread" style="margin-top: 150px">UoW Admin Login</h1>
             <p class="breadcrumbs">
               <span class="mr-2"
-                ><a href="/">Home <i class="ion-ios-arrow-forward"></i></a
+              ><a href="/">Home <i class="ion-ios-arrow-forward"></i></a
               ></span>
               <span>Admin Login <i class="ion-ios-arrow-forward"></i></span>
             </p>
@@ -66,7 +66,7 @@
       <div class="col-md-9 ftco-animate pb-5">
         <p class="breadcrumbs">
           <span class="mr-2"
-            ><a href="/">Home <i class="ion-ios-arrow-forward"></i></a
+          ><a href="/">Home <i class="ion-ios-arrow-forward"></i></a
           ></span>
           <span>Contact <i class="ion-ios-arrow-forward"></i></span>
         </p>
